@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <LinearLayout
+            android:id="@+id/minus_ticket_zenkoku"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5sp"
+            android:paddingBottom="5sp"
+            android:background="@color/bgcolor">
+            <ImageView
+                android:id="@+id/minus"
+                android:layout_width="24sp"
+                android:layout_height="40sp"
+                android:background="@drawable/ic_remove_black_24dp"
+                android:backgroundTint="@color/honbuncolor"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:textSize="25sp"
+            android:layout_gravity="center_vertical"
+            android:text="0"/>
+
+        <LinearLayout
+            android:id="@+id/plus_ticket_zenkoku"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/bgcolor"
+            android:paddingTop="5sp"
+            android:paddingBottom="5sp"
+            >
+            <ImageView
+                android:id="@+id/plus"
+                android:layout_width="24sp"
+                android:layout_height="40sp"
+                android:background="@drawable/ic_add_black_24dp"
+                android:backgroundTint="@color/honbuncolor"/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
+
+

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10sp"
+    android:paddingRight="30sp"
+    android:paddingTop="10sp"
+    android:paddingBottom="10sp"
+    android:background="@color/honbuncolor"
+    android:longClickable="true">
+
+
+    <CheckBox
+        android:id="@+id/checkbox_zenkoku"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:theme="@style/ZenkokuCheckBox"/>
+
+
+    <!--android:button="@drawable/checkbox_zenkoku_event"-->
+
+    <ImageView
+        android:id="@+id/icon_member_zenkoku"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:layout_marginLeft="10sp"
+        android:layout_toRightOf="@+id/checkbox_zenkoku"
+        android:background="@drawable/shape_rounded_corners"
+        android:layout_centerVertical="true"
+        android:backgroundTint="@color/honbuncolor"
+        />
+
+    <TextView
+        android:id="@+id/member_zenkoku"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="石森虹花"
+        android:textSize="25sp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5sp"
+        android:layout_toRightOf="@+id/icon_member_zenkoku"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/minus_ticket_zenkoku"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5sp"
+                android:paddingBottom="5sp"
+                android:background="@color/bgcolor">
+                <ImageView
+                    android:layout_width="24sp"
+                    android:layout_height="40sp"
+                    android:background="@drawable/ic_remove_black_24dp"
+                    android:backgroundTint="@color/honbuncolor"/>
+            </LinearLayout>
+    <!--<ImageView-->
+        <!--android:id="@+id/ticketview_zenkoku"-->
+        <!--android:layout_width="30sp"-->
+        <!--android:layout_height="30sp"-->
+        <!--android:background="@drawable/ic_account_box_black_24dp"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--/>-->
+
+    <TextView
+        android:id="@+id/busuu_zenkoku"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5sp"
+        android:layout_marginRight="5sp"
+        android:textSize="25sp"
+        android:layout_gravity="center_vertical"/>
+
+            <LinearLayout
+                android:id="@+id/plus_ticket_zenkoku"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bgcolor"
+                android:paddingTop="5sp"
+                android:paddingBottom="5sp"
+                >
+            <ImageView
+                android:layout_width="24sp"
+                android:layout_height="40sp"
+                android:background="@drawable/ic_add_black_24dp"
+                android:backgroundTint="@color/honbuncolor"/>
+            </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

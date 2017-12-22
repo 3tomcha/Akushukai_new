@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:descendantFocusability="blocksDescendants"
+    android:id="@+id/wrapper_list_event"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10sp"
+    android:paddingRight="30sp"
+    android:paddingTop="10sp"
+    android:paddingBottom="10sp"
+    android:background="@color/honbuncolor">
+
+
+    <CheckBox
+        android:id="@+id/checkbox_kobetsu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:theme="@style/KobetsuCheckBox"/>
+
+
+    <!--android:button="@drawable/checkbox_kobetsu_event"-->
+
+    <ImageView
+        android:id="@+id/icon_member_kobetsu"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:layout_marginLeft="10sp"
+        android:layout_toRightOf="@+id/checkbox_kobetsu"
+        android:background="@drawable/shape_rounded_corners"
+        android:layout_centerVertical="true"
+        android:backgroundTint="@color/honbuncolor"
+        />
+
+    <TextView
+        android:id="@+id/member_kobetsu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="石森虹花"
+        android:textSize="25sp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5sp"
+        android:layout_toRightOf="@+id/icon_member_kobetsu"/>
+
+    <ImageView
+        android:id="@+id/ticketview_kobetsu"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:background="@drawable/ic_account_box_black_24dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/busuu_kobetsu"
+        />
+
+    <TextView
+        android:id="@+id/busuu_kobetsu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:text="2"/>
+
+
+</RelativeLayout>

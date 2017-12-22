@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#5eb954</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="bgcolor">#5eb954</color>
+    <color name="bgdeepcolor">#386f32</color>
+    <color name="honbuncolor">#FFFFFF</color>
+    <color name="zenkokucolor">#545eb9</color>
+    <color name="kobetsucolor">	#b9545e</color>
+    <color name="toastcolor">#000000</color>
+    <color name="actionbarcolor">#FFFFFF</color>
+
+        <color name="radio_color">#007aff</color>
+        <color name="radio_tap_color">#40007aff</color>
+        <color name="radio_white_color">#ffffff</color>
+        <color name="click_over_color">#B9B7B8</color>
+    <color name="borderColor">#B9B7B8</color>
+    <color name="bgColor">#FFFFFF</color>
+    <color name="hiraganacolor">#6FCEC5</color>
+    <color name="mouseovercolor">#000000</color>
+    <color name="mouseoffcolor">#ffffff</color>
+
+
+
+</resources>

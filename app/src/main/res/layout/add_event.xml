@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="site.kobatomo.akushukai.AddEvent"
+    >
+
+    <include layout="@layout/header"></include>
+
+
+    <LinearLayout
+        style="@style/addInner">
+
+        <LinearLayout
+            android:id="@+id/update_erase"
+            style="@style/Inner_addInner"
+            android:layout_marginBottom="20sp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginBottom="10sp">
+
+    <site.kobatomo.akushukai.CustomTextView
+        android:text="@string/icon_member"
+        style="@style/custom_textview"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="種類"
+        style="@style/textview"/>
+
+    </LinearLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/RadioGroup"
+        android:layout_centerInParent="true"
+        android:theme="@style/ZenkokuCheckBox">
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginRight="20sp"
+            android:theme="@style/ZenkokuCheckBox"
+            android:text="全国" />
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:theme="@style/KobetsuCheckBox"
+            android:text="個別" />
+    </RadioGroup>
+
+
+</RelativeLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            style="@style/Inner_addInner"
+            android:layout_marginBottom="20sp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left">
+
+        <site.kobatomo.akushukai.CustomTextView
+            android:text="@string/icon_calendar"
+            style="@style/custom_textview"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="日付"
+            style="@style/textview"/>
+
+    </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/showDate"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:inputType="date"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:layout_centerInParent="true"
+        android:text="2017/08/23"
+        />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            style="@style/Inner_addInner"
+            android:layout_marginBottom="20sp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10sp"
+        android:layout_gravity="left">
+
+        <site.kobatomo.akushukai.CustomTextView
+            android:text="@string/icon_location"
+            style="@style/custom_textview"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="場所"
+            style="@style/textview"/>
+
+    </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+    <!--<Spinner-->
+        <!--android:id="@+id/spinner"-->
+        <!--android:layout_width="200sp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:entries="@array/list"-->
+        <!--android:textAlignment="center"-->
+        <!--android:gravity="center"-->
+        <!--android:textSize="20sp"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--/>-->
+
+                <EditText
+                    android:id="@+id/showLoc"
+                    android:layout_width="200sp"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:inputType="date"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:layout_centerInParent="true"
+                    android:text="幕張メッセ"
+                    />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+<include layout="@layout/insertbutton"/>
+
+
+
+</LinearLayout>
+</LinearLayout>

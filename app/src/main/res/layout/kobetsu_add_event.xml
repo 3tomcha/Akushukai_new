@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/header"></include>
+
+    <LinearLayout
+        style="@style/addInner">
+
+        <LinearLayout
+            style="@style/Inner_addInner"
+            >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10sp"
+        android:orientation="horizontal">
+    <site.kobatomo.akushukai.CustomTextView
+        android:text="@string/icon_busuu"
+        style="@style/custom_textview"
+        android:textSize="30sp"
+        />
+
+    <TextView
+        android:text="部"
+        style="@style/textview"/>
+
+    </LinearLayout>
+
+<RadioGroup
+    android:id="@+id/more_add_bu"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_marginBottom="10sp">
+
+    <RadioButton
+        android:id="@+id/more_add_radio1"
+        android:textSize="15sp"
+        android:layout_width="35sp"
+        android:layout_height="35sp"
+        android:layout_marginRight="5sp"
+        android:onClick="onRadioButtonClicked"
+        android:gravity="center"
+        android:background="@drawable/radio_style"
+        android:textColor="@drawable/selector_textcolor_radio_button"
+        android:text="1"
+        android:button="@null"
+         />
+    <RadioButton
+        android:id="@+id/more_add_radio2"
+        android:layout_marginLeft="5sp"
+        android:textSize="15sp"
+
+        android:layout_width="35sp"
+        android:layout_height="35sp"
+        android:layout_marginRight="5sp"
+        android:onClick="onRadioButtonClicked"
+        android:gravity="center"
+        android:background="@drawable/radio_style"
+        android:textColor="@drawable/selector_textcolor_radio_button"
+        android:text="2"
+        android:button="@null"
+         />
+    <RadioButton
+        android:id="@+id/more_add_radio3"
+        android:layout_marginRight="5sp"
+
+        android:textSize="15sp"
+        android:layout_marginLeft="5sp"
+
+        android:layout_width="35sp"
+        android:layout_height="35sp"
+        android:onClick="onRadioButtonClicked"
+        android:gravity="center"
+        android:background="@drawable/radio_style"
+        android:textColor="@drawable/selector_textcolor_radio_button"
+        android:text="3"
+        android:button="@null"
+         />
+    <RadioButton
+        android:id="@+id/more_add_radio4"
+        android:layout_marginRight="5sp"
+
+        android:layout_width="35sp"
+        android:layout_height="35sp"
+        android:textSize="15sp"
+        android:layout_marginLeft="5sp"
+        android:onClick="onRadioButtonClicked"
+        android:gravity="center"
+        android:background="@drawable/radio_style"
+        android:textColor="@drawable/selector_textcolor_radio_button"
+        android:text="4"
+        android:button="@null"
+         />
+    <RadioButton
+        android:id="@+id/more_add_radio5"
+        android:layout_width="35sp"
+        android:layout_height="35sp"
+        android:textSize="15sp"
+        android:layout_marginLeft="5sp"
+        android:onClick="onRadioButtonClicked"
+        android:gravity="center"
+        android:background="@drawable/radio_style"
+        android:textColor="@drawable/selector_textcolor_radio_button"
+        android:text="5"
+        android:button="@null"
+         />
+</RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/Inner_addInner"
+            >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5sp">
+        <site.kobatomo.akushukai.CustomTextView
+            android:text="@string/icon_member"
+            style="@style/custom_textview"
+            />
+
+        <TextView
+            android:text="メンバー"
+            style="@style/textview"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/member1"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:text="石森　虹花"/>
+        <EditText
+            android:id="@+id/member2"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:text="石森　虹花"/>
+        <EditText
+            android:id="@+id/member3"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:text="石森　虹花"/>
+
+
+
+    <!--<Button-->
+        <!--android:id="@+id/member1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/button_material_light"/>-->
+        <!--<Button-->
+            <!--android:id="@+id/member2"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+        <!--<Button-->
+            <!--android:id="@+id/member3"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+    </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/Inner_addInner">
+
+    <LinearLayout
+        android:layout_marginTop="5sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10sp">
+        <site.kobatomo.akushukai.CustomTextView
+            android:text="@string/icon_ticket"
+            style="@style/custom_textview"
+            />
+
+        <TextView
+            android:text="枚数"
+            style="@style/textview"
+            />
+
+    </LinearLayout>
+
+            <include layout="@layout/ticket_add_event"></include>
+
+
+    </LinearLayout>
+
+        <include layout="@layout/insertbutton"/>
+
+
+
+</LinearLayout>
+
+
+</LinearLayout>

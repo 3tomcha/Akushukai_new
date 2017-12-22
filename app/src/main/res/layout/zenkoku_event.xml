@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F3F3F3">
+
+    <include layout="@layout/wrapper_kobetsu_drawer"></include>
+
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/header"></include>
+
+
+
+    <LinearLayout
+        android:id="@+id/mv_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        style="@style/padding_main">
+
+
+
+<include layout="@layout/mv_event"></include>
+    </LinearLayout>
+
+
+    <ScrollView
+        android:id="@+id/wrapper_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <site.kobatomo.akushukai.NonScrollListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/zenkoku_list"
+        android:longClickable="true"></site.kobatomo.akushukai.NonScrollListView>
+
+
+    </ScrollView>
+</LinearLayout>
+
+
+    <include layout="@layout/floating_action_button"></include>
+
+
+</android.support.design.widget.CoordinatorLayout>
+

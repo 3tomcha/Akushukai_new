@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/toastcolor"
+    android:id="@+id/dialog_custom">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/kanji"
+            android:text="漢字"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/dialog"/>
+        <Button
+            android:id="@+id/hiragana"
+            android:text="ひらがな"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:background="@color/bgdeepcolor"
+            android:layout_height="wrap_content"
+            style="@style/dialog"/>
+
+
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/dialog_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/dialog_contents"></ListView>
+
+
+</LinearLayout>

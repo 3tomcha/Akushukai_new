@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <group>
+        <item
+            android:id="@+id/addEvent"
+            android:title="新しいイベントを追加" />
+        <item
+            android:id="@+id/nav_application"
+            android:title="アプリ情報" />
+        <item
+            android:id="@+id/reload"
+            android:title="リロード" />
+    </group>
+</menu>

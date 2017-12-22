@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    android:background="#F3F3F3">
+
+    <include layout="@layout/wrapper_kobetsu_drawer"></include>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+    <include layout="@layout/header"></include>
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+<include layout="@layout/mv_event"></include>
+</LinearLayout>
+
+
+
+<ScrollView
+    android:id="@+id/wrapper_listview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/testyou"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/TV1bu_kobetsu"
+                style="@style/KobetsuTextView"
+                android:text="第１部"
+                android:visibility="gone"/>
+        </LinearLayout>
+<site.kobatomo.akushukai.NonScrollListView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/list_1bu"
+    android:longClickable="true"
+    android:focusable="true"
+    ></site.kobatomo.akushukai.NonScrollListView>
+    <TextView
+        android:id="@+id/TV2bu_kobetsu"
+        style="@style/KobetsuTextView"
+        android:text="第２部"
+        android:visibility="gone"
+        />
+    <site.kobatomo.akushukai.NonScrollListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:longClickable="true"
+        android:id="@+id/list_2bu"></site.kobatomo.akushukai.NonScrollListView>
+    <TextView
+        android:id="@+id/TV3bu_kobetsu"
+        style="@style/KobetsuTextView"
+        android:text="第３部"
+        android:visibility="gone"
+
+        />
+    <site.kobatomo.akushukai.NonScrollListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:longClickable="true"
+        android:id="@+id/list_3bu"></site.kobatomo.akushukai.NonScrollListView>
+    <TextView
+        android:id="@+id/TV4bu_kobetsu"
+        style="@style/KobetsuTextView"
+        android:text="第４部"
+        android:visibility="gone"
+
+        />
+    <site.kobatomo.akushukai.NonScrollListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:longClickable="true"
+        android:id="@+id/list_4bu"></site.kobatomo.akushukai.NonScrollListView>
+    <TextView
+        android:id="@+id/TV5bu_kobetsu"
+        style="@style/KobetsuTextView"
+        android:text="第５部"
+        android:visibility="gone"
+        />
+    <site.kobatomo.akushukai.NonScrollListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:longClickable="true"
+        android:id="@+id/list_5bu"></site.kobatomo.akushukai.NonScrollListView>
+    </LinearLayout>
+</ScrollView>
+    </LinearLayout>
+
+
+
+
+
+    <include layout="@layout/floating_action_button"></include>
+</android.support.design.widget.CoordinatorLayout>
+

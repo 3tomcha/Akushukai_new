@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/title"
+    android:layout_width="match_parent"
+    android:layout_height="40sp"
+    android:background="@color/bgcolor"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+
+
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="30sp"
+            android:layout_height="40sp"
+            android:layout_gravity="center"
+            android:layout_alignParentLeft="true"
+            android:clickable="true"
+            android:backgroundTint="@color/honbuncolor"
+            android:background="@drawable/ic_dehaze_black_24dp"/>
+
+        <TextView
+            android:id="@+id/package_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_centerInParent="true"
+            android:text="@string/package_home"
+            android:textColor="@color/honbuncolor" />
+
+        <ImageView
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/delete"
+            android:backgroundTint="@color/honbuncolor"/>
+
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:backgroundTint="@color/honbuncolor"/>
+
+
+    </RelativeLayout>
+
+
+

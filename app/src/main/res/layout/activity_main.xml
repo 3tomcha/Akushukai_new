@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F3F3F3">
+
+    <include layout="@layout/wrapper_activity_main_drawer"></include>
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/wrapper_listview"
+    android:orientation="vertical"
+    android:paddingBottom="50sp"
+    tools:context="site.kobatomo.akushukai.MainActivity">
+
+
+<include layout="@layout/header"></include>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <site.kobatomo.akushukai.NonScrollListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:id="@+id/listview"
+        android:longClickable="true"/>
+    </ScrollView>
+
+</LinearLayout>
+
+    <include layout="@layout/floating_action_button"></include>
+
+</android.support.design.widget.CoordinatorLayout>

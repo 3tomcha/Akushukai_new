@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <group>
+        <item
+            android:id="@+id/updateEvent"
+            android:title="イベント情報を変更" />
+        <item
+            android:id="@+id/kobetsuaddEvent"
+            android:title="新しいメンバーを追加" />
+        <item
+            android:id="@+id/deleteEvent"
+            android:title="このイベントを削除" />
+        <item
+            android:id="@+id/reload"
+            android:title="リロード" />
+    </group>
+</menu>
