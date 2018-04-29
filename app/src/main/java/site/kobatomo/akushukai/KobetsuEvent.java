@@ -35,6 +35,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 
+import site.kobatomo.akushukai.Model.UserOpenHelper;
+
 /**
  * Created by bicpc on 2017/11/10.
  */

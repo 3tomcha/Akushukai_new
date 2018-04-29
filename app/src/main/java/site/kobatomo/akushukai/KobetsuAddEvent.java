@@ -22,6 +22,8 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import site.kobatomo.akushukai.Model.UserOpenHelper;
+
 
 /**
  * Created by bicpc on 2017/11/12.

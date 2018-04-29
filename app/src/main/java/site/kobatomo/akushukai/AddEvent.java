@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import site.kobatomo.akushukai.Model.UserOpenHelper;
 
 
 /*public class MainActivity extends AppCompatActivity implements View.OnClickListener {*/

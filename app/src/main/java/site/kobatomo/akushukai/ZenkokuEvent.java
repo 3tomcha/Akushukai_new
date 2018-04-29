@@ -32,6 +32,8 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.Date;
 
+import site.kobatomo.akushukai.Model.UserOpenHelper;
+
 /**
  * Created by tomoya on 2017/11/28.
  */

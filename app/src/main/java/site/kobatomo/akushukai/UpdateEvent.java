@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import site.kobatomo.akushukai.Model.UserOpenHelper;
+
 import static site.kobatomo.akushukai.R.id.showDate;
 
 

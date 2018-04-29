@@ -47,10 +47,11 @@
         android:id="@+id/ticketview_kobetsu"
         android:layout_width="30sp"
         android:layout_height="30sp"
-        android:background="@drawable/ic_account_box_black_24dp"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/busuu_kobetsu"
         />
+
+    <!--android:background="@drawable/ic_account_box_black_24dp"-->
 
     <TextView
         android:id="@+id/busuu_kobetsu"

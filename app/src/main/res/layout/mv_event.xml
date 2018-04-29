@@ -80,9 +80,9 @@
                             android:layout_width="30sp"
                             android:layout_height="30sp"
                             android:layout_toLeftOf="@+id/kari_col_ticket"
-                            android:src="@drawable/ic_account_box_black_24dp"
                             />
 
+                        <!--android:src="@drawable/ic_account_box_black_24dp"-->
                         <TextView
                             android:id="@+id/kari_col_ticket"
                             android:textSize="20dp"
