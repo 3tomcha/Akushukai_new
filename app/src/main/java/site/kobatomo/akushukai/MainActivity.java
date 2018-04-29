@@ -1,17 +1,14 @@
 package site.kobatomo.akushukai;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.GestureDetector;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +23,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import site.kobatomo.akushukai.Model.MainModel;
-import site.kobatomo.akushukai.Model.UserOpenHelper;
 
 
 public class MainActivity extends FragmentActivity {
@@ -174,38 +170,6 @@ public class MainActivity extends FragmentActivity {
         mainModel.getall();
 
 
-/////*データベースから取得*/
-//        UserOpenHelper userOpenHelper = new UserOpenHelper(this);
-//        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
-//
-//        Cursor c = null;
-//        c = db.query(
-//                UserContract.Users.TABLE_NAME,
-//                null, // fields
-//                null, // where
-//                null, // where arg
-//                null, // groupBy
-//                null, // having
-//                null // order by
-//        );
-///*一旦リセットする*/
-//        id.clear();
-//        type.clear();
-//        date.clear();
-//        location.clear();
-//        ticket.clear();
-///*一旦リセットする*/
-//
-//        while (c.moveToNext()) {
-//            id.add(c.getInt(c.getColumnIndex(UserContract.Users._ID)));
-//            type.add(c.getString(c.getColumnIndex(UserContract.Users.COL_TYPE)));
-//            date.add(c.getString(c.getColumnIndex(UserContract.Users.COL_DATE)));
-//            location.add(c.getString(c.getColumnIndex(UserContract.Users.COL_LOC)));
-//            ticket.add(c.getString(c.getColumnIndex(UserContract.Users.COL_TICKET)));
-//
-//        }
-
-
 /*リストビュー*/
         listview = findViewById(R.id.listview);
         KeyakiAdapter adapter = new KeyakiAdapter(this);
@@ -271,68 +235,7 @@ public class MainActivity extends FragmentActivity {
     }
 
 
-    /**
-     * フラグメントダイアログを表示する。
-     */
 
-    public void showFragmentDialog(int id) {
-        switch (id) {
-            case TEST_DIALOG:
-                DialogFragment dialogFragment = new MainDialogFragment();
-                dialogFragment.show(getSupportFragmentManager(), "fragment_dialog");
-                        }
-    }
-
-    public void long_getView(AdapterView<?> arg0, View arg1, int position, long id){
-        ListView view2 = (ListView) arg0;
-        clicked_position = view2.getPositionForView(arg1);
-        typecolor = listview.getChildAt(position).findViewById(R.id.typecolor);
-        click_over_inner = listview.getChildAt(position).findViewById(R.id.click_over_inner);
-        delete = findViewById(R.id.delete);
-        package_title = findViewById(R.id.package_title);
-        title = findViewById(R.id.title);
-        edit = findViewById(R.id.edit);
-    }
-
-
-    /**
-     * OKボタンが押されたことを感知する。
-     */
-
-
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode != KeyEvent.KEYCODE_BACK){return super.onKeyDown(keyCode, event);
-        }else{return false;}
-    }
-
-
-    public static class MainDialogFragment extends TestDialogFragment
-    {
-        public void onTestDialogOKClick() {
-            MainActivity activity=(MainActivity)getActivity();
-            activity.deleteEvent();
-        }
-
-    }
-
-
-    public void deleteEvent(){
-        /*データベースの削除処理を行いたい*/
-        UserOpenHelper userOpenHelper = new UserOpenHelper(this);
-        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
-
-        MainModel keyaki = new MainModel();
-
-
-        for (int i = 0; i < param.size(); i++) {
-            int clicked_position = Integer.parseInt(param.get(i));
-            clicked_id = keyaki.getId(clicked_position);
-            int deletedCount = db.delete(UserContract.Users.TABLE_NAME, UserContract.Users._ID + " =? ", new String[]{clicked_id}
-            );
-        }
-        Intent intent2 = new Intent(this, MainActivity.class);
-        startActivity(intent2);
-    }
 
 public void reload() {
     Intent intent = getIntent();
