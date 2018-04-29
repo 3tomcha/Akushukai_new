@@ -3,6 +3,7 @@ package site.kobatomo.akushukai;
 /**
  * Created by bicpc on 2017/11/01.
  */
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +13,16 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import site.kobatomo.akushukai.Model.MainModel;
+
 public class KeyakiAdapter extends BaseAdapter{
 
     private LayoutInflater inflater;
-    private KeyakiData data;
+    private MainModel data;
 
     public KeyakiAdapter(Context context) {
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        data = new KeyakiData();
+        data = new MainModel();
 
 
     }

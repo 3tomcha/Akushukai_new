@@ -55,28 +55,25 @@ public class MainModel {
 
     }
     }
+    /*何番目かを取得する*/
+        public String getType(int index) {
+            return type.get(index);
+        }
+        public String getDate(int index) {
+            return date.get(index);
+        }
+        public String getLoc(int index) {
+            return location.get(index);
+        }
+        public String getTicket(int index) {
+            return ticket.get(index);
+        }
+        public String getId(int index) {
+            return id.get(index).toString();
+        }
 
-    public static ArrayList<String> getType() {
-        return type;
-    }
-
-    public static ArrayList<String> getDate() {
-        return date;
-    }
-
-    public static ArrayList<String> getLocation() {
-        return location;
-    }
-
-    public static ArrayList<String> getTicket() {
-        return ticket;
-    }
-
-    public static ArrayList<Integer> getId() {
-        return id;
-    }
-
-
-
+    public int getSize() {
+            return id.size();
+        }
 
 }

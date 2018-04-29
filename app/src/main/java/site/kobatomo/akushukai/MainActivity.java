@@ -225,7 +225,7 @@ public class MainActivity extends FragmentActivity {
                 ListView listView3 = (ListView) adapterView;
                 // クリックされたアイテムを取ます
                 clicked_position = listView3.getPositionForView(view);
-                KeyakiData keyaki = new KeyakiData();
+                MainModel keyaki = new MainModel();
                 clicked_id = keyaki.getId(clicked_position);
 
 
@@ -321,7 +321,7 @@ public class MainActivity extends FragmentActivity {
         UserOpenHelper userOpenHelper = new UserOpenHelper(this);
         SQLiteDatabase db = userOpenHelper.getWritableDatabase();
 
-        KeyakiData keyaki = new KeyakiData();
+        MainModel keyaki = new MainModel();
 
 
         for (int i = 0; i < param.size(); i++) {
