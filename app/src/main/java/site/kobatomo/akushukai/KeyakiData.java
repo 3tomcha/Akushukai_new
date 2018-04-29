@@ -4,14 +4,11 @@ package site.kobatomo.akushukai;
  * Created by bicpc on 2017/11/01.
  */
 
-import android.app.DatePickerDialog;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 
 import java.util.ArrayList;
+
+import site.kobatomo.akushukai.Model.MainModel;
 
 
 public class KeyakiData extends FragmentActivity {
@@ -25,19 +22,19 @@ public class KeyakiData extends FragmentActivity {
     /*タイプを入れる*/
     public KeyakiData() {
         list_type = new ArrayList();
-        list_type.addAll(MainActivity.getType());
+        list_type.addAll(MainModel.getType());
 
         list_date = new ArrayList();
-        list_date.addAll(MainActivity.getDate());
+        list_date.addAll(MainModel.getDate());
 
         list_loc = new ArrayList();
-        list_loc.addAll(MainActivity.getLocation());
+        list_loc.addAll(MainModel.getLocation());
 
         id = new ArrayList();
-        id.addAll(MainActivity.getId());
+        id.addAll(MainModel.getId());
 
         list_ticket = new ArrayList();
-        list_ticket.addAll(MainActivity.getTicket());
+        list_ticket.addAll(MainModel.getTicket());
 
 
 
