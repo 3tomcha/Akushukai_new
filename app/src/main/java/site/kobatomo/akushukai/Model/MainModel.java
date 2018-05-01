@@ -1,5 +1,6 @@
 package site.kobatomo.akushukai.Model;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -21,7 +22,14 @@ public class MainModel {
     private static ArrayList<String> location = new ArrayList<String>();
     private static ArrayList<String> position = new ArrayList<String>();
     private static ArrayList<String> ticket = new ArrayList<String>();
+    Context context;
 
+    public MainModel(Context context){
+        this.context=context;
+    }
+
+    public MainModel(){
+    }
     public void getall(){
 
     ///*データベースから取得*/
@@ -55,6 +63,20 @@ public class MainModel {
 
     }
     }
+
+    public void delete(String index){
+        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
+        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
+
+        String DELETE_EVENT = "DELETE FROM "+UserContract.Users.TABLE_NAME+" where "+UserContract.Users._ID+"="+index;
+        db.execSQL(DELETE_EVENT);
+    }
+
+
+
+
+
+
     /*何番目かを取得する*/
         public String getType(int index) {
             return type.get(index);

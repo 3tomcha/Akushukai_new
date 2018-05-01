@@ -24,7 +24,6 @@ public class KeyakiAdapter extends BaseAdapter{
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         data = new MainModel();
 
-
     }
 
     @Override
@@ -85,14 +84,6 @@ public class KeyakiAdapter extends BaseAdapter{
                     ((ListView) parent).performItemClick(view, position, R.id.more);
                 }
             });
-
-
-            /*Typeface font = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");*/
-            /*Typeface font = Typeface.createFromAsset(context.getAssets(), "fontawesome-webfont.ttf");
-            TextView tv4 = (TextView)convertView.findViewById(R.id.fb_icon);
-            tv4.setTypeface(font);*/
-
-
 
         }
         return convertView;

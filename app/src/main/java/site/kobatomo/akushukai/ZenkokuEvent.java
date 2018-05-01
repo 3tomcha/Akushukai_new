@@ -32,7 +32,9 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.Date;
 
+import site.kobatomo.akushukai.Model.MainModel;
 import site.kobatomo.akushukai.Model.UserOpenHelper;
+import site.kobatomo.akushukai.Model.ZenkokuModel;
 
 /**
  * Created by tomoya on 2017/11/28.
@@ -74,9 +76,17 @@ public class ZenkokuEvent extends FragmentActivity {
     private DrawerLayout drawer;
     private int ct=0;
 
+    private static ZenkokuEvent instance = null;
+
+
+    public static ZenkokuEvent getInstance() {
+        return instance;
+    }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.zenkoku_event);
+        instance = this;
 
         setTitle();
         setNavigetion();
@@ -575,20 +585,10 @@ private void saveData() {
 
     }
     private void deleteEvent(){
-        UserOpenHelper userOpenHelper = new UserOpenHelper(this);
-        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
-
-        String query2 = "delete from "+ UserContract.Users.TABLE_NAME
-                + " where " + UserContract.Users._ID + " = "+clicked_id+";";
-
-        db.execSQL(query2);
-
-        String query3 = "delete from "+ UserContract.Zenkoku.TABLE_NAME
-                + " where " + UserContract.Zenkoku.EVENT_ID + " = "+clicked_id+";";
-
-        db.execSQL(query3);
-
-
+        MainModel mainModel = new MainModel(ZenkokuEvent.getInstance());
+        mainModel.delete(clicked_id);
+        ZenkokuModel zenkokuModel = new ZenkokuModel(ZenkokuEvent.getInstance());
+        zenkokuModel.delete(clicked_id);
 
         Intent intent3 =new Intent(ZenkokuEvent.this,MainActivity.class);
         startActivity(intent3);

@@ -26,13 +26,7 @@ import site.kobatomo.akushukai.Model.MainModel;
 
 
 public class MainActivity extends FragmentActivity {
-//
-//    private static ArrayList<Integer> id = new ArrayList<Integer>();
-//    private static ArrayList<String> type = new ArrayList<String>();
-//    private static ArrayList<String> date = new ArrayList<String>();
-//    private static ArrayList<String> location = new ArrayList<String>();
-//    private static ArrayList<String> position = new ArrayList<String>();
-//    private static ArrayList<String> ticket = new ArrayList<String>();
+
     private Drawable savedtypecolor;
     private CharSequence savedpackage_title;
     private Drawable savedtitle;
@@ -50,34 +44,7 @@ public class MainActivity extends FragmentActivity {
     private TextView mTextView;
     private DrawerLayout drawer;
     private ImageView menu;
-    // Y軸最低スワイプ距離
-    private int SWIPE_MIN_DISTANCE = 50;
-    // Y軸最低スワイプスピード
-    private int SWIPE_THRESHOLD_VELOCITY = 200;
-    // X軸の移動距離 これ以上なら縦移動を判定しない
-    private int SWIPE_MAX_OFF_PATH = 200;
-//    private LinearLayout wrapper_listview;
 
-
-//    public static ArrayList<String> getType() {
-//        return type;
-//    }
-//
-//    public static ArrayList<String> getDate() {
-//        return date;
-//    }
-//
-//    public static ArrayList<String> getLocation() {
-//        return location;
-//    }
-//
-//    public static ArrayList<String> getTicket() {
-//        return ticket;
-//    }
-//
-//    public static ArrayList<Integer> getId() {
-//        return id;
-//    }
 
     private GestureDetector mGestureDetector;
     private ListView listview;
@@ -233,8 +200,6 @@ public class MainActivity extends FragmentActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 
 
 public void reload() {
