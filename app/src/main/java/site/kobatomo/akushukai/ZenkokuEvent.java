@@ -95,13 +95,8 @@ public class ZenkokuEvent extends FragmentActivity {
         Intent intent2 = getIntent();
         clicked_id = intent2.getStringExtra("clicked_id");
 
-
-//        クリックされたIDを元に情報を検索する(MainActivityより）
-        UserOpenHelper userOpenHelper = new UserOpenHelper(this);
-        SQLiteDatabase db = userOpenHelper.getReadableDatabase();
-
-        String query6 = "select * from " + UserContract.Users.TABLE_NAME + " where " + UserContract.Users._ID + "=" + Integer.parseInt(clicked_id);
-        Cursor cursor6 = db.rawQuery(query6, null);
+        ZenkokuModel zenkokuModel = new ZenkokuModel(ZenkokuEvent.getInstance());
+        Cursor cursor6 = zenkokuModel.getall(clicked_id);
         if (cursor6.moveToFirst()) {
             do {
                 TextView date_z = findViewById(R.id.date_event);
