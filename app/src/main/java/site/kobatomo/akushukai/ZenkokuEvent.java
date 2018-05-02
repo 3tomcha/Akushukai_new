@@ -296,22 +296,8 @@ private void saveData() {
             string_member_zenkoku = member_zenkoku.getText().toString();
         }
 
-//        String query1 = "update "+ UserContract.Zenkoku.TABLE_NAME
-//                +" set " + UserContract.Zenkoku.BUSUU+" = '"+string_busuu
-//                + "' where " + UserContract.Zenkoku.EVENT_ID + " = '"+clicked_id+"' and "+UserContract.Zenkoku.MEMBER+ " = '"+string_member_zenkoku+"';";
-//
-//        db.execSQL(query1);
-        zenkokuAdapter.getBussu();
-
-
-
-
-//      MainAcitivityに総計を送る
-        String query2 = "update "+ UserContract.Users.TABLE_NAME
-                +" set " + UserContract.Users.COL_TICKET+" = "+Integer.parseInt(kari_col_ticket.getText().toString())
-                + " where " + UserContract.Users._ID + " = "+clicked_id+";";
-
-        db.execSQL(query2);
+        zenkokuModel.update(zenkokuAdapter.getBussu(),clicked_id,member_zenkoku.getText().toString());
+        mainModel.update(clicked_id,kari_col_ticket.getText().toString());
     }
         }
 

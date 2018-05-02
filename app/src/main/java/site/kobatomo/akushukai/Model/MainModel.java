@@ -72,6 +72,20 @@ public class MainModel {
         db.execSQL(DELETE_EVENT);
     }
 
+    public void update(String clicked_id,String kari_col_ticlet){
+        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
+        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
+
+        String query = "update "+ UserContract.Users.TABLE_NAME
+            +" set " + UserContract.Users.COL_TICKET+" = "+kari_col_ticlet
+            + " where " + UserContract.Users._ID + " = "+clicked_id+";";
+        db.execSQL(query);
+    }
+//    String query2 = "update "+ UserContract.Users.TABLE_NAME
+//            +" set " + UserContract.Users.COL_TICKET+" = "+Integer.parseInt(kari_col_ticket.getText().toString())
+//            + " where " + UserContract.Users._ID + " = "+clicked_id+";";
+//
+//        db.execSQL(query2);
 
 
 

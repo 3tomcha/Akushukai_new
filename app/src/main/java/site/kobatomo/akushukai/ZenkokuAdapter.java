@@ -29,6 +29,8 @@ import java.util.ArrayList;
     private ViewHolder vh;
     private View convertview;
     private Activity mActivity;
+    private int busuu;
+    private int kari_busuu;
 
     class ViewHolder {
         ImageView icon_member_zenkoku;
@@ -60,6 +62,17 @@ import java.util.ArrayList;
     public long getItemId(int position) {
         return data.get(position).getId();
     }
+
+//    ZenkokuEvent,ZenkokuModelと変数を共通化する
+    public String getBussu(){
+        return String.valueOf(busuu);
+    }
+
+    public String getKaribusuu(){
+        return String.valueOf(kari_busuu);
+    }
+
+
 
 
     @Override
@@ -110,7 +123,7 @@ import java.util.ArrayList;
         }
 
 
-//         部数の増減処理
+//   メンバー毎の部数の増減処理
         final ListView zenkoku_list2 = (ListView) parent.findViewById(R.id.zenkoku_list);
             zenkoku_list2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent,
@@ -122,10 +135,10 @@ import java.util.ArrayList;
 //
 //                    TextView member_zenkoku=childlist.findViewById(R.id.member_zenkoku);
 //                    String string_member_zenkoku=member_zenkoku.getText().toString();
-                    int busuu=Integer.parseInt(busuu_zenkoku.getText().toString());
+                    busuu=Integer.parseInt(busuu_zenkoku.getText().toString());
 
                     TextView kari_col_ticket = mActivity.findViewById(R.id.kari_col_ticket);
-                    int kari_busuu = Integer.parseInt(kari_col_ticket.getText().toString());
+                    kari_busuu = Integer.parseInt(kari_col_ticket.getText().toString());
 
 
                     switch (view.getId()) {
