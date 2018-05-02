@@ -3,6 +3,7 @@ package site.kobatomo.akushukai;
 import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -117,88 +118,38 @@ import java.util.ArrayList;
 
 //                    ListView list5=findViewById(R.id.zenkoku_list);
                     View childlist = zenkoku_list2.getChildAt(position);
-                    TextView busuu_zenkoku5=childlist.findViewById(R.id.busuu_zenkoku);
+                    TextView busuu_zenkoku=childlist.findViewById(R.id.busuu_zenkoku);
 //
 //                    TextView member_zenkoku=childlist.findViewById(R.id.member_zenkoku);
 //                    String string_member_zenkoku=member_zenkoku.getText().toString();
-                    int busuu=Integer.parseInt(busuu_zenkoku5.getText().toString());
+                    int busuu=Integer.parseInt(busuu_zenkoku.getText().toString());
 
                     TextView kari_col_ticket = mActivity.findViewById(R.id.kari_col_ticket);
                     int kari_busuu = Integer.parseInt(kari_col_ticket.getText().toString());
 
-//                        ZenkokuEvent zenkokuEvent = new ZenkokuEvent();
-//                        zenkokuEvent.changeKariColTicket();
 
-//                    switch (view.getId()) {
-//                        case R.id.plus_ticket_zenkoku:
-//                            busuu++;
-//                            kari_busuu++;
-//                            busuu_zenkoku5.setText(String.valueOf(busuu));
-//                            kari_col_ticket.setText(String.valueOf(kari_busuu));
-//
-//                            break;
-//
-//                        case R.id.minus_ticket_zenkoku:
-//                            busuu--;
-//                            kari_busuu--;
-//                            busuu_zenkoku5.setText(String.valueOf(busuu));
-//                            kari_col_ticket.setText(String.valueOf(kari_busuu));
-//
-//                            Log.d("click","遷移先マイナス");
-//                            break;
-//                    }
+                    switch (view.getId()) {
+                        case R.id.plus_ticket_zenkoku:
+                            busuu++;
+                            kari_busuu++;
+                            busuu_zenkoku.setText(String.valueOf(busuu));
+                            kari_col_ticket.setText(String.valueOf(kari_busuu));
 
+                            break;
 
+                        case R.id.minus_ticket_zenkoku:
+                            busuu--;
+                            kari_busuu--;
+                            busuu_zenkoku.setText(String.valueOf(busuu));
+                            kari_col_ticket.setText(String.valueOf(kari_busuu));
+
+                            Log.d("click","遷移先マイナス");
+                            break;
+                    }
                 }
             });
-
-
         return convertview;
-
     }
-
-
-//    public void setListner(final ListView targetlist, final TextView kari_col_ticket) {
-//        final ListView zenkoku_list2 = (ListView) targetlist.findViewById(R.id.zenkoku_list);
-//        zenkoku_list2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            public void onItemClick(AdapterView<?> parent,
-//                                    View view, int position, long id) {
-////
-////                ListView list5=parent.findViewById(R.id.zenkoku_list);
-//                View childlist = targetlist.getChildAt(position);
-//                TextView busuu_zenkoku5 = childlist.findViewById(R.id.busuu_zenkoku);
-////
-////                    TextView member_zenkoku=childlist.findViewById(R.id.member_zenkoku);
-////                    String string_member_zenkoku=member_zenkoku.getText().toString();
-//                int busuu = Integer.parseInt(busuu_zenkoku5.getText().toString());
-//
-////                TextView kari_col_ticket = childlist.findViewById(R.id.kari_col_ticket);
-//                int kari_busuu = Integer.parseInt(kari_col_ticket.getText().toString());
-//
-//
-//                switch (view.getId()) {
-//                    case R.id.plus_ticket_zenkoku:
-//                        busuu++;
-//                        kari_busuu++;
-//                        busuu_zenkoku5.setText(String.valueOf(busuu));
-//                        kari_col_ticket.setText(String.valueOf(kari_busuu));
-//
-//                        break;
-//
-//                    case R.id.minus_ticket_zenkoku:
-//                        busuu--;
-//                        kari_busuu--;
-//                        busuu_zenkoku5.setText(String.valueOf(busuu));
-//                        kari_col_ticket.setText(String.valueOf(kari_busuu));
-//
-//                        Log.d("click", "遷移先マイナス");
-//                        break;
-//                }
-//
-//
-//            }
-//        });
-//    }
 }
 
 
