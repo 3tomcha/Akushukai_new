@@ -10,7 +10,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
@@ -280,26 +279,18 @@ public class ZenkokuEvent extends FragmentActivity {
 //    数量を変更した時のデータベース処理
 private void saveData() {
     String string_member_zenkoku="未定";
-    UserOpenHelper userOpenHelper = new UserOpenHelper(this);
-    SQLiteDatabase db = userOpenHelper.getWritableDatabase();
-
     ListView listview=findViewById(R.id.zenkoku_list);
     ZenkokuAdapter adapter=(ZenkokuAdapter) listview.getAdapter();
 
-
     for (int i=0; i<adapter.getCount(); i++) {
         View childlist = listview.getChildAt(i);
-        TextView busuu_zenkoku5 = childlist.findViewById(R.id.busuu_zenkoku);
-        String string_busuu = busuu_zenkoku5.getText().toString();
         TextView member_zenkoku = childlist.findViewById(R.id.member_zenkoku);
-        if (!TextUtils.isEmpty(member_zenkoku.getText().toString())) {
-            string_member_zenkoku = member_zenkoku.getText().toString();
-        }
+        TextView busuu_zenkoku = childlist.findViewById(R.id.busuu_zenkoku);
 
-        zenkokuModel.update(zenkokuAdapter.getBussu(),clicked_id,member_zenkoku.getText().toString());
+        zenkokuModel.update(busuu_zenkoku.getText().toString(),clicked_id,member_zenkoku.getText().toString());
         mainModel.update(clicked_id,kari_col_ticket.getText().toString());
     }
-        }
+    }
 
     public void long_getView(AdapterView<?> arg0, View arg1, int position, long id){
 
