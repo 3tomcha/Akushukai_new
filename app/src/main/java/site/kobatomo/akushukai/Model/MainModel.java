@@ -81,14 +81,6 @@ public class MainModel {
             + " where " + UserContract.Users._ID + " = "+clicked_id+";";
         db.execSQL(query);
     }
-//    String query2 = "update "+ UserContract.Users.TABLE_NAME
-//            +" set " + UserContract.Users.COL_TICKET+" = "+Integer.parseInt(kari_col_ticket.getText().toString())
-//            + " where " + UserContract.Users._ID + " = "+clicked_id+";";
-//
-//        db.execSQL(query2);
-
-
-
 
 
     /*何番目かを取得する*/

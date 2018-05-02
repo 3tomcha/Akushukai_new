@@ -37,11 +37,6 @@ public class ZenkokuEvent extends FragmentActivity {
 
 
     private String clicked_id;
-    private static ArrayList<MyItem> arr1 = new ArrayList<MyItem>();
-    private static ArrayList<MyItem> arr2 = new ArrayList<MyItem>();
-    private static ArrayList<MyItem> arr3 = new ArrayList<MyItem>();
-    private static ArrayList<MyItem> arr4 = new ArrayList<MyItem>();
-    private static ArrayList<MyItem> arr5 = new ArrayList<MyItem>();
     private ArrayList<String> param = new ArrayList<String>();
     private View typecolor;
     private LinearLayout click_over_inner;
@@ -86,36 +81,24 @@ public class ZenkokuEvent extends FragmentActivity {
 
         mainModel = new MainModel(ZenkokuEvent.getInstance());
         zenkokuModel = new ZenkokuModel(ZenkokuEvent.getInstance());
-
         setTitle();
         setNavigetion();
 
-
         Intent intent2 = getIntent();
         clicked_id = intent2.getStringExtra("clicked_id");
+        Cursor cursor = zenkokuModel.getall(clicked_id);
 
-//一番上に表示されるイベントを取得
-//        ZenkokuModel zenkokuModel = new ZenkokuModel(ZenkokuEvent.getInstance());
-//        Cursor cursor6 = zenkokuModel.getall(clicked_id);
-
-        UserOpenHelper userOpenHelper = new UserOpenHelper(this);
-        SQLiteDatabase db = userOpenHelper.getReadableDatabase();
-
-        String query6 = "select * from " + UserContract.Users.TABLE_NAME + " where " + UserContract.Users._ID + "=" + clicked_id;
-        Cursor cursor6 = db.rawQuery(query6, null);
-//        return cursor6;
-        if (cursor6.moveToFirst()) {
-            do {
+        //一番上の部分（日付、タイプ、種別、場所）をセット・取得
+        if (cursor.moveToFirst()) {
                 TextView date_z = findViewById(R.id.date_event);
-                date_z.setText(cursor6.getString(cursor6.getColumnIndex(UserContract.Users.COL_DATE)));
+                date_z.setText(cursor.getString(cursor.getColumnIndex(UserContract.Users.COL_DATE)));
                 TextView type_z = findViewById(R.id.type_event);
-                type_z.setText(cursor6.getString(cursor6.getColumnIndex(UserContract.Users.COL_TYPE)));
+                type_z.setText(cursor.getString(cursor.getColumnIndex(UserContract.Users.COL_TYPE)));
                 TextView location_z = findViewById(R.id.location_event);
-                location_z.setText(cursor6.getString(cursor6.getColumnIndex(UserContract.Users.COL_LOC)));
+                location_z.setText(cursor.getString(cursor.getColumnIndex(UserContract.Users.COL_LOC)));
                 TextView typecolor = findViewById(R.id.typecolor);
-                    type_z.setBackgroundResource(R.color.zenkokucolor);
-                    typecolor.setBackgroundResource(R.color.zenkokucolor);
-            } while (cursor6.moveToNext());
+                type_z.setBackgroundResource(R.color.zenkokucolor);
+                typecolor.setBackgroundResource(R.color.zenkokucolor);
         }
 
 
@@ -146,13 +129,41 @@ public class ZenkokuEvent extends FragmentActivity {
 
 
 
-        //        MoreAddEventで追加したデータベースからメンバーの登録を取得
-        String query1 = "select * from " + UserContract.Zenkoku.TABLE_NAME + " where " + UserContract.Zenkoku.EVENT_ID + " = " + clicked_id;
-        Query query = new Query();
-        query.setQuery(query1, arr1);
-        zenkoku_list = (ListView) findViewById(R.id.zenkoku_list);
-        zenkokuAdapter = new ZenkokuAdapter(ZenkokuEvent.getInstance(),arr1,ZenkokuEvent.this);
-        zenkoku_list.setAdapter(zenkokuAdapter);
+        Cursor membercursor = zenkokuModel.searchMemberInfomation(clicked_id);
+        ArrayList<MemberInfomation> memberInfomations;
+
+        if (membercursor.moveToFirst()) {
+                do {
+                    String added_member = membercursor.getString(membercursor.getColumnIndex(UserContract.Zenkoku.MEMBER));
+                    String added_busuu = membercursor.getString(membercursor.getColumnIndex(UserContract.Zenkoku.BUSUU));
+                    if(added_member.equals("未定")) {
+                        memberInfomations.add(new MemberInfomation(added_member,added_busuu));
+                    }
+                    else{
+                        String added_url = zenkokuModel.search_Memberimg(added_member);
+                        memberInfomations.add(new MyItem(added_member, added_busuu, added_url));
+                    }
+                    sum_busuu += Integer.parseInt(added_busuu);
+
+                } while (membercursor.moveToNext());
+            } else {
+                Log.v("nanntoka", "nantoka");
+            }
+
+
+
+
+
+
+
+
+            //MoreAddEventで追加したデータベースからメンバーの登録を取得
+//        String query1 = "select * from " + UserContract.Zenkoku.TABLE_NAME + " where " + UserContract.Zenkoku.EVENT_ID + " = " + clicked_id;
+//        Query query = new Query();
+//        query.setQuery(query1, arr1);
+//        zenkoku_list = (ListView) findViewById(R.id.zenkoku_list);
+//        zenkokuAdapter = new ZenkokuAdapter(ZenkokuEvent.getInstance(),arr1,ZenkokuEvent.this);
+//        zenkoku_list.setAdapter(zenkokuAdapter);
 //        zenkokuAdapter.setListner(zenkoku_list,kari_col_ticket);
 
 
@@ -177,74 +188,74 @@ public class ZenkokuEvent extends FragmentActivity {
 
 
     //リストに使うデータ用クラス
-    class MyItem {
-        private String member = null;
-        private String busuu = null;
-        private String url = null;
-        private long id = 0;
-
-        public MyItem(String member, String busuu, String url) {
-            super();
-            this.member = member;
-            this.busuu = busuu;
-            this.url = url;
-            /*画像に関しても加える*/
-
-            this.id = new Date().getTime();
-        }
-        public MyItem(String member,String busuu) {
-            super();
-            this.member = member;
-            this.busuu = busuu;
-            /*画像に関しても加える*/
-            this.id = new Date().getTime();
-        }
-
-        public String getmember() {
-            return member;
-        }
-        public String geturl() {
-            return url;
-        }
-        public String getbusuu() {
-            return busuu;
-        }
-        public long getId() {
-            return id;
-        }
-
-    }
-
-    //    データベース処理
-    class Query {
-        private String added_url;
-        void setQuery(String query, ArrayList arr) {
-            arr.clear();
-            UserOpenHelper userOpenHelper = new UserOpenHelper(ZenkokuEvent.this);
-            SQLiteDatabase db = userOpenHelper.getReadableDatabase();
-            Cursor c = db.rawQuery(query, null);
-            if (c.moveToFirst()) {
-                do {
-                    String added_member = c.getString(c.getColumnIndex(UserContract.Zenkoku.MEMBER));
-                    String added_busuu = c.getString(c.getColumnIndex(UserContract.Zenkoku.BUSUU));
-                    if(added_member.equals("未定")) {
-                        arr.add(new MyItem(added_member,added_busuu));
-                    /*画像を探す処理も加える*/
-                    }
-                    else{
-                        added_url = search_Memberimg(added_member, db);
-                        arr.add(new MyItem(added_member, added_busuu, added_url));
-                    }
-                    sum_busuu += Integer.parseInt(added_busuu);
-
-                } while (c.moveToNext());
-            } else {
-                Log.v("nanntoka", "nantoka");
-            }
-        }
-
-
-    }
+//    class MyItem {
+//        private String member = null;
+//        private String busuu = null;
+//        private String url = null;
+//        private long id = 0;
+//
+//        public MyItem(String member, String busuu, String url) {
+//            super();
+//            this.member = member;
+//            this.busuu = busuu;
+//            this.url = url;
+//            /*画像に関しても加える*/
+//
+//            this.id = new Date().getTime();
+//        }
+//        public MyItem(String member,String busuu) {
+//            super();
+//            this.member = member;
+//            this.busuu = busuu;
+//            /*画像に関しても加える*/
+//            this.id = new Date().getTime();
+//        }
+//
+//        public String getmember() {
+//            return member;
+//        }
+//        public String geturl() {
+//            return url;
+//        }
+//        public String getbusuu() {
+//            return busuu;
+//        }
+//        public long getId() {
+//            return id;
+//        }
+//
+//    }
+//
+////        データベース処理
+//    class Query {
+//        private String added_url;
+//        void setQuery(String query, ArrayList arr) {
+//            arr.clear();
+//            UserOpenHelper userOpenHelper = new UserOpenHelper(ZenkokuEvent.this);
+//            SQLiteDatabase db = userOpenHelper.getReadableDatabase();
+//            Cursor c = db.rawQuery(query, null);
+//            if (c.moveToFirst()) {
+//                do {
+//                    String added_member = c.getString(c.getColumnIndex(UserContract.Zenkoku.MEMBER));
+//                    String added_busuu = c.getString(c.getColumnIndex(UserContract.Zenkoku.BUSUU));
+//                    if(added_member.equals("未定")) {
+//                        arr.add(new MyItem(added_member,added_busuu));
+//                    /*画像を探す処理も加える*/
+//                    }
+//                    else{
+//                        added_url = zenkokuModel.search_Memberimg(added_member, db);
+//                        arr.add(new MyItem(added_member, added_busuu, added_url));
+//                    }
+//                    sum_busuu += Integer.parseInt(added_busuu);
+//
+//                } while (c.moveToNext());
+//            } else {
+//                Log.v("nanntoka", "nantoka");
+//            }
+//        }
+//
+//
+//    }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode != KeyEvent.KEYCODE_BACK) {
@@ -257,24 +268,6 @@ public class ZenkokuEvent extends FragmentActivity {
         }
     }
 
-
-    private String search_Memberimg(String member, SQLiteDatabase db) {
-
-        String query = "select url from member where name = ?";
-
-        Cursor c = db.rawQuery(query, new String[]{member});
-
-        if (c.moveToFirst()) {
-            do {
-                String url = c.getString(0);
-                return url;
-            } while (c.moveToNext());
-        } else {
-            Log.v("nanntoka", "nantoka");
-            return null;
-        }
-
-    }
 
 //    数量を変更した時のデータベース処理
 private void saveData() {
@@ -433,6 +426,44 @@ private void saveData() {
         zenkokuModel.delete(clicked_id);
         Intent intent3 =new Intent(ZenkokuEvent.this,MainActivity.class);
         startActivity(intent3);
+    }
+
+    class MemberInfomation {
+        private String member = null;
+        private String busuu = null;
+        private String url = null;
+        private long id = 0;
+
+        public MemberInfomation(String member, String busuu, String url) {
+            super();
+            this.member = member;
+            this.busuu = busuu;
+            this.url = url;
+            /*画像に関しても加える*/
+
+            this.id = new Date().getTime();
+        }
+        public MemberInfomation(String member,String busuu) {
+            super();
+            this.member = member;
+            this.busuu = busuu;
+            /*画像に関しても加える*/
+            this.id = new Date().getTime();
+        }
+
+//        public String getmember() {
+//            return member;
+//        }
+//        public String geturl() {
+//            return url;
+//        }
+//        public String getbusuu() {
+//            return busuu;
+//        }
+//        public long getId() {
+//            return id;
+//        }
+
     }
 }
 
