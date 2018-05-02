@@ -1,6 +1,5 @@
 package site.kobatomo.akushukai;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,19 +14,14 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -95,8 +89,16 @@ public class ZenkokuEvent extends FragmentActivity {
         Intent intent2 = getIntent();
         clicked_id = intent2.getStringExtra("clicked_id");
 
-        ZenkokuModel zenkokuModel = new ZenkokuModel(ZenkokuEvent.getInstance());
-        Cursor cursor6 = zenkokuModel.getall(clicked_id);
+//一番上に表示されるイベントを取得
+//        ZenkokuModel zenkokuModel = new ZenkokuModel(ZenkokuEvent.getInstance());
+//        Cursor cursor6 = zenkokuModel.getall(clicked_id);
+
+        UserOpenHelper userOpenHelper = new UserOpenHelper(this);
+        SQLiteDatabase db = userOpenHelper.getReadableDatabase();
+
+        String query6 = "select * from " + UserContract.Users.TABLE_NAME + " where " + UserContract.Users._ID + "=" + clicked_id;
+        Cursor cursor6 = db.rawQuery(query6, null);
+//        return cursor6;
         if (cursor6.moveToFirst()) {
             do {
                 TextView date_z = findViewById(R.id.date_event);
@@ -117,7 +119,7 @@ public class ZenkokuEvent extends FragmentActivity {
         FloatingActionButton addEvent = findViewById(R.id.addEvent);
         addEvent.setOnClickListener(new View.OnClickListener() {
                                         public void onClick(View v) {
-                                            Intent intent2 = new Intent(ZenkokuEvent.this, ZenkokuAddEvent.class);
+                                            Intent intent2 = new Intent(ZenkokuEvent.getInstance(), ZenkokuAddEvent.class);
                                             intent2.putExtra("clicked_id", clicked_id);
                                             saveData();
                                             startActivity(intent2);
@@ -129,7 +131,7 @@ public class ZenkokuEvent extends FragmentActivity {
 
         et_zenkoku_event.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    Intent intent2 = new Intent(ZenkokuEvent.this, ZenkokuAddEvent.class);
+                    Intent intent2 = new Intent(ZenkokuEvent.getInstance(), ZenkokuAddEvent.class);
                     intent2.putExtra("clicked_id", clicked_id);
                     saveData();
                     startActivity(intent2);
@@ -144,20 +146,25 @@ public class ZenkokuEvent extends FragmentActivity {
         Query query = new Query();
         query.setQuery(query1, arr1);
         zenkoku_list = (ListView) findViewById(R.id.zenkoku_list);
-        zenkoku_list.setAdapter(new MyAdapter(this, arr1));
+        ZenkokuAdapter zenkokuAdapter = new ZenkokuAdapter(ZenkokuEvent.getInstance(),arr1,ZenkokuEvent.this);
+        zenkoku_list.setAdapter(zenkokuAdapter);
+//        zenkokuAdapter.setListner(zenkoku_list,kari_col_ticket);
 
 
 
-        zenkoku_list.setLongClickable(true);
-        zenkoku_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long id) {
 
-                long_getView(arg0,arg1,position,id);
-                showFragmentDialog(MEMBERDIALOG);
 
-                return true;
-            }
-        });
+//        zenkoku_list.setLongClickable(true);
+//        zenkoku_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long id) {
+//
+//                long_getView(arg0,arg1,position,id);
+//                showFragmentDialog(MEMBERDIALOG);
+//
+//                return true;
+//            }
+//        });
+
         setColTicket();
 
 
@@ -205,148 +212,150 @@ public class ZenkokuEvent extends FragmentActivity {
 
 
     //データMyItemを管理するアダプタークラス
-    class MyAdapter extends BaseAdapter {
-        private ArrayList<MyItem> data = null;
-        private Context context = null;
-        LayoutInflater layoutInflater = null;
-        private ViewHolder vh;
-        private View convertview;
-
-        class ViewHolder{
-        ImageView icon_member_zenkoku;
-        TextView member_zenkoku;
-        TextView busuu_zenkoku;
-        LinearLayout plus_ticket_zenkoku;
-        LinearLayout minus_ticket_zenkoku;
-        }
-
-
-
-        public MyAdapter(Context context, ArrayList<ZenkokuEvent.MyItem> data) {
-            super();
-            this.data = data;
-            this.context = context;
-            layoutInflater = LayoutInflater.from(context);
-        }
-
-        @Override
-        public int getCount() {
-            return data.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return data.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return data.get(position).getId();
-        }
-
-
-        @Override
-        public View getView(final int position, View ConvertView, final ViewGroup parent) {
-            vh =null;
-            convertview = ConvertView;
-
-            if (convertview == null) {
-                convertview = layoutInflater.inflate(R.layout.list_zenkoku_event, parent, false);
-                vh =new ViewHolder();
-
-                vh.icon_member_zenkoku=(ImageView) convertview.findViewById(R.id.icon_member_zenkoku);
-                vh.member_zenkoku = (TextView) convertview.findViewById(R.id.member_zenkoku);
-                vh.busuu_zenkoku = (TextView) convertview.findViewById(R.id.busuu_zenkoku);
-                vh.plus_ticket_zenkoku = (LinearLayout) convertview.findViewById(R.id.plus_ticket_zenkoku);
-                vh.minus_ticket_zenkoku = (LinearLayout) convertview.findViewById(R.id.minus_ticket_zenkoku);
-
-
-                convertview.setTag(vh);
-
-            }else {
-                vh = (ViewHolder) convertview.getTag();
-            }
-
-            vh.busuu_zenkoku.setText(data.get(position).getbusuu());
-
-            vh.plus_ticket_zenkoku.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ((ListView) parent).performItemClick(view, position, R.id.plus_ticket_zenkoku);
-                }
-            });
-
-            vh.minus_ticket_zenkoku.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ((ListView) parent).performItemClick(view, position, R.id.minus_ticket_zenkoku);
-                }
-            });
-
-
-            if(!TextUtils.isEmpty(data.get(position).geturl())) {
-                    Glide.with(ZenkokuEvent.this).
-                            load(data.get(position).geturl()).into(vh.icon_member_zenkoku);
-            }
-            if(!TextUtils.isEmpty(data.get(position).getmember())) {
-                vh.member_zenkoku.setText(data.get(position).getmember());
-            }
-//            else{
-//                vh.member_zenkoku.setText("未定");
-//            }
-
-
-
-            // アイテムクリック時ののイベントを追加
-            final ListView zenkoku_list2=findViewById(R.id.zenkoku_list);
-            zenkoku_list2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                public void onItemClick(AdapterView<?> parent,
-                                        View view, int position, long id) {
-
-                    ListView list5=findViewById(R.id.zenkoku_list);
-                    View childlist = list5.getChildAt(position);
-                    TextView busuu_zenkoku5=childlist.findViewById(R.id.busuu_zenkoku);
+//    class MyAdapter extends BaseAdapter {
+//        private ArrayList<MyItem> data = null;
+//        private Context context = null;
+//        LayoutInflater layoutInflater = null;
+//        private ViewHolder vh;
+//        private View convertview;
 //
-//                    TextView member_zenkoku=childlist.findViewById(R.id.member_zenkoku);
-//                    String string_member_zenkoku=member_zenkoku.getText().toString();
-                    int busuu=Integer.parseInt(busuu_zenkoku5.getText().toString());
+//        class ViewHolder{
+//        ImageView icon_member_zenkoku;
+//        TextView member_zenkoku;
+//        TextView busuu_zenkoku;
+//        LinearLayout plus_ticket_zenkoku;
+//        LinearLayout minus_ticket_zenkoku;
+//        }
+//
+//
+//
+//        public MyAdapter(Context context, ArrayList<ZenkokuEvent.MyItem> data) {
+//            super();
+//            this.data = data;
+//            this.context = context;
+//            layoutInflater = LayoutInflater.from(context);
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return data.size();
+//        }
+//
+//        @Override
+//        public Object getItem(int position) {
+//            return data.get(position);
+//        }
+//
+//        @Override
+//        public long getItemId(int position) {
+//            return data.get(position).getId();
+//        }
+//
+//
+//        @Override
+//        public View getView(final int position, View ConvertView, final ViewGroup parent) {
+//            vh =null;
+//            convertview = ConvertView;
+//
+//            if (convertview == null) {
+//                convertview = layoutInflater.inflate(R.layout.list_zenkoku_event, parent, false);
+//                vh =new ViewHolder();
+//
+//                vh.icon_member_zenkoku=(ImageView) convertview.findViewById(R.id.icon_member_zenkoku);
+//                vh.member_zenkoku = (TextView) convertview.findViewById(R.id.member_zenkoku);
+//                vh.busuu_zenkoku = (TextView) convertview.findViewById(R.id.busuu_zenkoku);
+//                vh.plus_ticket_zenkoku = (LinearLayout) convertview.findViewById(R.id.plus_ticket_zenkoku);
+//                vh.minus_ticket_zenkoku = (LinearLayout) convertview.findViewById(R.id.minus_ticket_zenkoku);
+//
+//
+//                convertview.setTag(vh);
+//
+//            }else {
+//                vh = (ViewHolder) convertview.getTag();
+//            }
+//
+//            vh.busuu_zenkoku.setText(data.get(position).getbusuu());
+//
+//            vh.plus_ticket_zenkoku.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    ((ListView) parent).performItemClick(view, position, R.id.plus_ticket_zenkoku);
+//                }
+//            });
+//
+//            vh.minus_ticket_zenkoku.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    ((ListView) parent).performItemClick(view, position, R.id.minus_ticket_zenkoku);
+//                }
+//            });
+//
+//
+//            if(!TextUtils.isEmpty(data.get(position).geturl())) {
+//                    Glide.with(ZenkokuEvent.this).
+//                            load(data.get(position).geturl()).into(vh.icon_member_zenkoku);
+//            }
+//            if(!TextUtils.isEmpty(data.get(position).getmember())) {
+//                vh.member_zenkoku.setText(data.get(position).getmember());
+//            }
+////            else{
+////                vh.member_zenkoku.setText("未定");
+////            }
+//
+//
+//
+//            // アイテムクリック時ののイベントを追加
 
-                    kari_col_ticket=findViewById(R.id.kari_col_ticket);
-                    kari_busuu = Integer.parseInt(kari_col_ticket.getText().toString());
-
-
-
-
-                    switch (view.getId()) {
-                        case R.id.plus_ticket_zenkoku:
-                            busuu++;
-                            kari_busuu++;
-                            busuu_zenkoku5.setText(String.valueOf(busuu));
-                            kari_col_ticket.setText(String.valueOf(kari_busuu));
-
-                            break;
-
-                        case R.id.minus_ticket_zenkoku:
-                            busuu--;
-                            kari_busuu--;
-                            busuu_zenkoku5.setText(String.valueOf(busuu));
-                            kari_col_ticket.setText(String.valueOf(kari_busuu));
-
-                            Log.d("click","遷移先マイナス");
-                            break;
-                    }
-
-
-                }
-            });
-
-
-            return convertview;
-
-        }
-    }
+//
+//
+//            return convertview;
+//
+//        }
+//    }
         /*アダプター*/
 
+
+//        final ListView zenkoku_list2=findViewById(R.id.zenkoku_list);
+//            zenkoku_list2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        public void onItemClick(AdapterView<?> parent,
+//                View view, int position, long id) {
+//
+//            ListView list5=findViewById(R.id.zenkoku_list);
+//            View childlist = list5.getChildAt(position);
+//            TextView busuu_zenkoku5=childlist.findViewById(R.id.busuu_zenkoku);
+////
+////                    TextView member_zenkoku=childlist.findViewById(R.id.member_zenkoku);
+////                    String string_member_zenkoku=member_zenkoku.getText().toString();
+//            int busuu=Integer.parseInt(busuu_zenkoku5.getText().toString());
+//
+//            kari_col_ticket=findViewById(R.id.kari_col_ticket);
+//            kari_busuu = Integer.parseInt(kari_col_ticket.getText().toString());
+//
+//
+//
+//
+//            switch (view.getId()) {
+//                case R.id.plus_ticket_zenkoku:
+//                    busuu++;
+//                    kari_busuu++;
+//                    busuu_zenkoku5.setText(String.valueOf(busuu));
+//                    kari_col_ticket.setText(String.valueOf(kari_busuu));
+//
+//                    break;
+//
+//                case R.id.minus_ticket_zenkoku:
+//                    busuu--;
+//                    kari_busuu--;
+//                    busuu_zenkoku5.setText(String.valueOf(busuu));
+//                    kari_col_ticket.setText(String.valueOf(kari_busuu));
+//
+//                    Log.d("click","遷移先マイナス");
+//                    break;
+//            }
+//
+//
+//        }
+//    });
 
     //    データベース処理
     class Query {
@@ -416,7 +425,7 @@ private void saveData() {
     SQLiteDatabase db = userOpenHelper.getWritableDatabase();
 
     ListView listview=findViewById(R.id.zenkoku_list);
-    MyAdapter adapter=(MyAdapter) listview.getAdapter();
+    ZenkokuAdapter adapter=(ZenkokuAdapter) listview.getAdapter();
 
     for (int i=0; i<adapter.getCount(); i++) {
         View childlist = listview.getChildAt(i);
@@ -446,7 +455,7 @@ private void saveData() {
     public void long_getView(AdapterView<?> arg0, View arg1, int position, long id){
 
         ListView listview=findViewById(R.id.zenkoku_list);
-        MyAdapter adapter=(MyAdapter) listview.getAdapter();
+        ZenkokuAdapter adapter=(ZenkokuAdapter) listview.getAdapter();
         View childlist = listview.getChildAt(position);
 //        メンバーを取得する
         TextView tv_delete_member = (TextView)childlist.findViewById(R.id.member_zenkoku);
@@ -588,6 +597,11 @@ private void saveData() {
         Intent intent3 =new Intent(ZenkokuEvent.this,MainActivity.class);
         startActivity(intent3);
     }
+//    public void changeKariColTicket(){
+////        kari_col_ticket = findViewById(R.id.kari_col_ticket);
+//        int kari_busuu = Integer.parseInt(kari_col_ticket.getText().toString());
+//        Log.d("動きました","動きました");
+//    }
 
 
 

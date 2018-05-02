@@ -1,6 +1,7 @@
 package site.kobatomo.akushukai.Model;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import site.kobatomo.akushukai.UserContract;
@@ -13,6 +14,16 @@ public class ZenkokuModel {
     Context context;
     public ZenkokuModel(Context context){
         this.context=context;
+    }
+
+
+    public Cursor getall(String index){
+        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
+        SQLiteDatabase db = userOpenHelper.getReadableDatabase();
+
+        String query6 = "select * from " + UserContract.Users.TABLE_NAME + " where " + UserContract.Users._ID + "=" + index;
+        Cursor cursor6 = db.rawQuery(query6, null);
+        return cursor6;
     }
 
     public void delete(String index){
