@@ -23,7 +23,7 @@ import java.util.ArrayList;
  */
 
     class ZenkokuAdapter extends BaseAdapter {
-    private ArrayList<ZenkokuEvent.MyItem> data = null;
+    private ArrayList<ZenkokuEvent.MemberInfomation> data = null;
     private Context context = null;
     LayoutInflater layoutInflater = null;
     private ViewHolder vh;
@@ -40,7 +40,7 @@ import java.util.ArrayList;
         LinearLayout minus_ticket_zenkoku;
     }
 
-    ZenkokuAdapter(Context context, ArrayList<ZenkokuEvent.MyItem> data,Activity activity) {
+    ZenkokuAdapter(Context context, ArrayList<ZenkokuEvent.MemberInfomation> data,Activity activity) {
 //            super();
         this.data = data;
         this.context = context;
