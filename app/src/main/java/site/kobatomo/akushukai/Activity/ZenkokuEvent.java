@@ -1,4 +1,4 @@
-package site.kobatomo.akushukai;
+package site.kobatomo.akushukai.Activity;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -25,9 +25,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Date;
 
+import site.kobatomo.akushukai.Adapter.ZenkokuAdapter;
 import site.kobatomo.akushukai.Model.MainModel;
 import site.kobatomo.akushukai.Model.UserOpenHelper;
 import site.kobatomo.akushukai.Model.ZenkokuModel;
+import site.kobatomo.akushukai.R;
+import site.kobatomo.akushukai.TestDialogFragment;
+//import site.kobatomo.akushukai.UpdateEvent;
+import site.kobatomo.akushukai.UserContract;
+import site.kobatomo.akushukai.ZenkokuAddEvent;
 
 /**
  * Created by tomoya on 2017/11/28.
@@ -309,9 +315,9 @@ private void saveData() {
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.updateEvent:
-                        Intent intent1 =new Intent(ZenkokuEvent.this,UpdateEvent.class);
-                        intent1.putExtra("clicked_id", clicked_id);
-                        startActivity(intent1);
+//                        Intent intent1 =new Intent(ZenkokuEvent.this,UpdateEvent.class);
+//                        intent1.putExtra("clicked_id", clicked_id);
+//                        startActivity(intent1);
                         break;
                     case R.id. kobetsuaddEvent:
                         Intent intent2 =new Intent(ZenkokuEvent.this,ZenkokuAddEvent.class);
@@ -343,7 +349,7 @@ private void saveData() {
     }
 
 //    メンバー登録情報の保持用クラス
-    class MemberInfomation {
+public class MemberInfomation {
         private String member = null;
         private String busuu = null;
         private String url = null;

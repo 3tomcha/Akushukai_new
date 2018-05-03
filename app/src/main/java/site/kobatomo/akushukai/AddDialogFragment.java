@@ -20,7 +20,7 @@ public class AddDialogFragment extends DialogFragment {
 
         final Activity add_event = getActivity();
 
-        showLoc=add_event.findViewById(R.id.showLoc);
+//        showLoc=add_event.findViewById(R.id.showLoc);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setItems(location_list, new DialogInterface.OnClickListener() {

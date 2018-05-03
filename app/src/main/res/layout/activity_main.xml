@@ -17,7 +17,7 @@
     android:id="@+id/wrapper_listview"
     android:orientation="vertical"
     android:paddingBottom="50sp"
-    tools:context="site.kobatomo.akushukai.MainActivity">
+    tools:context="site.kobatomo.akushukai.Activity.MainActivity">
 
 
 <include layout="@layout/header"></include>

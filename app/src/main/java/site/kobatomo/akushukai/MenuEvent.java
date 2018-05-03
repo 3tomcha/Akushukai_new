@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import site.kobatomo.akushukai.Activity.MainActivity;
+
 /**
  * Created by tomoya on 2017/12/18.
  */

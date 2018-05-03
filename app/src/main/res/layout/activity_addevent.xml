@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="#F3F3F3"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <include layout="@layout/header"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#FFFFFF"
+        android:layout_marginBottom="5sp"
+        >
+
+        <LinearLayout
+            android:layout_width="10sp"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="10sp"
+                android:layout_height="match_parent"
+                android:background="@color/zenkokucolor"/>
+            <!--全国と個別で色を変える-->
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10sp"
+            android:padding="10sp"
+            >
+            <TextView
+                android:text="2017/10/28"
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10sp"
+                        android:layout_gravity="center"
+                        android:padding="3dp"
+                        android:textColor="@color/radio_white_color"
+                        android:text="全国"
+                        android:background="@color/zenkokucolor"
+
+                        />
+
+
+                    <TextView
+                        android:text="幕張メッセ"
+                        android:textSize="23sp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:text="6thシングル『ガラスを割れ!』発売記念 全国握手会"
+                    android:layout_gravity="center"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#FFFFFF"
+        android:layout_marginBottom="5sp"
+        >
+
+        <LinearLayout
+            android:layout_width="10sp"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="10sp"
+                android:layout_height="match_parent"
+                android:background="@color/zenkokucolor"/>
+            <!--全国と個別で色を変える-->
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10sp"
+            android:padding="10sp"
+            >
+            <TextView
+                android:text="2017/10/28"
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10sp"
+                        android:layout_gravity="center"
+                        android:padding="3dp"
+                        android:textColor="@color/radio_white_color"
+                        android:text="全国"
+                        android:background="@color/zenkokucolor"
+
+                        />
+
+
+                    <TextView
+                        android:text="幕張メッセ"
+                        android:textSize="23sp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:text="6thシングル『ガラスを割れ!』発売記念 全国握手会"
+                    android:layout_gravity="center"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#FFFFFF"
+        android:layout_marginBottom="5sp"
+        >
+
+        <LinearLayout
+            android:layout_width="10sp"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="10sp"
+                android:layout_height="match_parent"
+                android:background="@color/zenkokucolor"/>
+            <!--全国と個別で色を変える-->
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10sp"
+            android:padding="10sp"
+            >
+            <TextView
+                android:text="2017/10/28"
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10sp"
+                        android:layout_gravity="center"
+                        android:padding="3dp"
+                        android:textColor="@color/radio_white_color"
+                        android:text="全国"
+                        android:background="@color/zenkokucolor"
+
+                        />
+
+
+                    <TextView
+                        android:text="幕張メッセ"
+                        android:textSize="23sp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:text="6thシングル『ガラスを割れ!』発売記念 全国握手会"
+                    android:layout_gravity="center"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#FFFFFF"
+        android:layout_marginBottom="5sp"
+        >
+
+        <LinearLayout
+            android:layout_width="10sp"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="10sp"
+                android:layout_height="match_parent"
+                android:background="@color/zenkokucolor"/>
+            <!--全国と個別で色を変える-->
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10sp"
+            android:padding="10sp"
+            >
+            <TextView
+                android:text="2017/10/28"
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10sp"
+                        android:layout_gravity="center"
+                        android:padding="3dp"
+                        android:textColor="@color/radio_white_color"
+                        android:text="全国"
+                        android:background="@color/zenkokucolor"
+
+                        />
+
+
+                    <TextView
+                        android:text="幕張メッセ"
+                        android:textSize="23sp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:text="6thシングル『ガラスを割れ!』発売記念 全国握手会"
+                    android:layout_gravity="center"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#FFFFFF"
+        android:layout_marginBottom="5sp"
+        >
+
+        <LinearLayout
+            android:layout_width="10sp"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="10sp"
+                android:layout_height="match_parent"
+                android:background="@color/zenkokucolor"/>
+            <!--全国と個別で色を変える-->
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10sp"
+            android:padding="10sp"
+            >
+            <TextView
+                android:text="2017/10/28"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10sp"
+                        android:layout_gravity="center"
+                        android:padding="3dp"
+                        android:textColor="@color/radio_white_color"
+                        android:text="全国"
+                        android:background="@color/zenkokucolor"
+
+                        />
+
+
+                    <TextView
+                        android:text="幕張メッセ"
+                        android:textSize="23sp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:text="6thシングル『ガラスを割れ!』発売記念 全国握手会"
+                    android:layout_gravity="center"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#FFFFFF"
+        android:layout_marginBottom="5sp"
+        >
+
+        <LinearLayout
+            android:layout_width="10sp"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="10sp"
+                android:layout_height="match_parent"
+                android:background="@color/zenkokucolor"/>
+            <!--全国と個別で色を変える-->
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10sp"
+            android:padding="10sp"
+            >
+            <TextView
+                android:text="2017/10/28"
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10sp"
+                        android:layout_gravity="center"
+                        android:padding="3dp"
+                        android:textColor="@color/radio_white_color"
+                        android:text="全国"
+                        android:background="@color/zenkokucolor"
+
+                        />
+
+
+                    <TextView
+                        android:text="幕張メッセ"
+                        android:textSize="23sp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:text="6thシングル『ガラスを割れ!』発売記念 全国握手会"
+                    android:layout_gravity="center"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#FFFFFF"
+        android:layout_marginBottom="5sp"
+        >
+
+        <LinearLayout
+            android:layout_width="10sp"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="10sp"
+                android:layout_height="match_parent"
+                android:background="@color/zenkokucolor"/>
+            <!--全国と個別で色を変える-->
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10sp"
+            android:padding="10sp"
+            >
+            <TextView
+                android:text="2017/10/28"
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10sp"
+                        android:layout_gravity="center"
+                        android:padding="3dp"
+                        android:textColor="@color/radio_white_color"
+                        android:text="全国"
+                        android:background="@color/zenkokucolor"
+
+                        />
+
+
+                    <TextView
+                        android:text="幕張メッセ"
+                        android:textSize="23sp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:text="6thシングル『ガラスを割れ!』発売記念 全国握手会"
+                    android:layout_gravity="center"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#FFFFFF"
+        android:layout_marginBottom="5sp"
+        >
+
+        <LinearLayout
+            android:layout_width="10sp"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="10sp"
+                android:layout_height="match_parent"
+                android:background="@color/zenkokucolor"/>
+            <!--全国と個別で色を変える-->
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10sp"
+            android:padding="10sp"
+            >
+            <TextView
+                android:text="2017/10/28"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+
+            <LinearLayout
+                android:id="@+id/more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10sp"
+                        android:layout_gravity="center"
+                        android:padding="3dp"
+                        android:textColor="@color/radio_white_color"
+                        android:text="全国"
+                        android:background="@color/zenkokucolor"
+
+                        />
+
+
+                    <TextView
+                        android:text="幕張メッセ"
+                        android:textSize="23sp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:text="6thシングル『ガラスを割れ!』発売記念 全国握手会"
+                    android:layout_gravity="center"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

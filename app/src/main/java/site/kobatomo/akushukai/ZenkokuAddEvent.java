@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import site.kobatomo.akushukai.Activity.ZenkokuEvent;
 import site.kobatomo.akushukai.Model.UserOpenHelper;
 
 

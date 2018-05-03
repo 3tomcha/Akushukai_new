@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
-import site.kobatomo.akushukai.MainActivity;
+import site.kobatomo.akushukai.Activity.MainActivity;
 import site.kobatomo.akushukai.UserContract;
 
 /**

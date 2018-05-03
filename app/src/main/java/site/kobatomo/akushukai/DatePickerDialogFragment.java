@@ -3,14 +3,8 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.DatePicker;
-import android.widget.EditText;
 
 import java.util.Calendar;
-
-import static site.kobatomo.akushukai.R.id.showDate;
 
 public class DatePickerDialogFragment extends DialogFragment implements
         DatePickerDialog.OnDateSetListener{
@@ -22,7 +16,8 @@ public class DatePickerDialogFragment extends DialogFragment implements
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        return new DatePickerDialog(getActivity(), (AddEvent)getActivity(),  year, month, day);
+//        return new DatePickerDialog(getActivity(), (AddEvent)getActivity(),  year, month, day);
+        return null;
     }
 
     @Override

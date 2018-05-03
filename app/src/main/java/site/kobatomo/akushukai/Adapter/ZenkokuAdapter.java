@@ -1,4 +1,4 @@
-package site.kobatomo.akushukai;
+package site.kobatomo.akushukai.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,11 +18,14 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
+import site.kobatomo.akushukai.R;
+import site.kobatomo.akushukai.Activity.ZenkokuEvent;
+
 /**
  * Created by tomoya on 2018/05/01.
  */
 
-    class ZenkokuAdapter extends BaseAdapter {
+public class ZenkokuAdapter extends BaseAdapter {
     private ArrayList<ZenkokuEvent.MemberInfomation> data = null;
     private Context context = null;
     LayoutInflater layoutInflater = null;
@@ -40,7 +43,7 @@ import java.util.ArrayList;
         LinearLayout minus_ticket_zenkoku;
     }
 
-    ZenkokuAdapter(Context context, ArrayList<ZenkokuEvent.MemberInfomation> data,Activity activity) {
+    public ZenkokuAdapter(Context context, ArrayList<ZenkokuEvent.MemberInfomation> data, Activity activity) {
 //            super();
         this.data = data;
         this.context = context;

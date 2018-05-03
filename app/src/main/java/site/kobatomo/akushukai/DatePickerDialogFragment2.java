@@ -1,6 +1,5 @@
 package site.kobatomo.akushukai;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 
@@ -17,7 +16,8 @@ public class DatePickerDialogFragment2 extends DatePickerDialogFragment{
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        return new DatePickerDialog(getActivity(), (UpdateEvent)getActivity(),  year, month, day);
+//        return new DatePickerDialog(getActivity(), (UpdateEvent)getActivity(),  year, month, day);
+        return null;
     }
 
 

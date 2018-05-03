@@ -35,6 +35,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 
+import site.kobatomo.akushukai.Activity.MainActivity;
 import site.kobatomo.akushukai.Model.UserOpenHelper;
 
 /**
@@ -585,9 +586,9 @@ public class KobetsuEvent extends FragmentActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.updateEvent:
-                        Intent intent1 =new Intent(KobetsuEvent.this,UpdateEvent.class);
-                        intent1.putExtra("clicked_id", clicked_id);
-                        startActivity(intent1);
+//                        Intent intent1 =new Intent(KobetsuEvent.this,UpdateEvent.class);
+//                        intent1.putExtra("clicked_id", clicked_id);
+//                        startActivity(intent1);
                         break;
                     case R.id. kobetsuaddEvent:
                         Intent intent2 =new Intent(KobetsuEvent.this,KobetsuAddEvent.class);
