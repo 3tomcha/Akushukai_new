@@ -128,9 +128,9 @@ public class ZenkokuEvent extends FragmentActivity {
 
 
 
-
+//メンバーの登録情報をデータベースから探し、アレイリストに入れる
         Cursor membercursor = zenkokuModel.searchMemberInfomation(clicked_id);
-        ArrayList<MemberInfomation> memberInfomations;
+        ArrayList<MemberInfomation> memberInfomations = new ArrayList<MemberInfomation>();
 
         if (membercursor.moveToFirst()) {
                 do {
@@ -141,7 +141,7 @@ public class ZenkokuEvent extends FragmentActivity {
                     }
                     else{
                         String added_url = zenkokuModel.search_Memberimg(added_member);
-                        memberInfomations.add(new MyItem(added_member, added_busuu, added_url));
+                        memberInfomations.add(new MemberInfomation(added_member, added_busuu, added_url));
                     }
                     sum_busuu += Integer.parseInt(added_busuu);
 
@@ -149,25 +149,10 @@ public class ZenkokuEvent extends FragmentActivity {
             } else {
                 Log.v("nanntoka", "nantoka");
             }
-
-
-
-
-
-
-
-
-            //MoreAddEventで追加したデータベースからメンバーの登録を取得
-//        String query1 = "select * from " + UserContract.Zenkoku.TABLE_NAME + " where " + UserContract.Zenkoku.EVENT_ID + " = " + clicked_id;
-//        Query query = new Query();
-//        query.setQuery(query1, arr1);
-//        zenkoku_list = (ListView) findViewById(R.id.zenkoku_list);
-//        zenkokuAdapter = new ZenkokuAdapter(ZenkokuEvent.getInstance(),arr1,ZenkokuEvent.this);
-//        zenkoku_list.setAdapter(zenkokuAdapter);
-//        zenkokuAdapter.setListner(zenkoku_list,kari_col_ticket);
-
-
-
+//アレイリストをアダプターにセットし、それをリストビューに表示する
+        zenkoku_list = (ListView) findViewById(R.id.zenkoku_list);
+        zenkokuAdapter = new ZenkokuAdapter(ZenkokuEvent.getInstance(),memberInfomations,ZenkokuEvent.this);
+        zenkoku_list.setAdapter(zenkokuAdapter);
 
 
 //        zenkoku_list.setLongClickable(true);
@@ -187,75 +172,6 @@ public class ZenkokuEvent extends FragmentActivity {
     }
 
 
-    //リストに使うデータ用クラス
-//    class MyItem {
-//        private String member = null;
-//        private String busuu = null;
-//        private String url = null;
-//        private long id = 0;
-//
-//        public MyItem(String member, String busuu, String url) {
-//            super();
-//            this.member = member;
-//            this.busuu = busuu;
-//            this.url = url;
-//            /*画像に関しても加える*/
-//
-//            this.id = new Date().getTime();
-//        }
-//        public MyItem(String member,String busuu) {
-//            super();
-//            this.member = member;
-//            this.busuu = busuu;
-//            /*画像に関しても加える*/
-//            this.id = new Date().getTime();
-//        }
-//
-//        public String getmember() {
-//            return member;
-//        }
-//        public String geturl() {
-//            return url;
-//        }
-//        public String getbusuu() {
-//            return busuu;
-//        }
-//        public long getId() {
-//            return id;
-//        }
-//
-//    }
-//
-////        データベース処理
-//    class Query {
-//        private String added_url;
-//        void setQuery(String query, ArrayList arr) {
-//            arr.clear();
-//            UserOpenHelper userOpenHelper = new UserOpenHelper(ZenkokuEvent.this);
-//            SQLiteDatabase db = userOpenHelper.getReadableDatabase();
-//            Cursor c = db.rawQuery(query, null);
-//            if (c.moveToFirst()) {
-//                do {
-//                    String added_member = c.getString(c.getColumnIndex(UserContract.Zenkoku.MEMBER));
-//                    String added_busuu = c.getString(c.getColumnIndex(UserContract.Zenkoku.BUSUU));
-//                    if(added_member.equals("未定")) {
-//                        arr.add(new MyItem(added_member,added_busuu));
-//                    /*画像を探す処理も加える*/
-//                    }
-//                    else{
-//                        added_url = zenkokuModel.search_Memberimg(added_member, db);
-//                        arr.add(new MyItem(added_member, added_busuu, added_url));
-//                    }
-//                    sum_busuu += Integer.parseInt(added_busuu);
-//
-//                } while (c.moveToNext());
-//            } else {
-//                Log.v("nanntoka", "nantoka");
-//            }
-//        }
-//
-//
-//    }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode != KeyEvent.KEYCODE_BACK) {
@@ -313,8 +229,6 @@ private void saveData() {
         }
 
     }
-
-
 
 
     public void deleteMember(){
@@ -428,6 +342,7 @@ private void saveData() {
         startActivity(intent3);
     }
 
+//    メンバー登録情報の保持用クラス
     class MemberInfomation {
         private String member = null;
         private String busuu = null;
@@ -450,19 +365,18 @@ private void saveData() {
             /*画像に関しても加える*/
             this.id = new Date().getTime();
         }
-
-//        public String getmember() {
-//            return member;
-//        }
-//        public String geturl() {
-//            return url;
-//        }
-//        public String getbusuu() {
-//            return busuu;
-//        }
-//        public long getId() {
-//            return id;
-//        }
+        public long getId() {
+            return id;
+        }
+        public String getmember() {
+            return member;
+        }
+        public String geturl() {
+            return url;
+        }
+        public String getbusuu() {
+            return busuu;
+        }
 
     }
 }
