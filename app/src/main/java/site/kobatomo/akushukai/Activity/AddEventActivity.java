@@ -7,16 +7,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import site.kobatomo.akushukai.Adapter.AddEventAdapter;
 import site.kobatomo.akushukai.Model.AddEventModel;
 import site.kobatomo.akushukai.R;
 
 
-/*public class MainActivity extends AppCompatActivity implements View.OnClickListener {*/
 public class AddEventActivity extends Activity{
     private EditText ShowDate;
   private String seleceted_type;
@@ -26,6 +27,8 @@ public class AddEventActivity extends Activity{
     private EditText ShowLoc;
     private String selected_loc;
     private static AddEventActivity instance = null;
+    private AddEventModel addEventModel;
+    private ArrayList zenkokuList;
 
 
     public static AddEventActivity getInstance() {
@@ -41,33 +44,36 @@ public class AddEventActivity extends Activity{
         setTitle();
         instance = this;
 
-        AddEventModel addEventModel =new AddEventModel();
+        final AddEventModel addEventModel = new AddEventModel();
+        addEventModel.setOnCallBack(new AddEventModel.CallBackTask(){
+            @Override
+            public void CallBack(String result) {
+                super.CallBack(result);
+                zenkokuList = addEventModel.getZenkokuList();
 
-//        ExecutorService service = Executors.newCachedThreadPool();
-//        Future<String> future = service.submit(addEventModel.execute(););
-//
-
-
-        ArrayList zenkokuList = addEventModel.getZenkokuList();
-
+                ListView list_addevent = findViewById(R.id.list_addevent);
+                AddEventAdapter addEventAdapter = new AddEventAdapter(AddEventActivity.getInstance(),R.layout.list_addevent,zenkokuList);
+                list_addevent.setAdapter(addEventAdapter);
+                Log.i("AsyncTaskCallback", "非同期処理が終了しました。");
+            }
+        });
+        // AsyncTaskの実行
+        addEventModel.execute();
         Log.d("OK","OK");
+
+
     }
 
+    public void onFinished() {
+        Log.v("TAG", "finished");
+    }
 
-//
     private void setTitle() {
         ImageView menu = findViewById(R.id.menu);
         menu.setVisibility(View.GONE);
         TextView package_title = findViewById(R.id.package_title);
         package_title.setText(R.string.package_add);
     }
-
-
-
-
-
-
-
 
 }
 
