@@ -15,6 +15,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import site.kobatomo.akushukai.Member.AddEventMember;
+
 /**
  * Created by tomoya on 2018/05/03.
  */
@@ -78,7 +80,7 @@ public class AddEventModel extends AsyncTask<String, String, String> {
     //        受けとったjsonを加工する
     public void onPostExecute(String result) {
 
-        ArrayList List = new ArrayList();
+        ArrayList members = new ArrayList();
 
         Log.d("onPostExecute", "onPostExecute");
 
@@ -88,20 +90,49 @@ public class AddEventModel extends AsyncTask<String, String, String> {
             Log.d("result", result);
 
             try {
-                JSONArray jsonArray = new JSONArray(result);
+                result = result.trim();
+//                JSONArray jsonArray = new JSONArray(result);
 
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    List.add(jsonObject);
+                JSONObject jsonResponse = new JSONObject(result);
+                Log.d("なんとか","かんとか");
+                JSONArray zenkoku = jsonResponse.getJSONArray("zenkoku");
+                JSONArray kobetsu = jsonResponse.getJSONArray("kobetsu");
+
+//                この時点でjsonからクラスに変換する
+//                日付は逆順にしたい
+
+
+                for (int i = 0; i < zenkoku.length(); i++) {
+
+                    AddEventMember addEventMember = new AddEventMember();
+                    String year = zenkoku.getJSONObject(i).getString("year");
+                    String month = zenkoku.getJSONObject(i).getString("month");
+                    String day = zenkoku.getJSONObject(i).getString("day");
+                    String location = zenkoku.getJSONObject(i).getString("location");
+                    String place = zenkoku.getJSONObject(i).getString("place");
+
+                    addEventMember.setYear(year);
+                    addEventMember.setMonth(month);
+                    addEventMember.setDay(day);
+                    addEventMember.setLocation(location);
+                    addEventMember.setPlace(place);
+
+                    members.add(addEventMember);
+
+                    Log.d("感とか","さんとか");
                 }
 
-                this.zenkokuList.addAll(List);
+//
+//
+//
+//                List.add(jsonResponse);
+                this.zenkokuList.addAll(members);
 
                 Log.d("OK", "OK");
 
 
             } catch (Exception ex) {
-                Log.d("エラー", "エラー");
+                Log.d("エラー", ex.getMessage());
 
 
             }

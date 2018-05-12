@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +54,13 @@ public class AddEventActivity extends Activity{
                 zenkokuList = addEventModel.getZenkokuList();
 
                 ListView list_addevent = findViewById(R.id.list_addevent);
-                AddEventAdapter addEventAdapter = new AddEventAdapter(AddEventActivity.getInstance(),R.layout.list_addevent,zenkokuList);
+                AddEventAdapter addEventAdapter = null;
+
+                try {
+                    addEventAdapter = new AddEventAdapter(AddEventActivity.getInstance(), R.layout.list_addevent,zenkokuList);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 list_addevent.setAdapter(addEventAdapter);
                 Log.i("AsyncTaskCallback", "非同期処理が終了しました。");
             }

@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import site.kobatomo.akushukai.Member.AddEventMember;
 import site.kobatomo.akushukai.R;
 
 /**
@@ -24,14 +25,16 @@ public class AddEventAdapter extends BaseAdapter {
 
     LayoutInflater layoutInflater;
     Context context;
-    ArrayList data;
+    ArrayList<AddEventMember> data;
     Activity activity;
 
-    public AddEventAdapter(Context context, int layout , ArrayList data){
+    public AddEventAdapter(Context context, int layout , ArrayList data) throws JSONException {
         this.context = context;
         this.data = data;
         this.activity = activity;
         layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+
     }
 
 
@@ -69,23 +72,18 @@ public class AddEventAdapter extends BaseAdapter {
             TextView place = convertview.findViewById(R.id.place);
             TextView discription = convertview.findViewById(R.id.discription);
 
-            JSONObject jsonObject = (JSONObject) data.get(position);
             Log.d("なんとか","感とか");
-//            date.setText();
+            String year = data.get(position).getYear();
+            String month = data.get(position).getMonth();
+            String day = data.get(position).getDay();
 
-        try {
-            String year = jsonObject.getString("year");
-            String month = jsonObject.getString("month");
-            String day = jsonObject.getString("day");
             date.setText(year+"/"+month+"/"+day);
-            type.setText(jsonObject.getString("type"));
-            place.setText(jsonObject.getString("place"));
-            discription.setText(jsonObject.getString("cdnum")+jsonObject.getString("cdtitle")
-            );
+//            type.setText(zenkokuArray.getJSONObject(position).getString("type"));
+            place.setText(data.get(position).getPlace());
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            Log.d("なんとか","感とか");
+
+//
 
 //            date.setText("なんとか");
 
