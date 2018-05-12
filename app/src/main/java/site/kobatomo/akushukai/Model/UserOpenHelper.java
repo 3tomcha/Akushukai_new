@@ -12,7 +12,7 @@ import site.kobatomo.akushukai.UserContract;
 public class UserOpenHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "app.db";
-    public static final int DB_VERSION = 85;
+    public static final int DB_VERSION = 86;
     public static final String CREATE_TABLE =
             "create table " + UserContract.Users.TABLE_NAME + " (" +
                     UserContract.Users._ID + " integer primary key, " +
@@ -31,9 +31,9 @@ public class UserOpenHelper extends SQLiteOpenHelper {
 
     public static final String CREATE_TABLE_ZENKOKU =
             "create table " + UserContract.Zenkoku.TABLE_NAME + " (" +
-                    UserContract.Zenkoku._ID + " integer primary key, " +
-                    UserContract.Zenkoku.EVENT_ID + " text," +
+                    UserContract.Zenkoku.EVENT_DATE + " text," +
                     UserContract.Zenkoku.MEMBER + " text," +
+                    UserContract.Zenkoku.LANE + " text," +
                     UserContract.Zenkoku.BUSUU + " text)";
 
     public static final String CREATE_TABLE_MEMBER =

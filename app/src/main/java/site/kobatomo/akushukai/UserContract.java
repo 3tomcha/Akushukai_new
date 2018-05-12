@@ -27,9 +27,11 @@ public final class UserContract {
     }
     public static abstract class Zenkoku implements BaseColumns {
         public static final String TABLE_NAME = "zenkoku";
-        public static final String EVENT_ID = "event_id";
+        public static final String EVENT_DATE = "event_date";
+        public static final String PLACE = "place";
         public static final String MEMBER = "member";
         public static final String BUSUU = "busuu";
+        public static final String LANE = "lane";
     }
     public static abstract class Member implements BaseColumns {
         public static final String TABLE_NAME = "member";

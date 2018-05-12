@@ -241,7 +241,7 @@ private void saveData() {
         SQLiteDatabase db = userOpenHelper.getWritableDatabase();
 
         String sql="delete from "+UserContract.Zenkoku.TABLE_NAME+
-                " where "+UserContract.Zenkoku.EVENT_ID+"="+clicked_id+
+                " where "+UserContract.Zenkoku.EVENT_DATE +"="+clicked_id+
                 " and "+UserContract.Zenkoku.MEMBER+"="+"'"+delete_member+"';";
 
         db.execSQL(sql);

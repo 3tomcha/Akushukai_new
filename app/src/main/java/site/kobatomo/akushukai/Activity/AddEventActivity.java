@@ -19,6 +19,7 @@ import java.util.List;
 
 import site.kobatomo.akushukai.Adapter.AddEventAdapter;
 import site.kobatomo.akushukai.Model.AddEventModel;
+import site.kobatomo.akushukai.Model.ZenkokuAddModel;
 import site.kobatomo.akushukai.R;
 
 
@@ -70,6 +71,13 @@ public class AddEventActivity extends Activity{
                 list_addevent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        TextView date = view.findViewById(R.id.date);
+                        date.getText();
+                        TextView place = view.findViewById(R.id.place);
+                        place.getText();
+
+                        ZenkokuAddModel zenkokuAddModel = new ZenkokuAddModel(AddEventActivity.getInstance());
+                        zenkokuAddModel.insert(date.getText().toString(),place.getText().toString(),"","","");
                         Intent intent = new Intent(AddEventActivity.getInstance(),ZenkokuAddEventActivity.class);
                         startActivity(intent);
                     }

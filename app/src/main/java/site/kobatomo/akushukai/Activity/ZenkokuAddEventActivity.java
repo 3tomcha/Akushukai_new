@@ -167,7 +167,7 @@ public class ZenkokuAddEventActivity extends Activity {
 //
 //        if (selected_member1 != null && switch1.isChecked()) {
 //            ContentValues newEvent = new ContentValues();
-//            newEvent.put(UserContract.Zenkoku.EVENT_ID, clicked_id);
+//            newEvent.put(UserContract.Zenkoku.EVENT_DATE, clicked_id);
 //            newEvent.put(UserContract.Zenkoku.MEMBER, selected_member1);
 //            newEvent.put(UserContract.Zenkoku.BUSUU, current_num);
 //
@@ -181,7 +181,7 @@ public class ZenkokuAddEventActivity extends Activity {
 //
 //        if (selected_member2 != null && switch1.isChecked()) {
 //            ContentValues newEvent = new ContentValues();
-//            newEvent.put(UserContract.Zenkoku.EVENT_ID, clicked_id);
+//            newEvent.put(UserContract.Zenkoku.EVENT_DATE, clicked_id);
 //            newEvent.put(UserContract.Zenkoku.MEMBER, selected_member2);
 //            newEvent.put(UserContract.Zenkoku.BUSUU, current_num);
 //
@@ -193,7 +193,7 @@ public class ZenkokuAddEventActivity extends Activity {
 //        }
 //        if (selected_member3 != null && switch1.isChecked()) {
 //            ContentValues newEvent = new ContentValues();
-//            newEvent.put(UserContract.Zenkoku.EVENT_ID, clicked_id);
+//            newEvent.put(UserContract.Zenkoku.EVENT_DATE, clicked_id);
 //            newEvent.put(UserContract.Zenkoku.MEMBER, selected_member3);
 //
 //            newEvent.put(UserContract.Zenkoku.BUSUU, current_num);
@@ -206,7 +206,7 @@ public class ZenkokuAddEventActivity extends Activity {
 //        }
 //        if (selected_member4 != null && switch1.isChecked()) {
 //            ContentValues newEvent = new ContentValues();
-//            newEvent.put(UserContract.Zenkoku.EVENT_ID, clicked_id);
+//            newEvent.put(UserContract.Zenkoku.EVENT_DATE, clicked_id);
 //            newEvent.put(UserContract.Zenkoku.MEMBER, selected_member4);
 //
 //            newEvent.put(UserContract.Zenkoku.BUSUU, current_num);
@@ -219,7 +219,7 @@ public class ZenkokuAddEventActivity extends Activity {
 //        }
 //        if (!switch1.isChecked()){
 //            ContentValues newEvent = new ContentValues();
-//            newEvent.put(UserContract.Zenkoku.EVENT_ID, clicked_id);
+//            newEvent.put(UserContract.Zenkoku.EVENT_DATE, clicked_id);
 //            newEvent.put(UserContract.Zenkoku.MEMBER, "未定");
 //            newEvent.put(UserContract.Zenkoku.BUSUU, current_num);
 //

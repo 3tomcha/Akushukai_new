@@ -81,13 +81,13 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/discription"
-                    android:text="6thシングル『ガラスを割れ!』発売記念 全国握手会"
-                    android:layout_gravity="center"
-                    android:textSize="12sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <!--<TextView-->
+                    <!--android:id="@+id/discription"-->
+                    <!--android:text="6thシングル『ガラスを割れ!』発売記念 全国握手会"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content" />-->
 
             </LinearLayout>
         </LinearLayout>

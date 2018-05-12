@@ -30,7 +30,7 @@ public class ZenkokuModel {
     public void delete(String index){
         UserOpenHelper userOpenHelper = new UserOpenHelper(context);
         SQLiteDatabase db = userOpenHelper.getWritableDatabase();
-        String DELETE_EVENT = "DELETE FROM "+ UserContract.Zenkoku.TABLE_NAME+" where "+UserContract.Zenkoku.EVENT_ID+"="+index;
+        String DELETE_EVENT = "DELETE FROM "+ UserContract.Zenkoku.TABLE_NAME+" where "+UserContract.Zenkoku.EVENT_DATE +"="+index;
         db.execSQL(DELETE_EVENT);
     }
 
@@ -39,7 +39,7 @@ public class ZenkokuModel {
         SQLiteDatabase db = userOpenHelper.getWritableDatabase();
         String query1 = "update "+ UserContract.Zenkoku.TABLE_NAME
                 +" set " + UserContract.Zenkoku.BUSUU+" = '"+busuu
-                + "' where " + UserContract.Zenkoku.EVENT_ID + " = '"+clicked_id+"' and "+UserContract.Zenkoku.MEMBER+ " = '"+member_zenkoku+"';";
+                + "' where " + UserContract.Zenkoku.EVENT_DATE + " = '"+clicked_id+"' and "+UserContract.Zenkoku.MEMBER+ " = '"+member_zenkoku+"';";
         db.execSQL(query1);
     }
 
@@ -64,7 +64,7 @@ public class ZenkokuModel {
     public Cursor searchMemberInfomation(String clicked_id){
             UserOpenHelper userOpenHelper = new UserOpenHelper(context);
             SQLiteDatabase db = userOpenHelper.getReadableDatabase();
-            String SEARCH = "select * from " + UserContract.Zenkoku.TABLE_NAME + " where " + UserContract.Zenkoku.EVENT_ID + " = " + clicked_id;
+            String SEARCH = "select * from " + UserContract.Zenkoku.TABLE_NAME + " where " + UserContract.Zenkoku.EVENT_DATE + " = " + clicked_id;
             Cursor cursor = db.rawQuery(SEARCH,null);
             return cursor;
     }

@@ -70,7 +70,6 @@ public class AddEventAdapter extends BaseAdapter {
             TextView date = convertview.findViewById(R.id.date);
             TextView type = convertview.findViewById(R.id.type);
             TextView place = convertview.findViewById(R.id.place);
-            TextView discription = convertview.findViewById(R.id.discription);
 
             Log.d("なんとか","感とか");
             String year = data.get(position).getYear();
