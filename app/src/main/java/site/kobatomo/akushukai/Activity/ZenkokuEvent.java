@@ -33,7 +33,6 @@ import site.kobatomo.akushukai.R;
 import site.kobatomo.akushukai.TestDialogFragment;
 //import site.kobatomo.akushukai.UpdateEvent;
 import site.kobatomo.akushukai.UserContract;
-import site.kobatomo.akushukai.ZenkokuAddEvent;
 
 /**
  * Created by tomoya on 2017/11/28.
@@ -113,7 +112,7 @@ public class ZenkokuEvent extends FragmentActivity {
         FloatingActionButton addEvent = findViewById(R.id.addEvent);
         addEvent.setOnClickListener(new View.OnClickListener() {
                                         public void onClick(View v) {
-                                            Intent intent2 = new Intent(ZenkokuEvent.getInstance(), ZenkokuAddEvent.class);
+                                            Intent intent2 = new Intent(ZenkokuEvent.getInstance(), ZenkokuAddEventActivity.class);
                                             intent2.putExtra("clicked_id", clicked_id);
                                             saveData();
                                             startActivity(intent2);
@@ -125,7 +124,7 @@ public class ZenkokuEvent extends FragmentActivity {
 
         et_zenkoku_event.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    Intent intent2 = new Intent(ZenkokuEvent.getInstance(), ZenkokuAddEvent.class);
+                    Intent intent2 = new Intent(ZenkokuEvent.getInstance(), ZenkokuAddEventActivity.class);
                     intent2.putExtra("clicked_id", clicked_id);
                     saveData();
                     startActivity(intent2);
@@ -320,7 +319,7 @@ private void saveData() {
 //                        startActivity(intent1);
                         break;
                     case R.id. kobetsuaddEvent:
-                        Intent intent2 =new Intent(ZenkokuEvent.this,ZenkokuAddEvent.class);
+                        Intent intent2 =new Intent(ZenkokuEvent.this,ZenkokuAddEventActivity.class);
                         intent2.putExtra("clicked_id", clicked_id);
                         startActivity(intent2);
                         break;

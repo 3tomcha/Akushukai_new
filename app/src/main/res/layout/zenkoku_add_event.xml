@@ -12,6 +12,26 @@
     <LinearLayout
         style="@style/Inner_addInner">
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10sp"
+            android:orientation="horizontal">
+            <site.kobatomo.akushukai.CustomTextView
+                android:text="@string/icon_busuu"
+                style="@style/custom_textview"
+                android:textSize="30sp"
+                />
+
+            <TextView
+                android:text="レーン"
+                style="@style/textview"/>
+
+        </LinearLayout>
+
+
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -99,7 +119,10 @@
 
 
 
-    </LinearLayout>
+
+
+
+
 
     <LinearLayout
         android:id="@+id/buttonadd"
@@ -145,4 +168,5 @@
 
 
 
+</LinearLayout>
 </LinearLayout>
