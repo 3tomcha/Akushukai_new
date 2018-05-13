@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import site.kobatomo.akushukai.Adapter.AddEventAdapter;
+import site.kobatomo.akushukai.Member.AddEventMember;
 import site.kobatomo.akushukai.Model.AddEventModel;
-import site.kobatomo.akushukai.Model.ZenkokuAddModel;
 import site.kobatomo.akushukai.R;
 
 
@@ -34,6 +34,7 @@ public class AddEventActivity extends Activity{
     private static AddEventActivity instance = null;
     private AddEventModel addEventModel;
     private ArrayList zenkokuList;
+    private AddEventAdapter addEventAdapter;
 
 
     public static AddEventActivity getInstance() {
@@ -57,7 +58,7 @@ public class AddEventActivity extends Activity{
                 zenkokuList = addEventModel.getZenkokuList();
 
                 ListView list_addevent = findViewById(R.id.list_addevent);
-                AddEventAdapter addEventAdapter = null;
+                addEventAdapter = null;
 
                 try {
                     addEventAdapter = new AddEventAdapter(AddEventActivity.getInstance(), R.layout.list_addevent,zenkokuList);
@@ -71,14 +72,15 @@ public class AddEventActivity extends Activity{
                 list_addevent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        TextView date = view.findViewById(R.id.date);
-                        date.getText();
-                        TextView place = view.findViewById(R.id.place);
-                        place.getText();
+//                        TextView date = view.findViewById(R.id.date);
+//                        date.getText();
+//                        TextView place = view.findViewById(R.id.place);
+//                        place.getText();
 
-                        ZenkokuAddModel zenkokuAddModel = new ZenkokuAddModel(AddEventActivity.getInstance());
-                        zenkokuAddModel.insert(date.getText().toString(),place.getText().toString(),"","","");
+                        AddEventMember intentArray =(AddEventMember) addEventAdapter.getItem(position);
+
                         Intent intent = new Intent(AddEventActivity.getInstance(),ZenkokuAddEventActivity.class);
+                        intent.putExtra("intentArray", intentArray);
                         startActivity(intent);
                     }
                 });

@@ -19,29 +19,41 @@ public class ZenkokuModel {
     }
 
 
-    public Cursor getall(String index){
+//    public Cursor getall(String index){
+//        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
+//        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
+//        String query6 = "select * from " + UserContract.Users.TABLE_NAME + " where " + UserContract.Users._ID + "=" + index;
+//        Cursor cursor6 = db.rawQuery(query6, null);
+//        return cursor6;
+//    }
+
+//    日付でサーチする仕組みにする
+    public Cursor getall(String year, String month, String day){
+
         UserOpenHelper userOpenHelper = new UserOpenHelper(context);
         SQLiteDatabase db = userOpenHelper.getWritableDatabase();
-        String query6 = "select * from " + UserContract.Users.TABLE_NAME + " where " + UserContract.Users._ID + "=" + index;
-        Cursor cursor6 = db.rawQuery(query6, null);
-        return cursor6;
+//        String query = "select * from " + UserContract.Zenkoku.TABLE_NAME + " where " + UserContract.Zenkoku.YEAR + " = " + year+" and "
+//                +UserContract.Zenkoku.MONTH+" = "+month+" and "+UserContract.Zenkoku.DAY+" = "+day;
+        String query = "select * from "+UserContract.Zenkoku.TABLE_NAME+";";
+        Cursor cursor = db.rawQuery(query, null);
+        return cursor;
     }
 
-    public void delete(String index){
-        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
-        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
-        String DELETE_EVENT = "DELETE FROM "+ UserContract.Zenkoku.TABLE_NAME+" where "+UserContract.Zenkoku.EVENT_DATE +"="+index;
-        db.execSQL(DELETE_EVENT);
-    }
+//    public void delete(String index){
+//        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
+//        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
+//        String DELETE_EVENT = "DELETE FROM "+ UserContract.Zenkoku.TABLE_NAME+" where "+UserContract.Zenkoku.EVENT_DATE +"="+index;
+//        db.execSQL(DELETE_EVENT);
+//    }
 
-    public void update(String busuu,String clicked_id,String member_zenkoku){
-        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
-        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
-        String query1 = "update "+ UserContract.Zenkoku.TABLE_NAME
-                +" set " + UserContract.Zenkoku.BUSUU+" = '"+busuu
-                + "' where " + UserContract.Zenkoku.EVENT_DATE + " = '"+clicked_id+"' and "+UserContract.Zenkoku.MEMBER+ " = '"+member_zenkoku+"';";
-        db.execSQL(query1);
-    }
+//    public void update(String busuu,String clicked_id,String member_zenkoku){
+//        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
+//        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
+//        String query1 = "update "+ UserContract.Zenkoku.TABLE_NAME
+//                +" set " + UserContract.Zenkoku.BUSUU+" = '"+busuu
+//                + "' where " + UserContract.Zenkoku.EVENT_DATE + " = '"+clicked_id+"' and "+UserContract.Zenkoku.MEMBER+ " = '"+member_zenkoku+"';";
+//        db.execSQL(query1);
+//    }
 
     public String search_Memberimg(String member) {
         UserOpenHelper userOpenHelper = new UserOpenHelper(context);
@@ -61,13 +73,13 @@ public class ZenkokuModel {
         }
     }
 
-    public Cursor searchMemberInfomation(String clicked_id){
-            UserOpenHelper userOpenHelper = new UserOpenHelper(context);
-            SQLiteDatabase db = userOpenHelper.getReadableDatabase();
-            String SEARCH = "select * from " + UserContract.Zenkoku.TABLE_NAME + " where " + UserContract.Zenkoku.EVENT_DATE + " = " + clicked_id;
-            Cursor cursor = db.rawQuery(SEARCH,null);
-            return cursor;
-    }
+//    public Cursor searchMemberInfomation(String clicked_id){
+//            UserOpenHelper userOpenHelper = new UserOpenHelper(context);
+//            SQLiteDatabase db = userOpenHelper.getReadableDatabase();
+//            String SEARCH = "select * from " + UserContract.Zenkoku.TABLE_NAME + " where " + UserContract.Zenkoku.EVENT_DATE + " = " + clicked_id;
+//            Cursor cursor = db.rawQuery(SEARCH,null);
+//            return cursor;
+//    }
 
 
 //アレイリストに、データベースから取得したものを加えていく

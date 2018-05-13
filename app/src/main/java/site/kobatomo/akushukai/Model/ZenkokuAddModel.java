@@ -15,11 +15,12 @@ public class ZenkokuAddModel {
     public ZenkokuAddModel(Context context){
         this.context=context;
     }
-    public void insert(String event_date, String place , String lane, String member, String bussu){
+    public void insert(String year,String month,String day, String place , String lane, String member, String bussu){
         UserOpenHelper userOpenHelper = new UserOpenHelper(context);
         SQLiteDatabase db = userOpenHelper.getWritableDatabase();
-        String query6 = "insert into zenkoku "+ "("+UserContract.Zenkoku.EVENT_DATE +","+UserContract.Zenkoku.PLACE+","+UserContract.Zenkoku.LANE+","+UserContract.Zenkoku.MEMBER+"," +UserContract.Zenkoku.BUSUU+")"+" values ("+event_date
-        +","+place+","+lane+","+member+","+bussu+")";
+        String query = "insert into "+UserContract.Zenkoku.TABLE_NAME+ " ("+UserContract.Zenkoku.YEAR +","+UserContract.Zenkoku.MONTH +","+UserContract.Zenkoku.DAY +","+UserContract.Zenkoku.PLACE+","+UserContract.Zenkoku.LANE+","+UserContract.Zenkoku.MEMBER+"," +UserContract.Zenkoku.BUSUU+")"+" values ("
+        +"'"+year+"'"+","+"'"+month+"'"+","+"'"+day+"'"+","+"'"+place+"'"+","+"'"+lane+"'"+","+"'"+member+"'"+","+"'"+bussu+"'"+");";
+        db.execSQL(query);
     }
 
 

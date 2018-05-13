@@ -27,7 +27,9 @@ public final class UserContract {
     }
     public static abstract class Zenkoku implements BaseColumns {
         public static final String TABLE_NAME = "zenkoku";
-        public static final String EVENT_DATE = "event_date";
+        public static final String YEAR = "year";
+        public static final String MONTH = "month";
+        public static final String DAY = "day";
         public static final String PLACE = "place";
         public static final String MEMBER = "member";
         public static final String BUSUU = "busuu";

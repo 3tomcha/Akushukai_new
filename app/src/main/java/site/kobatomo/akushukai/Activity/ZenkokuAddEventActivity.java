@@ -2,7 +2,9 @@ package site.kobatomo.akushukai.Activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +12,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.io.Serializable;
+
+import site.kobatomo.akushukai.Member.AddEventMember;
+import site.kobatomo.akushukai.Model.ZenkokuAddModel;
 import site.kobatomo.akushukai.R;
 
 
@@ -28,11 +35,19 @@ public class ZenkokuAddEventActivity extends Activity {
     private Button member2;
     private Button member3;
     private Button member4;
+    private int current_num;
+    private static ZenkokuAddEventActivity instance = null;
+
+
+    public static ZenkokuAddEventActivity getInstance() {
+        return instance;
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.zenkoku_add_event);
 
+        instance = this;
         member1 = findViewById(R.id.member1);
         member2 = findViewById(R.id.member2);
         member3 = findViewById(R.id.member3);
@@ -56,6 +71,40 @@ public class ZenkokuAddEventActivity extends Activity {
                 }
             }
         });
+
+        //チケットの増減処理
+        View plusTicket = findViewById(R.id.plus_ticket_zenkoku);
+        View minusTicket = findViewById(R.id.minus_ticket_zenkoku);
+        plusTicket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ticketCount();
+            }
+        });
+        minusTicket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ticketCount();
+            }
+        });
+
+        Button insertButton = findViewById(R.id.insertButton);
+        insertButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                デートとプレイスをaddEventから持ってくる必要あり
+                Intent intent = getIntent();
+                Serializable eventDate = intent.getSerializableExtra("intentArray");
+                Log.d("a","b");
+                AddEventMember Date = (AddEventMember) eventDate;
+                ZenkokuAddModel zenkokuAddModel = new ZenkokuAddModel(AddEventActivity.getInstance());
+                zenkokuAddModel.insert(Date.getYear(),Date.getMonth(),Date.getDay(),Date.getPlace(),"2","3",String.valueOf(current_num));
+
+                Intent newintent = new Intent(ZenkokuAddEventActivity.getInstance(),ZenkokuEvent.class);
+                newintent.putExtra("intentDate",eventDate);
+                startActivity(newintent);
+            }
+        });
     }
 
     private void memberSetVisible() {
@@ -70,6 +119,28 @@ public class ZenkokuAddEventActivity extends Activity {
         member2.setVisibility(View.GONE);
         member3.setVisibility(View.GONE);
         member4.setVisibility(View.GONE);
+    }
+
+    private void ticketCount(){
+        final TextView count = (TextView) findViewById(R.id.count);
+        ImageView plus = findViewById(R.id.plus);
+        plus.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                current_num += 1;
+                count.setText(String.valueOf(current_num));
+            }
+        });
+
+        ImageView minus = findViewById(R.id.minus);
+        minus.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(current_num>0) {
+                    current_num -= 1;
+                    count.setText(String.valueOf(current_num));
+                }
+            }
+        });
+
     }
 
 //メンバーボタンクリック時のダイアログ処理
@@ -265,27 +336,7 @@ public class ZenkokuAddEventActivity extends Activity {
 //
 //
 //
-//    private void ticketCount(){
-//        count = (TextView) findViewById(R.id.count);
-//        ImageView plus = findViewById(R.id.plus);
-//        plus.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                current_num += 1;
-//                count.setText(String.valueOf(current_num));
-//            }
-//        });
 //
-//        ImageView minus = findViewById(R.id.minus);
-//        minus.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                if(current_num>0) {
-//                    current_num -= 1;
-//                    count.setText(String.valueOf(current_num));
-//                }
-//            }
-//        });
-//
-//    }
 //
 //    }
 

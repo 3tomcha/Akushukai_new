@@ -1,10 +1,12 @@
 package site.kobatomo.akushukai.Member;
 
+import java.io.Serializable;
+
 /**
  * Created by tomoya on 2018/05/12.
  */
 
-public class AddEventMember {
+public class AddEventMember implements Serializable {
     private String year;
     private String month;
     private String day;
