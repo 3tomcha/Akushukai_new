@@ -13,6 +13,16 @@ public class AddEventMember implements Serializable {
     private String location;
     private String place;
 
+    public String getBusuu() {
+        return busuu;
+    }
+
+    public void setBusuu(String busuu) {
+        this.busuu = busuu;
+    }
+
+    private String busuu;
+
     public String getYear() {
         return year;
     }

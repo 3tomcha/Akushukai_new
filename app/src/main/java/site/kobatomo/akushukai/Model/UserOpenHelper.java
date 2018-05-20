@@ -12,7 +12,7 @@ import site.kobatomo.akushukai.UserContract;
 public class UserOpenHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "app.db";
-    public static final int DB_VERSION = 92;
+    public static final int DB_VERSION = 98;
     public static final String CREATE_TABLE =
             "create table " + UserContract.Users.TABLE_NAME + " (" +
                     UserContract.Users._ID + " integer primary key, " +
@@ -29,15 +29,35 @@ public class UserOpenHelper extends SQLiteOpenHelper {
                     UserContract.Kobetsu.NANBU + " text," +
                     UserContract.Kobetsu.BUSUU + " text)";
 
+//    public static final String CREATE_TABLE_ZENKOKU =
+//            "create table " + UserContract.Zenkoku.TABLE_NAME + " (" +
+//                    UserContract.Zenkoku.YEAR + " text," +
+//                    UserContract.Zenkoku.MONTH + " text," +
+//                    UserContract.Zenkoku.DAY + " text," +
+//                    UserContract.Zenkoku.PLACE + " text," +
+//                    UserContract.Zenkoku.MEMBER + " text," +
+//                    UserContract.Zenkoku.LANE + " text," +
+//                    UserContract.Zenkoku.BUSUU + " text)";
+
+
     public static final String CREATE_TABLE_ZENKOKU =
             "create table " + UserContract.Zenkoku.TABLE_NAME + " (" +
+//             ZENKOKUMEMBERテーブルと紐付けるID
+                    UserContract.Zenkoku.EVENT_ID + " text," +
                     UserContract.Zenkoku.YEAR + " text," +
                     UserContract.Zenkoku.MONTH + " text," +
                     UserContract.Zenkoku.DAY + " text," +
-                    UserContract.Zenkoku.PLACE + " text," +
-                    UserContract.Zenkoku.MEMBER + " text," +
-                    UserContract.Zenkoku.LANE + " text," +
-                    UserContract.Zenkoku.BUSUU + " text)";
+                    UserContract.Zenkoku.PLACE + " text)";
+
+
+    public static final String CREATE_TABLE_ZENKOKU_MEMBER =
+//            ZENKOKUテーブルと紐付けるID
+            "create table " + UserContract.ZenkokuMember.TABLE_NAME + " (" +
+                    UserContract.ZenkokuMember.EVENT_ID+" text," +
+                    UserContract.ZenkokuMember.MEMBER + " text," +
+                    UserContract.ZenkokuMember.LANE + " text," +
+                    UserContract.ZenkokuMember.BUSUU + " text)";
+
 
     public static final String CREATE_TABLE_MEMBER =
             "create table " + UserContract.Member.TABLE_NAME + " (" +
@@ -100,6 +120,8 @@ public class UserOpenHelper extends SQLiteOpenHelper {
             "drop table if exists zenkoku";
     public static final String DROP_TABLE_MEMBER =
             "drop table if exists "+UserContract.Member.TABLE_NAME;
+    public static final String DROP_TABLE_ZENKOKU_MEMBER =
+            "drop table if exists "+UserContract.ZenkokuMember.TABLE_NAME;
 
 
     /*public static final String UPDATE_ID ="ALTER TABLE users AUTO_INCREMENT = 1;";*/
@@ -115,6 +137,7 @@ public class UserOpenHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_TABLE);
         sqLiteDatabase.execSQL(CREATE_TABLE_KOBETSU);
         sqLiteDatabase.execSQL(CREATE_TABLE_ZENKOKU);
+        sqLiteDatabase.execSQL(CREATE_TABLE_ZENKOKU_MEMBER);
         sqLiteDatabase.execSQL(CREATE_TABLE_MEMBER);
         sqLiteDatabase.execSQL(INSERT_TABLE_MEMBER);
 //        sqLiteDatabase.execSQL(INIT_TABLE_MEMBER);
@@ -130,6 +153,8 @@ public class UserOpenHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(DROP_TABLE_KOBETSU);
         sqLiteDatabase.execSQL(DROP_TABLE_ZENKOKU);
         sqLiteDatabase.execSQL(DROP_TABLE_MEMBER);
+        sqLiteDatabase.execSQL(DROP_TABLE_ZENKOKU_MEMBER);
+
         // onCreate
         onCreate(sqLiteDatabase);
     }

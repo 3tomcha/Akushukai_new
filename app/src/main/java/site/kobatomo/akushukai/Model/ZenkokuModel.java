@@ -28,6 +28,7 @@ public class ZenkokuModel {
 //    }
 
 //    日付でサーチする仕組みにする
+//    IDも取得できるはず
     public Cursor getall(String year, String month, String day){
 
         UserOpenHelper userOpenHelper = new UserOpenHelper(context);
@@ -73,13 +74,15 @@ public class ZenkokuModel {
         }
     }
 
-//    public Cursor searchMemberInfomation(String clicked_id){
-//            UserOpenHelper userOpenHelper = new UserOpenHelper(context);
-//            SQLiteDatabase db = userOpenHelper.getReadableDatabase();
+    public Cursor searchMemberInfomation(String eventId){
+            UserOpenHelper userOpenHelper = new UserOpenHelper(context);
+            SQLiteDatabase db = userOpenHelper.getReadableDatabase();
 //            String SEARCH = "select * from " + UserContract.Zenkoku.TABLE_NAME + " where " + UserContract.Zenkoku.EVENT_DATE + " = " + clicked_id;
-//            Cursor cursor = db.rawQuery(SEARCH,null);
-//            return cursor;
-//    }
+            String SEARCH = "select * from "+UserContract.ZenkokuMember.TABLE_NAME+ " where "+UserContract.ZenkokuMember.EVENT_ID+" = "+eventId;
+//        もしIDが本当に入っているなら等しいという条件でいけるはず
+            Cursor cursor = db.rawQuery(SEARCH,null);
+            return cursor;
+    }
 
 
 //アレイリストに、データベースから取得したものを加えていく

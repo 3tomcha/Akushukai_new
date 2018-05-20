@@ -79,7 +79,7 @@ public class AddEventActivity extends Activity{
 
                         AddEventMember intentArray =(AddEventMember) addEventAdapter.getItem(position);
 
-                        Intent intent = new Intent(AddEventActivity.getInstance(),ZenkokuAddEventActivity.class);
+                        Intent intent = new Intent(AddEventActivity.getInstance(),ZenkokuAddPreActivity.class);
                         intent.putExtra("intentArray", intentArray);
                         startActivity(intent);
                     }

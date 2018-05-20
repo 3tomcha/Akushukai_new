@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.AddEventActivity" />
+        <activity android:name=".Activity.ZenkokuAddPreActivity" />
         <activity android:name=".UpdateEvent" />
         <activity android:name=".KobetsuEvent" />
         <activity android:name=".KobetsuAddEvent" />
