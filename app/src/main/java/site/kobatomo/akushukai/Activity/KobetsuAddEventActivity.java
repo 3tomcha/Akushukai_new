@@ -63,6 +63,7 @@ public class KobetsuAddEventActivity extends Activity {
     public EditText member2;
     public EditText member3;
     public View convertView;
+    private List urlList;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,9 +101,8 @@ public class KobetsuAddEventActivity extends Activity {
         insertButton.setOnClickListener(new View.OnClickListener() {
                                       @Override
                                       public void onClick(View v) {
-                                          Intent intent = new Intent(KobetsuAddEventActivity.this, KobetsuEvent.class);
 
-                                          KobetsuMember kobetsuMember = new KobetsuMember();
+                                          final KobetsuMember kobetsuMember = new KobetsuMember();
                                           kobetsuMember.setNanbu(radio_value);
 
                                           List templist = new ArrayList();
@@ -111,7 +111,6 @@ public class KobetsuAddEventActivity extends Activity {
 
                                           kobetsuMember.setMaisuu(String.valueOf(current_num));
 
-                                          Serializable eventData = getIntent().getSerializableExtra("intentArray");
 
 
 
@@ -123,11 +122,16 @@ public class KobetsuAddEventActivity extends Activity {
                                               @Override
                                               public void CallBack(String result) {
                                                   super.CallBack(result);
-//                                                  kobetsu
-                                                  //                メンバー名からURLを探す
+//
+                                                  urlList=kobetsuModel.getMemberUrlList(kobetsuMember.getMember());
+                                                  kobetsuMember.setUrl(urlList);
 
+                                                  Intent intent = new Intent(KobetsuAddEventActivity.this, KobetsuEvent.class);
+                                                  Serializable eventData = getIntent().getSerializableExtra("intentArray");
 
-
+                                                  intent.putExtra("kobetsuMember", kobetsuMember);
+                                                  intent.putExtra("eventData", eventData);
+                                                  startActivity(intent);
 
                                               }
                                           });
@@ -139,19 +143,6 @@ public class KobetsuAddEventActivity extends Activity {
 
 
 
-
-
-
-
-
-
-
-
-
-
-                                          intent.putExtra("kobetsuMember", kobetsuMember);
-                                          intent.putExtra("eventData", eventData);
-                                          startActivity(intent);
 
                                       }
                                   });

@@ -88,27 +88,27 @@ public class KobetsuEvent extends FragmentActivity {
         switch (kobetsuMember.getNanbu()) {
             case("1部"):
                 (findViewById(R.id.TV1bu_kobetsu)).setVisibility(View.VISIBLE);
-                list_1bu.setAdapter(new KobetsuAdapter(this, kobetsuMember.getMember()));
+                list_1bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
                 break;
             case("2部"):
                 (findViewById(R.id.TV2bu_kobetsu)).setVisibility(View.VISIBLE);
-                list_2bu.setAdapter(new KobetsuAdapter(this, kobetsuMember.getMember()));
+                list_2bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
                 break;
             case("3部"):
                 (findViewById(R.id.TV3bu_kobetsu)).setVisibility(View.VISIBLE);
-                list_3bu.setAdapter(new KobetsuAdapter(this, kobetsuMember.getMember()));
+                list_3bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
                 break;
             case("4部"):
                 (findViewById(R.id.TV4bu_kobetsu)).setVisibility(View.VISIBLE);
-                list_4bu.setAdapter(new KobetsuAdapter(this, kobetsuMember.getMember()));
+                list_4bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
                 break;
             case("5部"):
                 (findViewById(R.id.TV5bu_kobetsu)).setVisibility(View.VISIBLE);
-                list_5bu.setAdapter(new KobetsuAdapter(this, kobetsuMember.getMember()));
+                list_5bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
                 break;
             case("6部"):
                 (findViewById(R.id.TV6bu_kobetsu)).setVisibility(View.VISIBLE);
-                list_6bu.setAdapter(new KobetsuAdapter(this, kobetsuMember.getMember()));
+                list_6bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
                 break;
 
         }

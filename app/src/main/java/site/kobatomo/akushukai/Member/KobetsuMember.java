@@ -11,6 +11,16 @@ public class KobetsuMember implements Serializable {
     private String nanbu;
     private List member;
     private String maisuu;
+    private List url;
+
+    public List getUrl() {
+        return url;
+    }
+
+    public void setUrl(List url) {
+        this.url = url;
+    }
+
 
     public String getNanbu() {
         return nanbu;

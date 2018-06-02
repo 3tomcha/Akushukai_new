@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
+import com.bumptech.glide.Glide;
 
 import site.kobatomo.akushukai.Member.KobetsuMember;
 import site.kobatomo.akushukai.R;
@@ -18,13 +18,12 @@ import site.kobatomo.akushukai.R;
  */
 
 public class KobetsuAdapter extends BaseAdapter{
-        private List<KobetsuMember> data = null;
         private Context context = null;
         LayoutInflater layoutInflater = null;
+        private KobetsuMember data;
 
 
-
-        public KobetsuAdapter(Context context, List<KobetsuMember> data) {
+    public KobetsuAdapter(Context context, KobetsuMember data) {
             super();
             this.data = data;
             this.context = context;
@@ -33,12 +32,12 @@ public class KobetsuAdapter extends BaseAdapter{
 
         @Override
         public int getCount() {
-            return data.size();
+            return data.getMember().size();
         }
 
         @Override
         public Object getItem(int position) {
-            return data.get(position);
+            return data.getMember().get(position);
         }
 
         @Override
@@ -47,6 +46,9 @@ public class KobetsuAdapter extends BaseAdapter{
             return 0;
         }
 
+        /*
+        KobetsuMemberクラスに挿入したデータを、それぞれ列にあった物で表示する
+         */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
@@ -57,14 +59,12 @@ public class KobetsuAdapter extends BaseAdapter{
             TextView member_kobetsu = (TextView) convertView.findViewById(R.id.member_kobetsu);
             TextView busuu_member = (TextView) convertView.findViewById(R.id.busuu_kobetsu);
 
-//            Glide.with(KobetsuEvent.this).
-//                    load(data.get(position).geturl()).into(icon_member_kobetsu);
-
-//            busuu_member.setText(data.get(position).getbusuu());
-            member_kobetsu.setText((CharSequence) data.get(position));
+            Glide.with(context).
+                    load(data.getUrl().get(position)).into(icon_member_kobetsu);
+            busuu_member.setText(data.getMaisuu());
+            member_kobetsu.setText(data.getMember().get(position).toString());
             return convertView;
         }
-        /*アダプター*/
     }
 
 

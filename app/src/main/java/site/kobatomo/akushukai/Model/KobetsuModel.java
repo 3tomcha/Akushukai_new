@@ -14,7 +14,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,9 +28,14 @@ public class KobetsuModel extends AsyncTask<String, String, String> {
 
     //arraylistを探す処理に書き換える
 
-//    public ArrayList getMemberUrlList() {
-//        return memberUrlMap;
-//    }
+    public List getMemberUrlList(List<String> memberList) {
+        List<String> urlList = new ArrayList<String>();
+
+        for (String mL: memberList) {
+            urlList.add(memberUrlMap.get(mL));
+        }
+        return urlList;
+    }
 
     private Map<String,String> memberUrlMap;
 
