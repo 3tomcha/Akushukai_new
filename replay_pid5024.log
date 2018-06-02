@@ -3497,7 +3497,7 @@ instanceKlass javax/xml/bind/annotation/XmlElementDecl$GLOBAL
 instanceKlass javax/xml/bind/JAXBElement
 instanceKlass com/sun/xml/internal/bind/v2/runtime/reflect/Utils$1
 instanceKlass com/sun/xml/internal/bind/v2/runtime/reflect/Utils
-instanceKlass com/sun/xml/internal/bind/v2/model/core/Adapter
+instanceKlass com/sun/xml/internal/bind/v2/model/core/site.kobatomo.akushukai.Adapter
 instanceKlass javax/xml/bind/annotation/XmlSchemaType$DEFAULT
 instanceKlass javax/xml/bind/annotation/adapters/XmlAdapter
 instanceKlass javax/xml/bind/annotation/adapters/XmlJavaTypeAdapter$DEFAULT

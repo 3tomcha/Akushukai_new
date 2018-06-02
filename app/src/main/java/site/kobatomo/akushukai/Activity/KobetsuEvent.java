@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import site.kobatomo.akushukai.Adapter.KobetsuAdapter;
 import site.kobatomo.akushukai.Member.AddEventMember;
 import site.kobatomo.akushukai.Member.KobetsuMember;
+import site.kobatomo.akushukai.Model.KobetsuModel;
 import site.kobatomo.akushukai.MyItem;
 import site.kobatomo.akushukai.R;
 
@@ -47,11 +49,19 @@ public class KobetsuEvent extends FragmentActivity {
     private int ct=0;
     private DrawerLayout drawer;
     private TextView col_ticket;
+    private static KobetsuEvent instance = null;
+    private AddEventMember eventData;
 
+    public static KobetsuEvent getInstance() {
+        return instance;
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.kobetsu_event);
+
+        instance = this;
+
 
 /*
 前画面からインテントを取得する
@@ -60,7 +70,7 @@ public class KobetsuEvent extends FragmentActivity {
         Serializable temp1 = intent.getSerializableExtra("eventData");
         Serializable temp2 = intent.getSerializableExtra("kobetsuMember");
 
-        AddEventMember eventData = (AddEventMember) temp1;
+        eventData = (AddEventMember) temp1;
         KobetsuMember kobetsuMember = (KobetsuMember) temp2;
 
 //        setTitle();
@@ -117,6 +127,24 @@ public class KobetsuEvent extends FragmentActivity {
         kobetsuMember.getMaisuu();
 
 
+    }
+
+        public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode != KeyEvent.KEYCODE_BACK) {
+            return super.onKeyDown(keyCode, event);
+        } else {
+            Intent intent = new Intent(KobetsuEvent.this, MainActivity.class);
+
+//            データ保存処理
+            KobetsuModel kobetsuModel = new KobetsuModel(KobetsuEvent.getInstance());
+
+//            いや待ってこれだと、編集済みということを考慮できていない。
+            kobetsuModel.insertEvent(eventData.getYear(),eventData.getMonth(),eventData.getDay(),eventData.getPlace());
+
+
+            startActivity(intent);
+            return true;
+        }
     }
 
 
@@ -232,16 +260,16 @@ public class KobetsuEvent extends FragmentActivity {
 //        UserOpenHelper userOpenHelper = new UserOpenHelper(this);
 //        SQLiteDatabase db = userOpenHelper.getReadableDatabase();
 //
-//        String query6 = "select * from " + UserContract.Users.TABLE_NAME + " where " + UserContract.Users._ID + "=" + clicked_id;
+//        String query6 = "select * from " + UserContract.Event.TABLE_NAME + " where " + UserContract.Event._ID + "=" + clicked_id;
 //        Cursor cursor6 = db.rawQuery(query6, null);
 //        if (cursor6.moveToFirst()) {
 //            do {
 //                TextView date_k = findViewById(R.id.date_event);
-//                date_k.setText(cursor6.getString(cursor6.getColumnIndex(UserContract.Users.COL_DATE)));
+//                date_k.setText(cursor6.getString(cursor6.getColumnIndex(UserContract.Event.COL_DATE)));
 //                TextView type_k = findViewById(R.id.type_event);
-//                type_k.setText(cursor6.getString(cursor6.getColumnIndex(UserContract.Users.COL_TYPE)));
+//                type_k.setText(cursor6.getString(cursor6.getColumnIndex(UserContract.Event.COL_TYPE)));
 //                TextView location_k = findViewById(R.id.location_event);
-//                location_k.setText(cursor6.getString(cursor6.getColumnIndex(UserContract.Users.COL_LOC)));
+//                location_k.setText(cursor6.getString(cursor6.getColumnIndex(UserContract.Event.COL_LOC)));
 //                TextView typecolor = findViewById(R.id.typecolor);
 //
 //                if (type_k.getText().equals("全国")) {
@@ -330,16 +358,7 @@ public class KobetsuEvent extends FragmentActivity {
 //        }
 //    }
 
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if (keyCode != KeyEvent.KEYCODE_BACK) {
-//            return super.onKeyDown(keyCode, event);
-//        } else {
-//            Intent intent = new Intent(KobetsuEvent.this, MainActivity.class);
-//            saveDate();
-//            startActivity(intent);
-//            return true;
-//        }
-//    }
+
 //
 //
 //    //    画像読み込み処理
@@ -609,9 +628,9 @@ public class KobetsuEvent extends FragmentActivity {
 //        UserOpenHelper userOpenHelper = new UserOpenHelper(this);
 //        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
 //
-//        String query2 = "update "+ UserContract.Users.TABLE_NAME
-//                +" set " + UserContract.Users.COL_TICKET+" = "+Integer.parseInt(col_ticket.getText().toString())
-//                + " where " + UserContract.Users._ID + " = "+clicked_id+";";
+//        String query2 = "update "+ UserContract.Event.TABLE_NAME
+//                +" set " + UserContract.Event.COL_TICKET+" = "+Integer.parseInt(col_ticket.getText().toString())
+//                + " where " + UserContract.Event._ID + " = "+clicked_id+";";
 //
 //        db.execSQL(query2);
 //
@@ -620,8 +639,8 @@ public class KobetsuEvent extends FragmentActivity {
 //        UserOpenHelper userOpenHelper = new UserOpenHelper(this);
 //        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
 //
-//        String query2 = "delete from "+ UserContract.Users.TABLE_NAME
-//                + " where " + UserContract.Users._ID + " = "+clicked_id+";";
+//        String query2 = "delete from "+ UserContract.Event.TABLE_NAME
+//                + " where " + UserContract.Event._ID + " = "+clicked_id+";";
 //
 //        db.execSQL(query2);
 //

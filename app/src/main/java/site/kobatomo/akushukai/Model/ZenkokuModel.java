@@ -22,7 +22,7 @@ public class ZenkokuModel {
 //    public Cursor getall(String index){
 //        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
 //        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
-//        String query6 = "select * from " + UserContract.Users.TABLE_NAME + " where " + UserContract.Users._ID + "=" + index;
+//        String query6 = "select * from " + UserContract.Event.TABLE_NAME + " where " + UserContract.Event._ID + "=" + index;
 //        Cursor cursor6 = db.rawQuery(query6, null);
 //        return cursor6;
 //    }

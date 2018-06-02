@@ -3208,7 +3208,7 @@ instanceKlass javax/xml/bind/annotation/adapters/XmlJavaTypeAdapters
 instanceKlass com/sun/xml/internal/bind/annotation/XmlLocation
 instanceKlass com/sun/xml/internal/bind/v2/runtime/reflect/Utils$1
 instanceKlass com/sun/xml/internal/bind/v2/runtime/reflect/Utils
-instanceKlass com/sun/xml/internal/bind/v2/model/core/Adapter
+instanceKlass com/sun/xml/internal/bind/v2/model/core/site.kobatomo.akushukai.Adapter
 instanceKlass com/sun/xml/internal/bind/v2/model/impl/Util
 instanceKlass com/sun/xml/internal/bind/v2/model/impl/PropertyInfoImpl
 instanceKlass com/sun/xml/internal/bind/v2/model/runtime/RuntimeElementPropertyInfo
@@ -6373,7 +6373,7 @@ instanceKlass org/gradle/internal/Actions
 instanceKlass org/gradle/internal/operations/notify/BuildOperationNotificationBridge$1
 instanceKlass org/gradle/internal/operations/notify/BuildOperationFinishedNotification
 instanceKlass org/gradle/internal/operations/notify/BuildOperationStartedNotification
-instanceKlass org/gradle/internal/operations/notify/BuildOperationNotificationBridge$Adapter
+instanceKlass org/gradle/internal/operations/notify/BuildOperationNotificationBridge$site.kobatomo.akushukai.Adapter
 instanceKlass org/gradle/internal/operations/notify/BuildOperationNotificationBridge$RecordingListener
 instanceKlass org/gradle/internal/operations/notify/BuildOperationNotificationBridge$ReplayAndAttachListener
 instanceKlass org/gradle/internal/operations/notify/BuildOperationNotificationListener

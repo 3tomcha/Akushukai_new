@@ -78,13 +78,13 @@
 //        UserOpenHelper userOpenHelper = new UserOpenHelper(this);
 //        SQLiteDatabase db = userOpenHelper.getReadableDatabase();
 //
-//        String query = "select * from " + UserContract.Users.TABLE_NAME + " where " + UserContract.Users._ID +" = " + clicked_id;
+//        String query = "select * from " + UserContract.Event.TABLE_NAME + " where " + UserContract.Event._ID +" = " + clicked_id;
 //
 //        Cursor c = db.rawQuery(query, null);
 //        if (c.moveToFirst()) {
-////            selected_type = c.getString(c.getColumnIndex(UserContract.Users.COL_TYPE));
-//            selected_date=c.getString(c.getColumnIndex(UserContract.Users.COL_DATE));
-//            selected_loc=c.getString(c.getColumnIndex(UserContract.Users.COL_LOC));
+////            selected_type = c.getString(c.getColumnIndex(UserContract.Event.COL_TYPE));
+//            selected_date=c.getString(c.getColumnIndex(UserContract.Event.COL_DATE));
+//            selected_loc=c.getString(c.getColumnIndex(UserContract.Event.COL_LOC));
 //        }
 //
 //        /*日付をセットする*/
@@ -139,10 +139,10 @@
 //            ContentValues newEvent = new ContentValues();
 //
 //            if(update_date!=null) {
-//                newEvent.put(UserContract.Users.COL_DATE, update_date);
+//                newEvent.put(UserContract.Event.COL_DATE, update_date);
 //            }
 //            if(update_loc!=null) {
-//                newEvent.put(UserContract.Users.COL_LOC, update_loc);
+//                newEvent.put(UserContract.Event.COL_LOC, update_loc);
 //            }
 //
 //            if(update_date==null && update_loc==null) {
@@ -150,7 +150,7 @@
 //                startActivity(intent);
 //            }
 //            else{
-//                int update = db.update(UserContract.Users.TABLE_NAME, newEvent, UserContract.Users._ID + " =? ", new String[]{clicked_id});
+//                int update = db.update(UserContract.Event.TABLE_NAME, newEvent, UserContract.Event._ID + " =? ", new String[]{clicked_id});
 //                Intent intent = new Intent(this, MainActivity.class);
 //                startActivity(intent);
 //            }

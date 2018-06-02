@@ -38,7 +38,7 @@ public class MainModel {
 
     Cursor c = null;
     c = db.query(
-    UserContract.Users.TABLE_NAME,
+    UserContract.Event.TABLE_NAME,
             null, // fields
             null, // where
             null, // where arg
@@ -55,11 +55,11 @@ public class MainModel {
 /*一旦リセットする*/
 
         while (c.moveToNext()) {
-        id.add(c.getInt(c.getColumnIndex(UserContract.Users._ID)));
-        type.add(c.getString(c.getColumnIndex(UserContract.Users.COL_TYPE)));
-        date.add(c.getString(c.getColumnIndex(UserContract.Users.COL_DATE)));
-        location.add(c.getString(c.getColumnIndex(UserContract.Users.COL_LOC)));
-        ticket.add(c.getString(c.getColumnIndex(UserContract.Users.COL_TICKET)));
+        id.add(c.getInt(c.getColumnIndex(UserContract.Event._ID)));
+        type.add(c.getString(c.getColumnIndex(UserContract.Event.COL_TYPE)));
+        date.add(c.getString(c.getColumnIndex(UserContract.Event.COL_DATE)));
+        location.add(c.getString(c.getColumnIndex(UserContract.Event.COL_LOC)));
+        ticket.add(c.getString(c.getColumnIndex(UserContract.Event.COL_TICKET)));
 
     }
     }
@@ -68,7 +68,7 @@ public class MainModel {
         UserOpenHelper userOpenHelper = new UserOpenHelper(context);
         SQLiteDatabase db = userOpenHelper.getWritableDatabase();
 
-        String DELETE_EVENT = "DELETE FROM "+UserContract.Users.TABLE_NAME+" where "+UserContract.Users._ID+"="+index;
+        String DELETE_EVENT = "DELETE FROM "+ UserContract.Event.TABLE_NAME+" where "+ UserContract.Event._ID+"="+index;
         db.execSQL(DELETE_EVENT);
     }
 
@@ -76,9 +76,9 @@ public class MainModel {
         UserOpenHelper userOpenHelper = new UserOpenHelper(context);
         SQLiteDatabase db = userOpenHelper.getWritableDatabase();
 
-        String query = "update "+ UserContract.Users.TABLE_NAME
-            +" set " + UserContract.Users.COL_TICKET+" = "+kari_col_ticlet
-            + " where " + UserContract.Users._ID + " = "+clicked_id+";";
+        String query = "update "+ UserContract.Event.TABLE_NAME
+            +" set " + UserContract.Event.COL_TICKET+" = "+kari_col_ticlet
+            + " where " + UserContract.Event._ID + " = "+clicked_id+";";
         db.execSQL(query);
     }
 

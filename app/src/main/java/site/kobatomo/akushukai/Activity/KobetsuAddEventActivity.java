@@ -29,7 +29,7 @@ import java.util.Collections;
 import java.util.List;
 
 import site.kobatomo.akushukai.Member.KobetsuMember;
-import site.kobatomo.akushukai.Model.KobetsuModel;
+import site.kobatomo.akushukai.Model.KobetsuAsyncModel;
 import site.kobatomo.akushukai.Model.UserOpenHelper;
 import site.kobatomo.akushukai.R;
 import site.kobatomo.akushukai.UserContract;
@@ -117,13 +117,13 @@ public class KobetsuAddEventActivity extends Activity {
 
 
                                           //一緒にURLの取得処理も行う
-                                          final KobetsuModel kobetsuModel = new KobetsuModel();
-                                          kobetsuModel.setOnCallBack(new KobetsuModel.CallBackTask(){
+                                          final KobetsuAsyncModel kobetsuAsyncModel = new KobetsuAsyncModel();
+                                          kobetsuAsyncModel.setOnCallBack(new KobetsuAsyncModel.CallBackTask(){
                                               @Override
                                               public void CallBack(String result) {
                                                   super.CallBack(result);
 //
-                                                  urlList=kobetsuModel.getMemberUrlList(kobetsuMember.getMember());
+                                                  urlList= kobetsuAsyncModel.getMemberUrlList(kobetsuMember.getMember());
                                                   kobetsuMember.setUrl(urlList);
 
                                                   Intent intent = new Intent(KobetsuAddEventActivity.this, KobetsuEvent.class);
@@ -137,7 +137,7 @@ public class KobetsuAddEventActivity extends Activity {
                                           });
 
                                           // AsyncTaskの実行
-                                          kobetsuModel.execute();
+                                          kobetsuAsyncModel.execute();
                                           Log.d("OK","OK");
 
 

@@ -9,18 +9,23 @@ public final class UserContract {
 
     public UserContract() {}
 
-    public static abstract class Users implements BaseColumns { // _id
+    public static abstract class Event implements BaseColumns { // _id
         public static final String TABLE_NAME = "event";
+        public static final String EVENT_ID = "eventid";
         public static final String COL_TYPE = "type";
         public static final String COL_DATE = "date";
         public static final String COL_LOC = "location";
         public static final String COL_TICKET = "ticket";
+        public static final String YEAR = "year";
+        public static final String MONTH = "month";
+        public static final String DAY = "day";
+        public static final String PLACE = "place";
 
     }
 
     public static abstract class Kobetsu implements BaseColumns {
         public static final String TABLE_NAME = "kobetsu";
-        public static final String EVENT_ID = "event_id";
+        public static final String EVENT_ID = "eventid";
         public static final String MEMBER = "member";
         public static final String NANBU = "nanbu";
         public static final String BUSUU = "busuu";
