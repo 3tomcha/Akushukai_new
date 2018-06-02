@@ -21,15 +21,21 @@ import site.kobatomo.akushukai.Member.AddEventMember;
  * Created by tomoya on 2018/05/03.
  */
 
+
+/*
+イベント追加の際にリスト表示するためのデータを
+API経由で取得するためのクラス
+ */
+
 public class AddEventModel extends AsyncTask<String, String, String> {
 
     private CallBackTask callbacktask;
 
-    public ArrayList getZenkokuList() {
-        return zenkokuList;
+    public ArrayList getEventList() {
+        return eventList;
     }
 
-    private ArrayList zenkokuList = new ArrayList();
+    private ArrayList eventList = new ArrayList();
     //        APIに接続し、レスポンスを得る
 
     @Override
@@ -102,15 +108,19 @@ public class AddEventModel extends AsyncTask<String, String, String> {
 //                日付は逆順にしたい
 
 
-                for (int i = 0; i < zenkoku.length(); i++) {
+                for (int i = 0; i < kobetsu.length(); i++) {
 
                     AddEventMember addEventMember = new AddEventMember();
-                    String year = zenkoku.getJSONObject(i).getString("year");
-                    String month = zenkoku.getJSONObject(i).getString("month");
-                    String day = zenkoku.getJSONObject(i).getString("day");
-                    String location = zenkoku.getJSONObject(i).getString("location");
-                    String place = zenkoku.getJSONObject(i).getString("place");
 
+//                    タイプも判別できるようにしたい
+                    String type = "全国";
+                    String year = kobetsu.getJSONObject(i).getString("year");
+                    String month = kobetsu.getJSONObject(i).getString("month");
+                    String day = kobetsu.getJSONObject(i).getString("day");
+                    String location = kobetsu.getJSONObject(i).getString("location");
+                    String place = kobetsu.getJSONObject(i).getString("place");
+
+                    addEventMember.setType(type);
                     addEventMember.setYear(year);
                     addEventMember.setMonth(month);
                     addEventMember.setDay(day);
@@ -122,11 +132,40 @@ public class AddEventModel extends AsyncTask<String, String, String> {
                     Log.d("感とか","さんとか");
                 }
 
+                for (int i = 0; i < kobetsu.length(); i++) {
+
+                    AddEventMember addEventMember = new AddEventMember();
+
+//                    タイプも判別できるようにしたい
+                    String type = "個別";
+                    String year = kobetsu.getJSONObject(i).getString("year");
+                    String month = kobetsu.getJSONObject(i).getString("month");
+                    String day = kobetsu.getJSONObject(i).getString("day");
+                    String location = kobetsu.getJSONObject(i).getString("location");
+                    String place = kobetsu.getJSONObject(i).getString("place");
+
+                    addEventMember.setType(type);
+                    addEventMember.setYear(year);
+                    addEventMember.setMonth(month);
+                    addEventMember.setDay(day);
+                    addEventMember.setLocation(location);
+                    addEventMember.setPlace(place);
+
+                    members.add(addEventMember);
+
+                    Log.d("感とか","さんとか");
+                }
+
+
+
+
+
+
 //
 //
 //
 //                List.add(jsonResponse);
-                this.zenkokuList.addAll(members);
+                this.eventList.addAll(members);
 
                 Log.d("OK", "OK");
 

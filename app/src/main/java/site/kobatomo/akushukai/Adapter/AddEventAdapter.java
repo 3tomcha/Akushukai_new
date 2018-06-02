@@ -1,5 +1,6 @@
 package site.kobatomo.akushukai.Adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -57,6 +59,7 @@ public class AddEventAdapter extends BaseAdapter {
         return 0;
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View convertview = convertView;
@@ -70,6 +73,7 @@ public class AddEventAdapter extends BaseAdapter {
             TextView date = convertview.findViewById(R.id.date);
             TextView type = convertview.findViewById(R.id.type);
             TextView place = convertview.findViewById(R.id.place);
+        LinearLayout typecolor = convertview.findViewById(R.id.typecolor);
 
             Log.d("なんとか","感とか");
             String year = data.get(position).getYear();
@@ -77,7 +81,16 @@ public class AddEventAdapter extends BaseAdapter {
             String day = data.get(position).getDay();
 
             date.setText(year+"/"+month+"/"+day);
-//            type.setText(zenkokuArray.getJSONObject(position).getString("type"));
+            type.setText(data.get(position).getType());
+
+            if(data.get(position).getType().equals("全国")){
+                type.setBackgroundColor(R.color.zenkokucolor);
+                typecolor.setBackgroundColor(R.color.zenkokucolor);
+            }else{
+                type.setBackgroundColor(R.color.kobetsucolor);
+                typecolor.setBackgroundColor(R.color.kobetsucolor);
+            }
+
             place.setText(data.get(position).getPlace());
 
             Log.d("なんとか","感とか");

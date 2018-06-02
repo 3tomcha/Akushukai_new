@@ -40,6 +40,26 @@ public class ZenkokuModel {
         return cursor;
     }
 
+//    public void insertMember(String member,String lane,String busuu){
+//        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
+//        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
+//        try{
+//            ContentValues cv = new ContentValues();
+//            cv.put(UserContract.ZenkokuMember.EVENT_ID,String.valueOf(randomNum));
+//            cv.put(UserContract.ZenkokuMember.MEMBER,member);
+//            cv.put(UserContract.ZenkokuMember.LANE,lane);
+//            cv.put(UserContract.ZenkokuMember.BUSUU,busuu);
+//            db.insert(UserContract.ZenkokuMember.TABLE_NAME,null,cv);
+//        }catch (Exception ex){
+//            Log.d("エラー",ex.getMessage());
+//        }finally {
+//            db.close();
+//        }
+//    }
+
+
+
+
 //    public void delete(String index){
 //        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
 //        SQLiteDatabase db = userOpenHelper.getWritableDatabase();

@@ -8,11 +8,13 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import site.kobatomo.akushukai.Adapter.ZenkokuAdapter;
 import site.kobatomo.akushukai.Member.AddEventMember;
@@ -71,6 +74,8 @@ public class ZenkokuEvent extends FragmentActivity {
     private MainModel mainModel;
     private ZenkokuModel zenkokuModel;
     private String eventId;
+    private RecyclerView.LayoutManager LayoutManager;
+    private RecyclerView recyclerView;
 
 
     public static ZenkokuEvent getInstance() {
@@ -84,19 +89,47 @@ public class ZenkokuEvent extends FragmentActivity {
 
         Intent intent = getIntent();
         Serializable intentDate = intent.getSerializableExtra("intentDate");
-        ArrayList<String> memberData = intent.getStringArrayListExtra("memberData");
+        final List<String> memberData = intent.getStringArrayListExtra("memberData");
 
         final AddEventMember eventDate = (AddEventMember) intentDate;
 
-//        zenkokuModel = new ZenkokuModel(ZenkokuEvent.getInstance());
-//        Cursor cursor;
-//        cursor = zenkokuModel.getall(eventDate.getYear(),eventDate.getMonth(),eventDate.getDay());
-//        Log.d("感とか","さんとか");
+        if(memberData!=null) {
+            recyclerView = findViewById(R.id.recyclerview);
+            recyclerView.setHasFixedSize(true);
+            LayoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(LayoutManager);
+
+            zenkokuAdapter = new ZenkokuAdapter(memberData);
+            recyclerView.setAdapter(zenkokuAdapter);
+        }
+
+        ItemTouchHelper mIth = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP |
+                        ItemTouchHelper.DOWN, ItemTouchHelper.LEFT) {
+                    @Override
+                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                        final int fromPos = viewHolder.getAdapterPosition();
+                        final int toPos = target.getAdapterPosition();
+                        zenkokuAdapter.notifyItemMoved(fromPos,toPos);
+
+                        return true;
+                    }
+
+                    @Override
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                        final int fromPos = viewHolder.getAdapterPosition();
+                        memberData.remove(fromPos);
+                        zenkokuAdapter.notifyItemRemoved(fromPos);
+
+                    }
+                }
+        );
+        mIth.attachToRecyclerView(recyclerView);
 
 
-        zenkoku_list = (ListView) findViewById(R.id.zenkoku_list);
-        zenkokuAdapter = new ZenkokuAdapter(ZenkokuEvent.getInstance(),memberData,ZenkokuEvent.this);
-        zenkoku_list.setAdapter(zenkokuAdapter);
+//        zenkoku_list = (ListView) findViewById(R.id.zenkoku_list);
+//        zenkokuAdapter = new ZenkokuAdapter(memberData);
+//        zenkoku_list.setAdapter(zenkokuAdapter);
 
 
         setTitle();
@@ -263,7 +296,10 @@ public class ZenkokuEvent extends FragmentActivity {
             return super.onKeyDown(keyCode, event);
         } else {
             Intent intent= new Intent(ZenkokuEvent.this,MainActivity.class);
-            saveData();
+//            saveData();
+
+            ZenkokuModel zenkokuModel = new ZenkokuModel(ZenkokuEvent.getInstance());
+
             startActivity(intent);
             return true;
         }
@@ -271,31 +307,31 @@ public class ZenkokuEvent extends FragmentActivity {
 
 
 //    数量を変更した時のデータベース処理
-private void saveData() {
-    String string_member_zenkoku="未定";
-    ListView listview=findViewById(R.id.zenkoku_list);
-    ZenkokuAdapter adapter=(ZenkokuAdapter) listview.getAdapter();
+//private void saveData() {
+//    String string_member_zenkoku="未定";
+//    ListView listview=findViewById(R.id.zenkoku_list);
+//    ZenkokuAdapter adapter=(ZenkokuAdapter) listview.getAdapter();
+//
+//    for (int i=0; i<adapter.getCount(); i++) {
+//        View childlist = listview.getChildAt(i);
+////        TextView member_zenkoku = childlist.findViewById(R.id.member_zenkoku);
+////        TextView busuu_zenkoku = childlist.findViewById(R.id.busuu_zenkoku);
+//
+////        zenkokuModel.update(busuu_zenkoku.getText().toString(),clicked_id,member_zenkoku.getText().toString());
+//        mainModel.update(clicked_id,kari_col_ticket.getText().toString());
+//    }
+//    }
 
-    for (int i=0; i<adapter.getCount(); i++) {
-        View childlist = listview.getChildAt(i);
-//        TextView member_zenkoku = childlist.findViewById(R.id.member_zenkoku);
-//        TextView busuu_zenkoku = childlist.findViewById(R.id.busuu_zenkoku);
-
-//        zenkokuModel.update(busuu_zenkoku.getText().toString(),clicked_id,member_zenkoku.getText().toString());
-        mainModel.update(clicked_id,kari_col_ticket.getText().toString());
-    }
-    }
-
-    public void long_getView(AdapterView<?> arg0, View arg1, int position, long id){
-
-        ListView listview=findViewById(R.id.zenkoku_list);
-        ZenkokuAdapter adapter=(ZenkokuAdapter) listview.getAdapter();
-        View childlist = listview.getChildAt(position);
-//        メンバーを取得する
-        TextView tv_delete_member = (TextView)childlist.findViewById(R.id.member_zenkoku);
-        delete_member=tv_delete_member.getText().toString();
-
-    }
+//    public void long_getView(AdapterView<?> arg0, View arg1, int position, long id){
+//
+//        ListView listview=findViewById(R.id.zenkoku_list);
+//        ZenkokuAdapter adapter=(ZenkokuAdapter) listview.getAdapter();
+//        View childlist = listview.getChildAt(position);
+////        メンバーを取得する
+//        TextView tv_delete_member = (TextView)childlist.findViewById(R.id.member_zenkoku);
+//        delete_member=tv_delete_member.getText().toString();
+//
+//    }
 
 
     public static class ZenkokuDialogFragment extends TestDialogFragment

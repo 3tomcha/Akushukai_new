@@ -35,11 +35,10 @@
         android:id="@+id/wrapper_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <site.kobatomo.akushukai.NonScrollListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/zenkoku_list"
-        android:longClickable="true"></site.kobatomo.akushukai.NonScrollListView>
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recyclerview"></android.support.v7.widget.RecyclerView>
 
 
     </ScrollView>

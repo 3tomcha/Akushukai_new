@@ -81,6 +81,10 @@ public class ZenkokuAddEventActivity extends Activity {
                 String smember3 = member3.getText().toString();
                 String smember4 = member4.getText().toString();
 
+//                画像URL処理
+
+
+
                 int count = Integer.parseInt(((TextView) findViewById(R.id.count)).getText().toString());
 
                 for (int i=0; i<count; i++) {

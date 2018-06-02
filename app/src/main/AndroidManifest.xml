@@ -23,8 +23,8 @@
         <activity android:name=".Activity.AddEventActivity" />
         <activity android:name=".Activity.ZenkokuAddPreActivity" />
         <activity android:name=".UpdateEvent" />
-        <activity android:name=".KobetsuEvent" />
-        <activity android:name=".KobetsuAddEvent" />
+        <activity android:name=".Activity.KobetsuEvent" />
+        <activity android:name=".Activity.KobetsuAddEventActivity" />
         <activity android:name=".Activity.ZenkokuEvent" />
         <activity android:name=".Activity.ZenkokuAddEventActivity" />
         <activity android:name=".MenuEvent" />

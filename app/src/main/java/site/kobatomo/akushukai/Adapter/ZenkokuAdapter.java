@@ -1,19 +1,13 @@
 package site.kobatomo.akushukai.Adapter;
 
-import android.app.Activity;
-import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import site.kobatomo.akushukai.R;
 
@@ -21,148 +15,58 @@ import site.kobatomo.akushukai.R;
  * Created by tomoya on 2018/05/01.
  */
 
-public class ZenkokuAdapter extends BaseAdapter {
-    private ArrayList data = null;
-    private Context context = null;
-    LayoutInflater layoutInflater = null;
-    private ViewHolder vh;
-    private View convertview;
-    private Activity mActivity;
-    private int busuu;
-    private int kari_busuu;
+public class ZenkokuAdapter extends RecyclerView.Adapter<ZenkokuAdapter.ViewHolder>  {
+    private List<String> dataArray;
 
-    class ViewHolder {
-        ImageView icon_member_zenkoku;
-        TextView member_zenkoku;
-        TextView busuu_zenkoku;
-        LinearLayout plus_ticket_zenkoku;
-        LinearLayout minus_ticket_zenkoku;
-    }
+    // Provide a reference to the views for each data item
+    // Complex data items may need more than one view per item, and
+    // you provide access to all the views for a data item in a view holder
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-    public ZenkokuAdapter(Context context, ArrayList data, Activity activity) {
-//            super();
-        this.data = data;
-        this.context = context;
-        layoutInflater = LayoutInflater.from(context);
-        this.mActivity = activity;
-    }
+        // each data item is just a string in this case
+        public TextView member_zenkoku;
 
-    @Override
-    public int getCount() {
-        return data.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return data.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-//        return data.get(position).getId();
-        return 0;
-    }
-
-//    ZenkokuEvent,ZenkokuModelと変数を共通化する
-    public String getBussu(){
-        return String.valueOf(busuu);
-    }
-
-    public String getKaribusuu(){
-        return String.valueOf(kari_busuu);
-    }
-
-
-
-
-    @Override
-    public View getView(final int position, View ConvertView, final ViewGroup parent) {
-        vh = null;
-        convertview = ConvertView;
-
-        if (convertview == null) {
-            convertview = layoutInflater.inflate(R.layout.list_zenkoku_event, parent, false);
-            vh = new ViewHolder();
-
-            vh.icon_member_zenkoku = (ImageView) convertview.findViewById(R.id.icon_member_zenkoku);
-            vh.member_zenkoku = (TextView) convertview.findViewById(R.id.member_zenkoku);
-//            vh.busuu_zenkoku = (TextView) convertview.findViewById(R.id.busuu_zenkoku);
-//            vh.plus_ticket_zenkoku = (LinearLayout) convertview.findViewById(R.id.plus_ticket_zenkoku);
-//            vh.minus_ticket_zenkoku = (LinearLayout) convertview.findViewById(R.id.minus_ticket_zenkoku);
-
-
-            convertview.setTag(vh);
-
-        } else {
-            vh = (ViewHolder) convertview.getTag();
+        public ViewHolder(View v) {
+            super(v);
+            member_zenkoku = (TextView)v.findViewById(R.id.member_zenkoku);
         }
+    }
 
-//        vh.busuu_zenkoku.setText(data.get(position).getbusuu());
+    // Provide a suitable constructor (depends on the kind of dataset)
+    public ZenkokuAdapter(List<String> dataset) {
+        dataArray = dataset;
+        Log.d("感とか","さんとか");
+    }
 
-//        vh.plus_ticket_zenkoku.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                ((ListView) parent).performItemClick(view, position, R.id.plus_ticket_zenkoku);
-//            }
-//        });
-//
-//        vh.minus_ticket_zenkoku.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                ((ListView) parent).performItemClick(view, position, R.id.minus_ticket_zenkoku);
-//            }
-//        });
+    // Create new views (invoked by the layout manager)
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        // create a new view
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.list_zenkoku_event, parent, false);
 
-
-//        if (!TextUtils.isEmpty(data.get(position).geturl())) {
-//            Glide.with(context).
-//                    load(data.get(position).geturl()).into(vh.icon_member_zenkoku);
-//        }
-//        if (!TextUtils.isEmpty(data.get(position).getmember())) {
-//            vh.member_zenkoku.setText(data.get(position).getmember());
-//        }
+        // set the view's size, margins, paddings and layout parameters
 
 
-//   メンバー毎の部数の増減処理
-        final ListView zenkoku_list2 = (ListView) parent.findViewById(R.id.zenkoku_list);
-            zenkoku_list2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                public void onItemClick(AdapterView<?> parent,
-                                        View view, int position, long id) {
+        ViewHolder vh = new ViewHolder(view);
+        return vh;
+    }
 
-//                    ListView list5=findViewById(R.id.zenkoku_list);
-                    View childlist = zenkoku_list2.getChildAt(position);
-//                    TextView busuu_zenkoku=childlist.findViewById(R.id.busuu_zenkoku);
-//
-//                    TextView member_zenkoku=childlist.findViewById(R.id.member_zenkoku);
-//                    String string_member_zenkoku=member_zenkoku.getText().toString();
-//                    busuu=Integer.parseInt(busuu_zenkoku.getText().toString());
+    // Replace the contents of a view (invoked by the layout manager)
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        // - get element from your dataset at this position
+        // - replace the contents of the view with that element
+        holder.member_zenkoku.setText(dataArray.get(position));
+    }
 
-                    TextView kari_col_ticket = mActivity.findViewById(R.id.kari_col_ticket);
-                    kari_busuu = Integer.parseInt(kari_col_ticket.getText().toString());
-
-
-                    switch (view.getId()) {
-                        case R.id.plus_ticket_zenkoku:
-                            busuu++;
-                            kari_busuu++;
-//                            busuu_zenkoku.setText(String.valueOf(busuu));
-                            kari_col_ticket.setText(String.valueOf(kari_busuu));
-
-                            break;
-
-                        case R.id.minus_ticket_zenkoku:
-                            busuu--;
-                            kari_busuu--;
-//                            busuu_zenkoku.setText(String.valueOf(busuu));
-                            kari_col_ticket.setText(String.valueOf(kari_busuu));
-
-                            Log.d("click","遷移先マイナス");
-                            break;
-                    }
-                }
-            });
-        return convertview;
+    // Return the size of your dataset (invoked by the layout manager)
+    @Override
+    public int getItemCount() {
+        return dataArray.size();
     }
 }
+
+
 
 

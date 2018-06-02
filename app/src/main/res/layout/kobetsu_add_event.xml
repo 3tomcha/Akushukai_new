@@ -29,6 +29,7 @@
 
     </LinearLayout>
 
+
 <RadioGroup
     android:id="@+id/more_add_bu"
     android:layout_width="match_parent"
@@ -102,6 +103,7 @@
         android:layout_height="35sp"
         android:textSize="15sp"
         android:layout_marginLeft="5sp"
+        android:layout_marginRight="5sp"
         android:onClick="onRadioButtonClicked"
         android:gravity="center"
         android:background="@drawable/radio_style"
@@ -109,11 +111,27 @@
         android:text="5"
         android:button="@null"
          />
+    <RadioButton
+        android:id="@+id/more_add_radio6"
+        android:layout_width="35sp"
+        android:layout_height="35sp"
+        android:textSize="15sp"
+        android:layout_marginLeft="5sp"
+        android:onClick="onRadioButtonClicked"
+        android:gravity="center"
+        android:background="@drawable/radio_style"
+        android:textColor="@drawable/selector_textcolor_radio_button"
+        android:text="6"
+        android:button="@null"
+        />
 </RadioGroup>
 
         </LinearLayout>
 
-        <LinearLayout
+    </LinearLayout>
+
+
+    <LinearLayout
             style="@style/Inner_addInner"
             >
 
@@ -147,7 +165,7 @@
             android:focusable="false"
             android:textAlignment="center"
             android:textSize="20sp"
-            android:text="石森　虹花"/>
+            android:text="未選択"/>
         <EditText
             android:id="@+id/member2"
             android:layout_width="200sp"
@@ -155,7 +173,7 @@
             android:focusable="false"
             android:textAlignment="center"
             android:textSize="20sp"
-            android:text="石森　虹花"/>
+            android:text="未選択"/>
         <EditText
             android:id="@+id/member3"
             android:layout_width="200sp"
@@ -163,7 +181,7 @@
             android:focusable="false"
             android:textAlignment="center"
             android:textSize="20sp"
-            android:text="石森　虹花"/>
+            android:text="未選択"/>
 
 
 
@@ -216,5 +234,3 @@
 
 </LinearLayout>
 
-
-</LinearLayout>

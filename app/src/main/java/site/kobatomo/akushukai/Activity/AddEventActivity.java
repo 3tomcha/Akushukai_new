@@ -50,12 +50,16 @@ public class AddEventActivity extends Activity{
         setTitle();
         instance = this;
 
+/*
+リスト用のデータ取得処理
+APIの処理手順の関係でコールバックを用いる
+ */
         final AddEventModel addEventModel = new AddEventModel();
         addEventModel.setOnCallBack(new AddEventModel.CallBackTask(){
             @Override
             public void CallBack(String result) {
                 super.CallBack(result);
-                zenkokuList = addEventModel.getZenkokuList();
+                zenkokuList = addEventModel.getEventList();
 
                 ListView list_addevent = findViewById(R.id.list_addevent);
                 addEventAdapter = null;
@@ -68,20 +72,26 @@ public class AddEventActivity extends Activity{
                 list_addevent.setAdapter(addEventAdapter);
                 Log.i("AsyncTaskCallback", "非同期処理が終了しました。");
 
-//                リストビューひとつひとつにクリック処理
+/*
+リストビューひとつひとつにクリック処理をつける
+全国だったら全国の追加処理、個別だったら個別の追加処理にインテント
+「タイプ」「部数」「年」「月」「日」「場所」の情報も送る
+*/
                 list_addevent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                        TextView date = view.findViewById(R.id.date);
-//                        date.getText();
-//                        TextView place = view.findViewById(R.id.place);
-//                        place.getText();
 
-                        AddEventMember intentArray =(AddEventMember) addEventAdapter.getItem(position);
-
-                        Intent intent = new Intent(AddEventActivity.getInstance(),ZenkokuAddPreActivity.class);
-                        intent.putExtra("intentArray", intentArray);
-                        startActivity(intent);
+                        if(((TextView)view.findViewById(R.id.type)).getText().toString().equals("全国")) {
+                            AddEventMember intentArray = (AddEventMember) addEventAdapter.getItem(position);
+                            Intent intent = new Intent(AddEventActivity.getInstance(), ZenkokuAddPreActivity.class);
+                            intent.putExtra("intentArray", intentArray);
+                            startActivity(intent);
+                        }else{
+                            AddEventMember intentArray = (AddEventMember) addEventAdapter.getItem(position);
+                            Intent intent = new Intent(AddEventActivity.getInstance(), KobetsuAddEventActivity.class);
+                            intent.putExtra("intentArray", intentArray);
+                            startActivity(intent);
+                        }
                     }
                 });
             }

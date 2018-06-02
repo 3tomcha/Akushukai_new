@@ -8,23 +8,23 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import site.kobatomo.akushukai.Member.KobetsuMember;
 import site.kobatomo.akushukai.R;
 
 /**
- * Created by tomoya on 2018/05/01.
+ * Created by tomoya on 2018/05/30.
  */
 
-class KobetsuAdapter extends BaseAdapter {
-        private ArrayList<KobetsuMember> data = null;
+public class KobetsuAdapter extends BaseAdapter{
+        private List<KobetsuMember> data = null;
         private Context context = null;
         LayoutInflater layoutInflater = null;
 
 
 
-        public KobetsuAdapter(Context context, ArrayList<KobetsuMember> data) {
+        public KobetsuAdapter(Context context, List<KobetsuMember> data) {
             super();
             this.data = data;
             this.context = context;
@@ -61,7 +61,7 @@ class KobetsuAdapter extends BaseAdapter {
 //                    load(data.get(position).geturl()).into(icon_member_kobetsu);
 
 //            busuu_member.setText(data.get(position).getbusuu());
-//            member_kobetsu.setText(data.get(position).getmember());
+            member_kobetsu.setText((CharSequence) data.get(position));
             return convertView;
         }
         /*アダプター*/

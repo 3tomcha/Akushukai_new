@@ -23,7 +23,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import site.kobatomo.akushukai.KeyakiAdapter;
-import site.kobatomo.akushukai.KobetsuEvent;
 import site.kobatomo.akushukai.MenuEvent;
 import site.kobatomo.akushukai.Model.MainModel;
 import site.kobatomo.akushukai.R;

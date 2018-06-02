@@ -12,6 +12,15 @@ public class AddEventMember implements Serializable {
     private String day;
     private String location;
     private String place;
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getBusuu() {
         return busuu;

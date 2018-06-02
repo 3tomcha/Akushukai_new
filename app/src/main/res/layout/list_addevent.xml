@@ -21,11 +21,11 @@
 
         <LinearLayout
             android:layout_width="10sp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:id="@+id/typecolor">
             <TextView
                 android:layout_width="10sp"
-                android:layout_height="match_parent"
-                android:background="@color/zenkokucolor"/>
+                android:layout_height="match_parent"/>
             <!--全国と個別で色を変える-->
         </LinearLayout>
 
@@ -64,7 +64,6 @@
                         android:padding="3dp"
                         android:textColor="@color/radio_white_color"
                         android:text="全国"
-                        android:background="@color/zenkokucolor"
 
                         />
 

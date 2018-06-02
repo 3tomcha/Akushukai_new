@@ -104,6 +104,17 @@
         android:layout_height="wrap_content"
         android:longClickable="true"
         android:id="@+id/list_5bu"></site.kobatomo.akushukai.NonScrollListView>
+        <TextView
+            android:id="@+id/TV6bu_kobetsu"
+            style="@style/KobetsuTextView"
+            android:text="第６部"
+            android:visibility="gone"
+            />
+        <site.kobatomo.akushukai.NonScrollListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:longClickable="true"
+            android:id="@+id/list_6bu"></site.kobatomo.akushukai.NonScrollListView>
     </LinearLayout>
 </ScrollView>
     </LinearLayout>
