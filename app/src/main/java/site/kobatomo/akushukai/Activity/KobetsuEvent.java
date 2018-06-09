@@ -1,25 +1,23 @@
 package site.kobatomo.akushukai.Activity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import site.kobatomo.akushukai.Adapter.KobetsuAdapter;
-import site.kobatomo.akushukai.Member.AddEventMember;
 import site.kobatomo.akushukai.Member.KobetsuMember;
 import site.kobatomo.akushukai.Model.KobetsuModel;
-import site.kobatomo.akushukai.MyItem;
 import site.kobatomo.akushukai.R;
+import site.kobatomo.akushukai.UserContract;
 
 /**
  * Created by bicpc on 2017/11/10.
@@ -27,30 +25,15 @@ import site.kobatomo.akushukai.R;
 
 public class KobetsuEvent extends FragmentActivity {
 
-    private ImageView menu;
-
-    final int EVENTDIALOG = 1;
-    private static ArrayList<MyItem> arr1 = new ArrayList<MyItem>();
-    private static ArrayList<MyItem> arr2 = new ArrayList<MyItem>();
-    private static ArrayList<MyItem> arr3 = new ArrayList<MyItem>();
-    private static ArrayList<MyItem> arr4 = new ArrayList<MyItem>();
-    private static ArrayList<MyItem> arr5 = new ArrayList<MyItem>();
-    public TextView nanbu = null;
-    private int sum_busuu;
-    private LinearLayout inflateLayout;
     private ListView list_1bu;
     private ListView list_2bu;
     private ListView list_3bu;
     private ListView list_4bu;
     private ListView list_5bu;
     private ListView list_6bu;
-    private String delete_nanbu;
-    private String delete_member;
-    private int ct=0;
-    private DrawerLayout drawer;
-    private TextView col_ticket;
     private static KobetsuEvent instance = null;
-    private AddEventMember eventData;
+    private String nanbu;
+    private String busuu;
 
     public static KobetsuEvent getInstance() {
         return instance;
@@ -62,25 +45,51 @@ public class KobetsuEvent extends FragmentActivity {
 
         instance = this;
 
-
 /*
-前画面からインテントを取得する
+データベースから、イベント情報を取得する
  */
+
         Intent intent = getIntent();
-        Serializable temp1 = intent.getSerializableExtra("eventData");
-        Serializable temp2 = intent.getSerializableExtra("kobetsuMember");
+        int eventId = intent.getIntExtra("eventId", 0);
+        KobetsuModel kobetsuModel = new KobetsuModel(KobetsuEvent.getInstance());
 
-        eventData = (AddEventMember) temp1;
-        KobetsuMember kobetsuMember = (KobetsuMember) temp2;
+        Cursor eventCursor = kobetsuModel.searchEventData(eventId);
+        eventCursor.moveToFirst();
+        String year = eventCursor.getString(eventCursor.getColumnIndex(UserContract.Event.YEAR));
+        String month = eventCursor.getString(eventCursor.getColumnIndex(UserContract.Event.MONTH));
+        String day = eventCursor.getString(eventCursor.getColumnIndex(UserContract.Event.DAY));
+        String type = eventCursor.getString(eventCursor.getColumnIndex(UserContract.Event.COL_TYPE));
+        String place = eventCursor.getString(eventCursor.getColumnIndex(UserContract.Event.PLACE));
 
-//        setTitle();
+        Cursor memberCursor = kobetsuModel.searchMemberData(eventId);
+        memberCursor.moveToFirst();
 
-//eventDataを使ったMVの表示処理
+        List<String> urlList = new ArrayList<>();
+        List<String> memberList = new ArrayList<>();
 
-        ((TextView) findViewById(R.id.date_event)).setText(eventData.getYear() + "/" + eventData.getMonth() + "/" + eventData.getDay());
-        ((TextView) findViewById(R.id.type_event)).setText(eventData.getType());
+        do{
+            String url = memberCursor.getString(memberCursor.getColumnIndex(UserContract.Kobetsu.URL));
+            nanbu = memberCursor.getString(memberCursor.getColumnIndex(UserContract.Kobetsu.NANBU));
+            String member = memberCursor.getString(memberCursor.getColumnIndex(UserContract.Kobetsu.MEMBER));
+            busuu = memberCursor.getString(memberCursor.getColumnIndex(UserContract.Kobetsu.BUSUU));
+            urlList.add(url);
+            memberList.add(member);
+        }while(memberCursor.moveToNext());
+
+        KobetsuMember kobetsuMember = new KobetsuMember();
+        kobetsuMember.setUrl(urlList);
+        kobetsuMember.setNanbu(nanbu);
+        kobetsuMember.setMember(memberList);
+
+        Log.d("感とか","感とか");
+
+
+        ((TextView) findViewById(R.id.date_event)).setText(year+"/"+month+"/"+day);
+        ((TextView) findViewById(R.id.type_event)).setText(type);
         (findViewById(R.id.type_event)).setBackgroundResource(R.color.kobetsucolor);
-        ((TextView) findViewById(R.id.location_event)).setText(eventData.getPlace());
+        ((TextView) findViewById(R.id.location_event)).setText(place);
+
+
 
 /*
 メンバーの一覧表示処理
@@ -122,11 +131,11 @@ public class KobetsuEvent extends FragmentActivity {
                 break;
 
         }
-
-        kobetsuMember.getMember();
-        kobetsuMember.getMaisuu();
-
-
+//
+//        kobetsuMember.getMember();
+//        kobetsuMember.getMaisuu();
+//
+//
     }
 
         public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -139,7 +148,7 @@ public class KobetsuEvent extends FragmentActivity {
             KobetsuModel kobetsuModel = new KobetsuModel(KobetsuEvent.getInstance());
 
 //            いや待ってこれだと、編集済みということを考慮できていない。
-            kobetsuModel.insertEvent(eventData.getYear(),eventData.getMonth(),eventData.getDay(),eventData.getPlace());
+//            kobetsuModel.insertEvent(eventData.getYear(),eventData.getMonth(),eventData.getDay(),eventData.getPlace());
 
 
             startActivity(intent);
@@ -312,7 +321,7 @@ public class KobetsuEvent extends FragmentActivity {
 //        }
 //
 //        /*public String getnanbu() {
-//            return nanbu;
+//            return nanbuView;
 //        }*/
 //        public String getbusuu() {
 //            return busuu;
@@ -504,23 +513,23 @@ public class KobetsuEvent extends FragmentActivity {
 //        TextView tv_delete_member = (TextView)childlist.findViewById(R.id.member_kobetsu);
 //        delete_member=tv_delete_member.getText().toString();
 //
-//        String[] nanbu=getResources().getStringArray(R.array.nanbu);
+//        String[] nanbuView=getResources().getStringArray(R.array.nanbuView);
 //
 //        switch (arg0.getId()) {
 //            case R.id.list_1bu:
-//                delete_nanbu =nanbu[0];
+//                delete_nanbu =nanbuView[0];
 //                break;
 //            case R.id.list_2bu:
-//                delete_nanbu =nanbu[1];
+//                delete_nanbu =nanbuView[1];
 //                break;
 //            case R.id.list_3bu:
-//                delete_nanbu =nanbu[2];
+//                delete_nanbu =nanbuView[2];
 //                break;
 //            case R.id.list_4bu:
-//                delete_nanbu =nanbu[3];
+//                delete_nanbu =nanbuView[3];
 //                break;
 //            case R.id.list_5bu:
-//                delete_nanbu =nanbu[4];
+//                delete_nanbu =nanbuView[4];
 //                break;
 //        }
 //    }
