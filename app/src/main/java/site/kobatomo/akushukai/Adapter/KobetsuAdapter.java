@@ -61,7 +61,7 @@ public class KobetsuAdapter extends BaseAdapter{
 
             Glide.with(context).
                     load(data.getUrl().get(position)).into(icon_member_kobetsu);
-            busuu_member.setText(data.getMaisuu());
+            busuu_member.setText(data.getMaisuu().get(position).toString());
             member_kobetsu.setText(data.getMember().get(position).toString());
             return convertView;
         }

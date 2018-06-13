@@ -3,12 +3,10 @@ package site.kobatomo.akushukai.Activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,13 +21,8 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import site.kobatomo.akushukai.Member.KobetsuMember;
-import site.kobatomo.akushukai.Model.KobetsuAsyncModel;
 import site.kobatomo.akushukai.Model.UserOpenHelper;
 import site.kobatomo.akushukai.R;
 import site.kobatomo.akushukai.UserContract;
@@ -66,86 +59,143 @@ public class KobetsuAddEventActivity extends Activity {
     private List urlList;
 
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.kobetsu_add_event);
+    private static KobetsuAddEventActivity instance = null;
+    public static KobetsuAddEventActivity getInstance() {
+        return instance;
+    }
 
-        member1 = findViewById(R.id.member1);
-        member2 = findViewById(R.id.member2);
-        member3 = findViewById(R.id.member3);
-
-        member1.setText("未選択");
-        member2.setText("未選択");
-        member3.setText("未選択");
-
-        member1.setOnClickListener(new ClickListener_moreadd());
-        member2.setOnClickListener(new ClickListener_moreadd());
-        member3.setOnClickListener(new ClickListener_moreadd());
-//
-        setTitle();
-        ticketCount();
-//        nextPage();
 
 
 /*
-インサート処理。ここではデータベースの処理は行わず、KobetsuEventにインテントで送る。
-インテントには、「何部か」「メンバー」「枚数」の情報を持たせる。
+・新規追加
+from AddEvent
+インテントからイベント情報を取得し、データベース追加
+
+・データ更新
+from KobetsuEvent
+インテントからeventIdを取得し、データベース更新
  */
 
-
-
-
-
-
-        Button insertButton = findViewById(R.id.insertButton);
-        insertButton.setOnClickListener(new View.OnClickListener() {
-                                      @Override
-                                      public void onClick(View v) {
-
-                                          final KobetsuMember kobetsuMember = new KobetsuMember();
-                                          kobetsuMember.setNanbu(radio_value);
-
-                                          List templist = new ArrayList();
-                                          Collections.addAll(templist, new String[]{selected_member1,selected_member2,selected_member3});
-                                          kobetsuMember.setMember(templist);
-
-                                          kobetsuMember.setMaisuu(String.valueOf(current_num));
-
-
-
-
-
-
-                                          //一緒にURLの取得処理も行う
-                                          final KobetsuAsyncModel kobetsuAsyncModel = new KobetsuAsyncModel();
-                                          kobetsuAsyncModel.setOnCallBack(new KobetsuAsyncModel.CallBackTask(){
-                                              @Override
-                                              public void CallBack(String result) {
-                                                  super.CallBack(result);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 //
-                                                  urlList= kobetsuAsyncModel.getMemberUrlList(kobetsuMember.getMember());
-                                                  kobetsuMember.setUrl(urlList);
-
-                                                  Intent intent = new Intent(KobetsuAddEventActivity.this, KobetsuEvent.class);
-                                                  Serializable eventData = getIntent().getSerializableExtra("intentArray");
-
-                                                  intent.putExtra("kobetsuMember", kobetsuMember);
-                                                  intent.putExtra("eventData", eventData);
-                                                  startActivity(intent);
-
-                                              }
-                                          });
-
-                                          // AsyncTaskの実行
-                                          kobetsuAsyncModel.execute();
-                                          Log.d("OK","OK");
-
-
-
-
-
-                                      }
-                                  });
+//        instance=this;
+//        setContentView(R.layout.kobetsu_add_event);
+//
+//        Serializable eventData = getIntent().getSerializableExtra("eventData");
+//        String eventId = getIntent().getStringExtra("eventId");
+//
+//
+//        member1 = findViewById(R.id.member1);
+//        member2 = findViewById(R.id.member2);
+//        member3 = findViewById(R.id.member3);
+//
+//        member1.setText("未選択");
+//        member2.setText("未選択");
+//        member3.setText("未選択");
+//
+//        member1.setOnClickListener(new ClickListener_moreadd());
+//        member2.setOnClickListener(new ClickListener_moreadd());
+//        member3.setOnClickListener(new ClickListener_moreadd());
+//
+//        setTitle();
+//        ticketCount();
+//
+//
+///*
+//クリック時に、画像取得処理とデータベース処理を行う。
+// */
+//
+//
+//
+//        Button insertButton = findViewById(R.id.insertButton);
+//        insertButton.setOnClickListener(new View.OnClickListener() {
+//                                      @Override
+//                                      public void onClick(View v) {
+//
+//                                          final KobetsuMember kobetsuMember = new KobetsuMember();
+//                                          kobetsuMember.setNanbu(radio_value);
+//
+//                                          List templist = new ArrayList();
+//                                          Collections.addAll(templist, new String[]{selected_member1,selected_member2,selected_member3});
+//                                          kobetsuMember.setMember(templist);
+//
+//                                          kobetsuMember.setMaisuu(String.valueOf(current_num));
+//
+//
+//                                          //一緒にURLの取得処理も行う
+//                                          final KobetsuAsyncModel kobetsuAsyncModel = new KobetsuAsyncModel();
+//                                          kobetsuAsyncModel.setOnCallBack(new KobetsuAsyncModel.CallBackTask(){
+//                                              @Override
+//                                              public void CallBack(String result) {
+//                                                  super.CallBack(result);
+////
+//                                                  urlList= kobetsuAsyncModel.getMemberUrlList(kobetsuMember.getMember());
+//                                                  kobetsuMember.setUrl(urlList);
+//
+//
+//                                                  AddEventMember kobetsuEvent = (AddEventMember) eventData;
+//
+//
+//                                                  /*
+//                                                  ここで処理が分岐
+//                                                   */
+////
+//                                                  KobetsuModel kobetsuModel = new KobetsuModel(KobetsuAddEventActivity.getInstance());
+//
+//
+//                                                  /*
+//                                                  新規追加時
+//                                                   */
+//
+//                                                  if(eventId.isEmpty()) {
+//                                                      kobetsuModel.insertEvent(kobetsuEvent.getYear(), kobetsuEvent.getMonth(), kobetsuEvent.getDay(), kobetsuEvent.getPlace());
+//
+//                                                      for (int i = 0; i < kobetsuMember.getMember().size(); i++) {
+//                                                          kobetsuModel.insertMember(kobetsuMember.getNanbu(), kobetsuMember.getMember().get(i).toString(),
+//                                                                  kobetsuMember.getUrl().get(i).toString(), kobetsuMember.getMaisuu()
+//                                                          );
+//                                                      }
+//
+//                                                      Intent intent = new Intent(KobetsuAddEventActivity.getInstance(), KobetsuEvent.class);
+//                                                      intent.putExtra("eventId",kobetsuModel.getEventId());
+//
+//                                                      startActivity(intent);
+//
+//                                                  /*
+//                                                  データ更新時
+//                                                   */
+//
+//                                                  }else {
+//                                                      for (int i = 0; i < kobetsuMember.getMember().size(); i++) {
+//                                                          kobetsuModel.insertMember(kobetsuMember.getNanbu(), kobetsuMember.getMember().get(i).toString(),
+//                                                                  kobetsuMember.getUrl().get(i).toString(), kobetsuMember.getMaisuu(), eventId
+//                                                          );
+//
+//                                                      }
+//                                                      Intent intent = new Intent(KobetsuAddEventActivity.getInstance(), KobetsuEvent.class);
+//                                                      intent.putExtra("eventId",eventId);
+//
+//                                                      startActivity(intent);
+//                                                  }
+//
+//
+//
+//
+//
+//                                              }
+//                                          });
+//
+//                                          // AsyncTaskの実行
+//                                          kobetsuAsyncModel.execute();
+//                                          Log.d("OK","OK");
+//
+//
+//
+//
+//
+//                                      }
+//                                  });
     }
 
 
@@ -241,17 +291,7 @@ radio_value:何部が選択されているかの最新状況
     public class ClickListener_moreadd implements View.OnClickListener{
 
 
-        private String uriImg = null;
-        private Drawable drawImg = null;
-        private Handler imgHandler = null;
-        private int imageID;
-        private android.database.sqlite.SQLiteDatabase sqLiteDatabase;
-        private int current_num = 0;
-        private TextView count;
-        private String radio_value;
-        private String clicked_id;
         private String[] mArray;
-        private String[] mArray2;
         private ListView dialog_list;
         private AlertDialog.Builder builder;
         private AlertDialog dialog;

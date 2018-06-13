@@ -12,7 +12,7 @@ import site.kobatomo.akushukai.UserContract;
 public class UserOpenHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "app.db";
-    public static final int DB_VERSION = 99;
+    public static final int DB_VERSION = 123;
     public static final String CREATE_TABLE =
             "create table " + UserContract.Event.TABLE_NAME + " (" +
                     UserContract.Event._ID + " integer primary key, " +
@@ -33,6 +33,7 @@ public class UserOpenHelper extends SQLiteOpenHelper {
                     UserContract.Kobetsu.EVENT_ID + " text," +
                     UserContract.Kobetsu.MEMBER + " text," +
                     UserContract.Kobetsu.NANBU + " text," +
+                    UserContract.Kobetsu.URL + " text," +
                     UserContract.Kobetsu.BUSUU + " text)";
 
 //    public static final String CREATE_TABLE_ZENKOKU =

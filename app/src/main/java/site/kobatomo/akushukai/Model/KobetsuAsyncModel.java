@@ -140,11 +140,11 @@ public class KobetsuAsyncModel extends AsyncTask<String, String, String> {
 //
 ////                    タイプも判別できるようにしたい
 //                    String type = "全国";
-//                    String year = kobetsu.getJSONObject(i).getString("year");
-//                    String month = kobetsu.getJSONObject(i).getString("month");
-//                    String day = kobetsu.getJSONObject(i).getString("day");
-//                    String location = kobetsu.getJSONObject(i).getString("location");
-//                    String place = kobetsu.getJSONObject(i).getString("place");
+//                    String year = kobetsu.getJSONObject(i).method("year");
+//                    String month = kobetsu.getJSONObject(i).method("month");
+//                    String day = kobetsu.getJSONObject(i).method("day");
+//                    String location = kobetsu.getJSONObject(i).method("location");
+//                    String place = kobetsu.getJSONObject(i).method("place");
 //
 //                    addEventMember.setType(type);
 //                    addEventMember.setYear(year);
@@ -164,11 +164,11 @@ public class KobetsuAsyncModel extends AsyncTask<String, String, String> {
 //
 ////                    タイプも判別できるようにしたい
 //                    String type = "個別";
-//                    String year = kobetsu.getJSONObject(i).getString("year");
-//                    String month = kobetsu.getJSONObject(i).getString("month");
-//                    String day = kobetsu.getJSONObject(i).getString("day");
-//                    String location = kobetsu.getJSONObject(i).getString("location");
-//                    String place = kobetsu.getJSONObject(i).getString("place");
+//                    String year = kobetsu.getJSONObject(i).method("year");
+//                    String month = kobetsu.getJSONObject(i).method("month");
+//                    String day = kobetsu.getJSONObject(i).method("day");
+//                    String location = kobetsu.getJSONObject(i).method("location");
+//                    String place = kobetsu.getJSONObject(i).method("place");
 //
 //                    addEventMember.setType(type);
 //                    addEventMember.setYear(year);

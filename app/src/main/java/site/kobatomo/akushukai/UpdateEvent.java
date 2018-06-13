@@ -82,9 +82,9 @@
 //
 //        Cursor c = db.rawQuery(query, null);
 //        if (c.moveToFirst()) {
-////            selected_type = c.getString(c.getColumnIndex(UserContract.Event.COL_TYPE));
-//            selected_date=c.getString(c.getColumnIndex(UserContract.Event.COL_DATE));
-//            selected_loc=c.getString(c.getColumnIndex(UserContract.Event.COL_LOC));
+////            selected_type = c.method(c.getColumnIndex(UserContract.Event.COL_TYPE));
+//            selected_date=c.method(c.getColumnIndex(UserContract.Event.COL_DATE));
+//            selected_loc=c.method(c.getColumnIndex(UserContract.Event.COL_LOC));
 //        }
 //
 //        /*日付をセットする*/

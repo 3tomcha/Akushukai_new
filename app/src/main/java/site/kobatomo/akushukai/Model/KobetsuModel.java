@@ -2,8 +2,8 @@ package site.kobatomo.akushukai.Model;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.Random;
 
@@ -23,24 +23,92 @@ public class KobetsuModel {
         randomNum=rand.nextInt(1000000);
     }
 
+    public String getEventId(){
+        return String.valueOf(randomNum);
+    }
+
     public void insertEvent(String year,String month,String day, String place){
         UserOpenHelper userOpenHelper = new UserOpenHelper(context);
         SQLiteDatabase db = userOpenHelper.getWritableDatabase();
-        try{
-            ContentValues cv = new ContentValues();
-            cv.put(UserContract.Event.EVENT_ID,String.valueOf(randomNum));
-            cv.put(UserContract.Event.YEAR,year);
-            cv.put(UserContract.Event.MONTH,month);
-            cv.put(UserContract.Event.DAY,day);
-            cv.put(UserContract.Event.PLACE,place);
-            db.insert(UserContract.Event.TABLE_NAME,null,cv);
-        }catch (Exception ex){
-            Log.d("エラー",ex.getMessage());
-        }finally {
-            db.close();
-        }
+
+        ContentValues cv = new ContentValues();
+        cv.put(UserContract.Event.EVENT_ID,String.valueOf(randomNum));
+        cv.put(UserContract.Event.YEAR,year);
+        cv.put(UserContract.Event.MONTH,month);
+        cv.put(UserContract.Event.DAY,day);
+        cv.put(UserContract.Event.PLACE,place);
+        cv.put(UserContract.Event.COL_TYPE,"個別");
+        db.insert(UserContract.Event.TABLE_NAME,null,cv);
     }
 
+    public void insertMember(String nanbu, String member, String url, String maisuu){
+        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
+        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
+
+            ContentValues cv = new ContentValues();
+            cv.put(UserContract.Kobetsu.EVENT_ID,String.valueOf(randomNum));
+            cv.put(UserContract.Kobetsu.NANBU,nanbu);
+            cv.put(UserContract.Kobetsu.MEMBER,member);
+            cv.put(UserContract.Kobetsu.URL,url);
+            cv.put(UserContract.Kobetsu.BUSUU,maisuu);
+            cv.put(UserContract.Kobetsu.URL,url);
+            db.insert(UserContract.Kobetsu.TABLE_NAME,null,cv);
+    }
+
+    public void insertMember(String nanbu, String member, String url, String maisuu, String eventId){
+        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
+        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
+
+            ContentValues cv = new ContentValues();
+            cv.put(UserContract.Kobetsu.EVENT_ID,eventId);
+            cv.put(UserContract.Kobetsu.NANBU,nanbu);
+            cv.put(UserContract.Kobetsu.MEMBER,member);
+            cv.put(UserContract.Kobetsu.URL,url);
+            cv.put(UserContract.Kobetsu.BUSUU,maisuu);
+            cv.put(UserContract.Kobetsu.URL,url);
+            db.insert(UserContract.Kobetsu.TABLE_NAME,null,cv);
+    }
+
+    public Cursor searchEventData(String eventId){
+        Cursor result = null;
+        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
+        SQLiteDatabase db = userOpenHelper.getReadableDatabase();
+
+        String SEARCH ="select * from "+UserContract.Event.TABLE_NAME+" where "+
+                UserContract.Event.EVENT_ID+" = "+eventId;
+        result = db.rawQuery(SEARCH, null);
+        return result;
+    }
+
+    public Cursor searchMemberData(String eventId){
+        Cursor result = null;
+        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
+        SQLiteDatabase db = userOpenHelper.getReadableDatabase();
+        String SEARCH ="select * from "+UserContract.Kobetsu.TABLE_NAME+" where "+
+                UserContract.Kobetsu.EVENT_ID+" = "+eventId;
+        result = db.rawQuery(SEARCH, null);
+        return result;
+    }
+
+    public Cursor calcSumMaisu(String eventId){
+        Cursor result = null;
+        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
+        SQLiteDatabase db = userOpenHelper.getReadableDatabase();
+        String SEARCH ="select "+"sum("+UserContract.Kobetsu.BUSUU+")"+" from "+UserContract.Kobetsu.TABLE_NAME+" where "+
+                UserContract.Kobetsu.EVENT_ID+" = "+eventId;
+        result = db.rawQuery(SEARCH, null);
+        return result;
+    }
+
+    public void updateMaisu(String eventId, String sumMaisuu){
+        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
+        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(UserContract.Event.COL_TICKET,sumMaisuu);
+
+        db.update(UserContract.Event.TABLE_NAME,cv,UserContract.Event.EVENT_ID+"= "+eventId,null);
+    }
 
 
 }

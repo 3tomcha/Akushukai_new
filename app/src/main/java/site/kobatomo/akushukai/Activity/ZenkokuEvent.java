@@ -177,16 +177,16 @@ public class ZenkokuEvent extends FragmentActivity {
 
 //            try {
 //                cursor.moveToFirst();
-//                String year = cursor.getString(cursor.getColumnIndex(UserContract.Zenkoku.YEAR));
-//                String month = cursor.getString(cursor.getColumnIndex(UserContract.Zenkoku.MONTH));
-//                String day = cursor.getString(cursor.getColumnIndex(UserContract.Zenkoku.DAY));
+//                String year = cursor.method(cursor.getColumnIndex(UserContract.Zenkoku.YEAR));
+//                String month = cursor.method(cursor.getColumnIndex(UserContract.Zenkoku.MONTH));
+//                String day = cursor.method(cursor.getColumnIndex(UserContract.Zenkoku.DAY));
 //
 //                ((TextView)findViewById(R.id.date_event)).setText(year+"/"+month+"/"+day);
 //
-//                String place = cursor.getString(cursor.getColumnIndex(UserContract.Zenkoku.PLACE));
+//                String place = cursor.method(cursor.getColumnIndex(UserContract.Zenkoku.PLACE));
 //                ((TextView)findViewById(R.id.location_event)).setText(place);
 //                col_ticket = findViewById(R.id.col_ticket);
-//                eventId = cursor.getString(cursor.getColumnIndex(UserContract.Zenkoku.EVENT_ID));
+//                eventId = cursor.method(cursor.getColumnIndex(UserContract.Zenkoku.EVENT_ID));
 //
 //                kari_col_ticket = findViewById(R.id.kari_col_ticket);
 //                kari_col_ticket.setVisibility(View.VISIBLE);
@@ -211,8 +211,8 @@ public class ZenkokuEvent extends FragmentActivity {
 
 //        if (membercursor.moveToFirst()) {
 //            do {
-//                String added_member = membercursor.getString(membercursor.getColumnIndex(UserContract.ZenkokuMember.MEMBER));
-//                String added_busuu = membercursor.getString(membercursor.getColumnIndex(UserContract.ZenkokuMember.BUSUU));
+//                String added_member = membercursor.method(membercursor.getColumnIndex(UserContract.ZenkokuMember.MEMBER));
+//                String added_busuu = membercursor.method(membercursor.getColumnIndex(UserContract.ZenkokuMember.BUSUU));
 //                if(added_member.equals("未定")) {
 //                    memberInfomations.add(new MemberInfomation(added_member,added_busuu));
 //                }
@@ -346,7 +346,7 @@ public class ZenkokuEvent extends FragmentActivity {
     {
         public void onTestDialogOKClick() {
             ZenkokuEvent activity=(ZenkokuEvent)getActivity();
-            activity.deleteEvent();
+//            activity.deleteEvent();
         }
 
     }
@@ -456,12 +456,12 @@ public class ZenkokuEvent extends FragmentActivity {
         });
 
     }
-    private void deleteEvent(){
-        mainModel.delete(clicked_id);
-//        zenkokuModel.delete(clicked_id);
-        Intent intent3 =new Intent(ZenkokuEvent.this,MainActivity.class);
-        startActivity(intent3);
-    }
+//    private void deleteEvent(){
+//        mainModel.delete(clicked_id);
+////        zenkokuModel.delete(clicked_id);
+//        Intent intent3 =new Intent(ZenkokuEvent.this,MainActivity.class);
+//        startActivity(intent3);
+//    }
 
 //    メンバー登録情報の保持用クラス
 //public class MemberInfomation {

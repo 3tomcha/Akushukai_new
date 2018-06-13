@@ -117,8 +117,8 @@ public class ZenkokuModel {
 //            Cursor c = db.rawQuery(query, null);
 //            if (c.moveToFirst()) {
 //                do {
-//                    String added_member = c.getString(c.getColumnIndex(UserContract.Zenkoku.MEMBER));
-//                    String added_busuu = c.getString(c.getColumnIndex(UserContract.Zenkoku.BUSUU));
+//                    String added_member = c.method(c.getColumnIndex(UserContract.Zenkoku.MEMBER));
+//                    String added_busuu = c.method(c.getColumnIndex(UserContract.Zenkoku.BUSUU));
 //                    if(added_member.equals("未定")) {
 //                        arr.add(new MyItem(added_member,added_busuu));
 //                    /*画像を探す処理も加える*/

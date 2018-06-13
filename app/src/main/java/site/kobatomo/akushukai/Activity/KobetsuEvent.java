@@ -3,11 +3,12 @@ package site.kobatomo.akushukai.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -32,8 +33,6 @@ public class KobetsuEvent extends FragmentActivity {
     private ListView list_5bu;
     private ListView list_6bu;
     private static KobetsuEvent instance = null;
-    private String nanbu;
-    private String busuu;
 
     public static KobetsuEvent getInstance() {
         return instance;
@@ -50,7 +49,8 @@ public class KobetsuEvent extends FragmentActivity {
  */
 
         Intent intent = getIntent();
-        int eventId = intent.getIntExtra("eventId", 0);
+//        int eventId = intent.getIntExtra("eventId", 0);
+        String eventId = intent.getStringExtra("eventId");
         KobetsuModel kobetsuModel = new KobetsuModel(KobetsuEvent.getInstance());
 
         Cursor eventCursor = kobetsuModel.searchEventData(eventId);
@@ -61,28 +61,46 @@ public class KobetsuEvent extends FragmentActivity {
         String type = eventCursor.getString(eventCursor.getColumnIndex(UserContract.Event.COL_TYPE));
         String place = eventCursor.getString(eventCursor.getColumnIndex(UserContract.Event.PLACE));
 
+
+/*
+データベースから、メンバー情報を取得する
+ */
+
         Cursor memberCursor = kobetsuModel.searchMemberData(eventId);
         memberCursor.moveToFirst();
 
         List<String> urlList = new ArrayList<>();
         List<String> memberList = new ArrayList<>();
+        List<String> nanbuList = new ArrayList<>();
+        List<String> busuuList = new ArrayList<>();
 
         do{
             String url = memberCursor.getString(memberCursor.getColumnIndex(UserContract.Kobetsu.URL));
-            nanbu = memberCursor.getString(memberCursor.getColumnIndex(UserContract.Kobetsu.NANBU));
+            String nanbu = memberCursor.getString(memberCursor.getColumnIndex(UserContract.Kobetsu.NANBU));
             String member = memberCursor.getString(memberCursor.getColumnIndex(UserContract.Kobetsu.MEMBER));
-            busuu = memberCursor.getString(memberCursor.getColumnIndex(UserContract.Kobetsu.BUSUU));
+            String busuu = memberCursor.getString(memberCursor.getColumnIndex(UserContract.Kobetsu.BUSUU));
             urlList.add(url);
+            nanbuList.add(nanbu);
             memberList.add(member);
+            busuuList.add(member);
+
         }while(memberCursor.moveToNext());
+
+
+/*
+データ保持用のクラスにセットし、アダプターに当てはめることができるようにする
+ */
 
         KobetsuMember kobetsuMember = new KobetsuMember();
         kobetsuMember.setUrl(urlList);
-        kobetsuMember.setNanbu(nanbu);
+        kobetsuMember.setNanbu(nanbuList);
         kobetsuMember.setMember(memberList);
+        kobetsuMember.setMaisuu(busuuList);
 
-        Log.d("感とか","感とか");
 
+/*
+イベント関連の見栄えをセットする
+ */
 
         ((TextView) findViewById(R.id.date_event)).setText(year+"/"+month+"/"+day);
         ((TextView) findViewById(R.id.type_event)).setText(type);
@@ -95,65 +113,93 @@ public class KobetsuEvent extends FragmentActivity {
 メンバーの一覧表示処理
  */
 
+//        list_1bu=findViewById(R.id.list_1bu);
+//        list_2bu=findViewById(R.id.list_2bu);
+//        list_3bu=findViewById(R.id.list_3bu);
+//        list_4bu=findViewById(R.id.list_4bu);
+//        list_5bu=findViewById(R.id.list_5bu);
+//        list_6bu=findViewById(R.id.list_6bu);
 
+        /*
+        * */
         list_1bu=findViewById(R.id.list_1bu);
-        list_2bu=findViewById(R.id.list_2bu);
-        list_3bu=findViewById(R.id.list_3bu);
-        list_4bu=findViewById(R.id.list_4bu);
-        list_5bu=findViewById(R.id.list_5bu);
-        list_6bu=findViewById(R.id.list_6bu);
+        list_1bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
 
-//kobetsuMemberをadapterに入れて生成し、それをlistviewにセットする
-        switch (kobetsuMember.getNanbu()) {
-            case("1部"):
-                (findViewById(R.id.TV1bu_kobetsu)).setVisibility(View.VISIBLE);
-                list_1bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
-                break;
-            case("2部"):
-                (findViewById(R.id.TV2bu_kobetsu)).setVisibility(View.VISIBLE);
-                list_2bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
-                break;
-            case("3部"):
-                (findViewById(R.id.TV3bu_kobetsu)).setVisibility(View.VISIBLE);
-                list_3bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
-                break;
-            case("4部"):
-                (findViewById(R.id.TV4bu_kobetsu)).setVisibility(View.VISIBLE);
-                list_4bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
-                break;
-            case("5部"):
-                (findViewById(R.id.TV5bu_kobetsu)).setVisibility(View.VISIBLE);
-                list_5bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
-                break;
-            case("6部"):
-                (findViewById(R.id.TV6bu_kobetsu)).setVisibility(View.VISIBLE);
-                list_6bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
-                break;
+/*
+データ保持用のクラスをアダプタにセットする
+ */
 
-        }
+//        switch (kobetsuMember.getNanbu()) {
+//            case("1部"):
+//                (findViewById(R.id.TV1bu_kobetsu)).setVisibility(View.VISIBLE);
+//                list_1bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
+//                break;
+//            case("2部"):
+//                (findViewById(R.id.TV2bu_kobetsu)).setVisibility(View.VISIBLE);
+//                list_2bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
+//                break;
+//            case("3部"):
+//                (findViewById(R.id.TV3bu_kobetsu)).setVisibility(View.VISIBLE);
+//                list_3bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
+//                break;
+//            case("4部"):
+//                (findViewById(R.id.TV4bu_kobetsu)).setVisibility(View.VISIBLE);
+//                list_4bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
+//                break;
+//            case("5部"):
+//                (findViewById(R.id.TV5bu_kobetsu)).setVisibility(View.VISIBLE);
+//                list_5bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
+//                break;
+//            case("6部"):
+//                (findViewById(R.id.TV6bu_kobetsu)).setVisibility(View.VISIBLE);
+//                list_6bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
+//                break;
 //
-//        kobetsuMember.getMember();
-//        kobetsuMember.getMaisuu();
-//
-//
+//        }
+
+
+/*
+合計枚数をセット
+ */
+
+        Cursor sumMaisuCursor = kobetsuModel.calcSumMaisu(eventId);
+        sumMaisuCursor.moveToFirst();
+        ((TextView)findViewById(R.id.col_ticket)).setText(sumMaisuCursor.getString(0));
+        kobetsuModel.updateMaisu(eventId,sumMaisuCursor.getString(0));
+
+
+        setTitle();
+
+
+//        /*イベント追加ボタンの実装*/
+        FloatingActionButton addEvent = findViewById(R.id.addEvent);
+        addEvent.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(KobetsuEvent.getInstance(), KobetsuAddEventActivity.class);
+                intent.putExtra("eventId", eventId);
+                startActivity(intent);
+            }
+        });
+
     }
+
+
 
         public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode != KeyEvent.KEYCODE_BACK) {
             return super.onKeyDown(keyCode, event);
         } else {
             Intent intent = new Intent(KobetsuEvent.this, MainActivity.class);
-
-//            データ保存処理
-            KobetsuModel kobetsuModel = new KobetsuModel(KobetsuEvent.getInstance());
-
-//            いや待ってこれだと、編集済みということを考慮できていない。
-//            kobetsuModel.insertEvent(eventData.getYear(),eventData.getMonth(),eventData.getDay(),eventData.getPlace());
-
-
             startActivity(intent);
             return true;
         }
+    }
+        private void setTitle() {
+        TextView package_title = findViewById(R.id.package_title);
+        package_title.setText(R.string.package_more);
+        RelativeLayout title = findViewById(R.id.title);
+        title.setBackgroundResource(R.color.kobetsucolor);
+        TextView col_ticket=findViewById(R.id.col_ticket);
     }
 
 
@@ -165,15 +211,6 @@ public class KobetsuEvent extends FragmentActivity {
 //
 //
 //
-//        /*イベント追加ボタンの実装*/
-//        FloatingActionButton addEvent = findViewById(R.id.addEvent);
-//        addEvent.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent2 = new Intent(KobetsuEvent.this, KobetsuAddEventActivity.class);
-//                intent2.putExtra("clicked_id", clicked_id);
-//                startActivity(intent2);
-//            }
-//        });
 //
 //        LinearLayout et_kobetsu_event = findViewById(R.id.mv_event);
 //
@@ -260,237 +297,13 @@ public class KobetsuEvent extends FragmentActivity {
 
 
 
-    /*前画面でクリックされたIDから他情報を検索する*/
-//    private void loadDate() {
-//        Intent intent2 = getIntent();
-//        clicked_id = intent2.getStringExtra("clicked_id");
-//
-//        //        クリックされたIDを元に情報を検索する
-//        UserOpenHelper userOpenHelper = new UserOpenHelper(this);
-//        SQLiteDatabase db = userOpenHelper.getReadableDatabase();
-//
-//        String query6 = "select * from " + UserContract.Event.TABLE_NAME + " where " + UserContract.Event._ID + "=" + clicked_id;
-//        Cursor cursor6 = db.rawQuery(query6, null);
-//        if (cursor6.moveToFirst()) {
-//            do {
-//                TextView date_k = findViewById(R.id.date_event);
-//                date_k.setText(cursor6.getString(cursor6.getColumnIndex(UserContract.Event.COL_DATE)));
-//                TextView type_k = findViewById(R.id.type_event);
-//                type_k.setText(cursor6.getString(cursor6.getColumnIndex(UserContract.Event.COL_TYPE)));
-//                TextView location_k = findViewById(R.id.location_event);
-//                location_k.setText(cursor6.getString(cursor6.getColumnIndex(UserContract.Event.COL_LOC)));
-//                TextView typecolor = findViewById(R.id.typecolor);
-//
-//                if (type_k.getText().equals("全国")) {
-//                    type_k.setBackgroundResource(R.color.zenkokucolor);
-//                    typecolor.setBackgroundResource(R.color.zenkokucolor);
-//                }
-//                if (type_k.getText().equals("個別")) {
-//                    type_k.setBackgroundResource(R.color.kobetsucolor);
-//                    typecolor.setBackgroundResource(R.color.kobetsucolor);
-//                }
-//
-//            } while (cursor6.moveToNext());
-//        }
-//
-//
-////        TextView package_title = findViewById(R.id.package_title);
-////        package_title.setText(R.string.package_more);
-//
-//    }
-
-
-//    //リストに使うデータ用クラス
-//    class MyItem {
-//        private String member = null;
-//        private String busuu = null;
-//        private String url = null;
-//        private long id = 0;
-//
-//        public MyItem(String member, String busuu, String url) {
-//            super();
-//            this.member = member;
-//            this.busuu = busuu;
-//            this.url = url;
-//
-//            this.id = new Date().getTime();
-//        }
-//
-//        public String getmember() {
-//            return member;
-//        }
-//
-//        /*public String getnanbu() {
-//            return nanbuView;
-//        }*/
-//        public String getbusuu() {
-//            return busuu;
-//        }
-//
-//        public long getId() {
-//            return id;
-//        }
-//
-//
-//        public String geturl() {
-//            return url;
-//        }
-//
-//
-//    }
-//
-//
-    //データMyItemを管理するアダプタークラス
 //
 
-    //    データベース処理
-//    class Query {
-//        void setQuery(String query, ArrayList arr) {
-//            arr.clear();
-//            UserOpenHelper userOpenHelper = new UserOpenHelper(KobetsuEvent.this);
-//            SQLiteDatabase db = userOpenHelper.getReadableDatabase();
-//            Cursor c = db.rawQuery(query, null);
-//            if (c.moveToFirst()) {
-//                do {
-//                    String added_member = c.getString(c.getColumnIndex(UserContract.Kobetsu.MEMBER));
-//                    String added_busuu = c.getString(c.getColumnIndex(UserContract.Kobetsu.BUSUU));
 //
-//                    /*画像を探す処理も加える*/
-//                    String added_url = search_Memberimg(added_member, db);
 //
-//                    sum_busuu += Integer.parseInt(added_busuu);
-//                    arr.add(new MyItem(added_member, added_busuu, added_url));
-//                } while (c.moveToNext());
-//            } else {
-//                Log.v("nanntoka", "nantoka");
-//            }
-//        }
-//    }
+//
+//
 
-
-//
-//
-//    //    画像読み込み処理
-//    public class ImageLoader extends AsyncTask<String, String, Bitmap> {
-//
-//        private ImageView imageView;
-//
-//        public ImageLoader(ImageView imageView) {
-//
-//            // コンストラクタ
-//            // ImageViewを渡す
-//            this.imageView = imageView;
-//        }
-//
-//        @Override
-//        protected Bitmap doInBackground(String... arg0) {
-//
-//            // バックグラウンド処理
-//
-//            Bitmap bitmap = null;
-//            try {
-//
-//                // 指定したURLの画像を読み込む
-//                URL url = new URL(arg0[0]);
-//                InputStream input = url.openStream();
-//                bitmap = BitmapFactory.decodeStream(input);
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//
-//            return bitmap;
-//        }
-//
-//        protected void onPostExecute(Bitmap res) {
-//            //バックグラウンド処理が完了した時の処理
-//
-//            // 読み込んだ画像をImageViewに設定
-//            this.imageView.setImageBitmap(res);
-//        }
-//    }
-//
-//    private String search_Memberimg(String member, SQLiteDatabase db) {
-//
-//        String query = "select url from member where name = ?";
-//
-//        Cursor c = db.rawQuery(query, new String[]{member});
-//
-//        if (c.moveToFirst()) {
-//            do {
-//                String url = c.getString(0);
-//                return url;
-//            } while (c.moveToNext());
-//        } else {
-//            Log.v("nanntoka", "nantoka");
-//            return null;
-//        }
-//
-//    }
-//
-//    private void setTitle() {
-//        TextView package_title = findViewById(R.id.package_title);
-//        package_title.setText(R.string.package_more);
-//        RelativeLayout title = findViewById(R.id.title);
-//        title.setBackgroundResource(R.color.kobetsucolor);
-//        TextView col_ticket=findViewById(R.id.col_ticket);
-//    }
-//
-//
-//
-//
-//    private void setColTicket() {
-//        col_ticket = findViewById(R.id.col_ticket);
-//        col_ticket.setText(String.valueOf(sum_busuu));
-//    }
-//
-//    private void loadDatabase() {
-//
-//        String query1 = "select * from " + UserContract.Kobetsu.TABLE_NAME + " where " + UserContract.Kobetsu.EVENT_ID + " = " + clicked_id + " and " + UserContract.Kobetsu.NANBU + " ='1部' ";
-//        String query2 = "select * from " + UserContract.Kobetsu.TABLE_NAME + " where " + UserContract.Kobetsu.EVENT_ID + " = " + clicked_id + " and " + UserContract.Kobetsu.NANBU + " ='2部' ";
-//        String query3 = "select * from " + UserContract.Kobetsu.TABLE_NAME + " where " + UserContract.Kobetsu.EVENT_ID + " = " + clicked_id + " and " + UserContract.Kobetsu.NANBU + " ='3部' ";
-//        String query4 = "select * from " + UserContract.Kobetsu.TABLE_NAME + " where " + UserContract.Kobetsu.EVENT_ID + " = " + clicked_id + " and " + UserContract.Kobetsu.NANBU + " ='4部' ";
-//        String query5 = "select * from " + UserContract.Kobetsu.TABLE_NAME + " where " + UserContract.Kobetsu.EVENT_ID + " = " + clicked_id + " and " + UserContract.Kobetsu.NANBU + " ='5部' ";
-//
-//    /*データベースから取得したデータをセット*/
-//        Query query = new Query();
-//        query.setQuery(query1, arr1);
-//        query.setQuery(query2, arr2);
-//        query.setQuery(query3, arr3);
-//        query.setQuery(query4, arr4);
-//        query.setQuery(query5, arr5);
-//
-//        list_1bu = (ListView) findViewById(R.id.list_1bu);
-//        list_2bu = (ListView) findViewById(R.id.list_2bu);
-//        list_3bu = (ListView) findViewById(R.id.list_3bu);
-//        list_4bu = (ListView) findViewById(R.id.list_4bu);
-//        list_5bu = (ListView) findViewById(R.id.list_5bu);
-//        list_1bu.setAdapter(new KobetsuAdapter_bk(this, arr1));
-//        list_2bu.setAdapter(new KobetsuAdapter_bk(this, arr2));
-//        list_3bu.setAdapter(new KobetsuAdapter_bk(this, arr3));
-//        list_4bu.setAdapter(new KobetsuAdapter_bk(this, arr4));
-//        list_5bu.setAdapter(new KobetsuAdapter_bk(this, arr5));
-//
-////        各部で存在すればタイトルを表示する
-//
-//        if (!arr1.isEmpty()) {
-//            (findViewById(R.id.TV1bu_kobetsu)).setVisibility(View.VISIBLE);
-//        }
-//        if (!arr2.isEmpty()) {
-//            (findViewById(R.id.TV2bu_kobetsu)).setVisibility(View.VISIBLE);
-//        }
-//        if (!arr3.isEmpty()) {
-//            (findViewById(R.id.TV3bu_kobetsu)).setVisibility(View.VISIBLE);
-//        }
-//        if (!arr4.isEmpty()) {
-//            (findViewById(R.id.TV4bu_kobetsu)).setVisibility(View.VISIBLE);
-//        }
-//        if (!arr5.isEmpty()) {
-//            (findViewById(R.id.TV5bu_kobetsu)).setVisibility(View.VISIBLE);
-//        }
-//
-//
-//    }
 //
 //    public void deleteItem() {
 //

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import site.kobatomo.akushukai.Adapter.AddEventAdapter;
 import site.kobatomo.akushukai.Member.AddEventMember;
@@ -24,15 +22,7 @@ import site.kobatomo.akushukai.R;
 
 
 public class AddEventActivity extends Activity{
-    private EditText ShowDate;
-  private String seleceted_type;
-    private String selected_date;
-    private String iitem;
-    private List<String> lst;
-    private EditText ShowLoc;
-    private String selected_loc;
     private static AddEventActivity instance = null;
-    private AddEventModel addEventModel;
     private ArrayList zenkokuList;
     private AddEventAdapter addEventAdapter;
 
@@ -45,7 +35,6 @@ public class AddEventActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_addevent);
         setContentView(R.layout.activity_addevent);
         setTitle();
         instance = this;
@@ -81,17 +70,11 @@ APIの処理手順の関係でコールバックを用いる
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                        if(((TextView)view.findViewById(R.id.type)).getText().toString().equals("全国")) {
-                            AddEventMember intentArray = (AddEventMember) addEventAdapter.getItem(position);
-                            Intent intent = new Intent(AddEventActivity.getInstance(), ZenkokuAddPreActivity.class);
-                            intent.putExtra("intentArray", intentArray);
-                            startActivity(intent);
-                        }else{
-                            AddEventMember intentArray = (AddEventMember) addEventAdapter.getItem(position);
-                            Intent intent = new Intent(AddEventActivity.getInstance(), KobetsuAddEventActivity.class);
-                            intent.putExtra("intentArray", intentArray);
-                            startActivity(intent);
-                        }
+                        AddEventMember eventData = (AddEventMember) addEventAdapter.getItem(position);
+                        Intent intent = ((TextView)view.findViewById(R.id.type)).getText().toString().equals("全国")?
+                                new Intent(AddEventActivity.getInstance(), ZenkokuAddPreActivity.class) : new Intent(AddEventActivity.getInstance(), KobetsuAddEventActivity.class);
+                        intent.putExtra("eventData",eventData);
+                        startActivity(intent);
                     }
                 });
             }

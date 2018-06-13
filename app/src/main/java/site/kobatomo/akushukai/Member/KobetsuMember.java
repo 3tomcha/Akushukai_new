@@ -8,9 +8,9 @@ import java.util.List;
  */
 
 public class KobetsuMember implements Serializable {
-    private String nanbu;
+    private List nanbu;
     private List member;
-    private String maisuu;
+    private List maisuu;
     private List url;
 
     public List getUrl() {
@@ -22,11 +22,11 @@ public class KobetsuMember implements Serializable {
     }
 
 
-    public String getNanbu() {
+    public List getNanbu() {
         return nanbu;
     }
 
-    public void setNanbu(String nanbu) {
+    public void setNanbu(List nanbu) {
         this.nanbu = nanbu;
     }
 
@@ -38,11 +38,11 @@ public class KobetsuMember implements Serializable {
         this.member = member;
     }
 
-    public String getMaisuu() {
+    public List getMaisuu() {
         return maisuu;
     }
 
-    public void setMaisuu(String maisuu) {
+    public void setMaisuu(List maisuu) {
         this.maisuu = maisuu;
     }
 }
