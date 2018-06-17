@@ -40,7 +40,9 @@ public class KobetsuModel {
         cv.put(UserContract.Event.COL_TYPE,"個別");
         db.insert(UserContract.Event.TABLE_NAME,null,cv);
     }
-
+/*
+初回メンバー登録
+ */
     public void insertMember(String nanbu, String member, String url, String maisuu){
         UserOpenHelper userOpenHelper = new UserOpenHelper(context);
         SQLiteDatabase db = userOpenHelper.getWritableDatabase();
@@ -54,6 +56,11 @@ public class KobetsuModel {
             cv.put(UserContract.Kobetsu.URL,url);
             db.insert(UserContract.Kobetsu.TABLE_NAME,null,cv);
     }
+
+
+/*
+２回目以降のメンバー登録
+ */
 
     public void insertMember(String nanbu, String member, String url, String maisuu, String eventId){
         UserOpenHelper userOpenHelper = new UserOpenHelper(context);
@@ -80,12 +87,17 @@ public class KobetsuModel {
         return result;
     }
 
+
+/*
+メンバー情報を部ごとに整列し取得する
+ */
+
     public Cursor searchMemberData(String eventId){
         Cursor result = null;
         UserOpenHelper userOpenHelper = new UserOpenHelper(context);
         SQLiteDatabase db = userOpenHelper.getReadableDatabase();
         String SEARCH ="select * from "+UserContract.Kobetsu.TABLE_NAME+" where "+
-                UserContract.Kobetsu.EVENT_ID+" = "+eventId;
+                UserContract.Kobetsu.EVENT_ID+" = "+eventId+" order by "+UserContract.Kobetsu.NANBU+" ASC";
         result = db.rawQuery(SEARCH, null);
         return result;
     }

@@ -27,12 +27,12 @@ import java.util.Map;
 APIを通じて、メンバー名からURLを取得するためのクラス
  */
 
-public class KobetsuAsyncModel extends AsyncTask<String, String, String> {
+public class MemberToUrlAsyncModel extends AsyncTask<String, String, String> {
     private CallBackTask callbacktask;
 
     //arraylistを探す処理に書き換える
 
-    public List getMemberUrlList(List<String> memberList) {
+    public List getUrlList(List<String> memberList) {
         List<String> urlList = new ArrayList<String>();
 
         for (String mL: memberList) {
@@ -205,7 +205,11 @@ public class KobetsuAsyncModel extends AsyncTask<String, String, String> {
 //        } catch (Exception ex) {
 //
 //        }
-        callbacktask.CallBack(result);
+        try {
+            callbacktask.CallBack(result);
+        }catch (Exception ex){
+            Log.d("例外", ex.toString());
+        }
     }
 //
 

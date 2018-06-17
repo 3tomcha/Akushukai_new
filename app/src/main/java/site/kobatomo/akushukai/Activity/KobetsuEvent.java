@@ -33,6 +33,8 @@ public class KobetsuEvent extends FragmentActivity {
     private ListView list_5bu;
     private ListView list_6bu;
     private static KobetsuEvent instance = null;
+    private String busuu;
+    private String nanbu;
 
     public static KobetsuEvent getInstance() {
         return instance;
@@ -53,17 +55,17 @@ public class KobetsuEvent extends FragmentActivity {
         String eventId = intent.getStringExtra("eventId");
         KobetsuModel kobetsuModel = new KobetsuModel(KobetsuEvent.getInstance());
 
-        Cursor eventCursor = kobetsuModel.searchEventData(eventId);
-        eventCursor.moveToFirst();
-        String year = eventCursor.getString(eventCursor.getColumnIndex(UserContract.Event.YEAR));
-        String month = eventCursor.getString(eventCursor.getColumnIndex(UserContract.Event.MONTH));
-        String day = eventCursor.getString(eventCursor.getColumnIndex(UserContract.Event.DAY));
-        String type = eventCursor.getString(eventCursor.getColumnIndex(UserContract.Event.COL_TYPE));
-        String place = eventCursor.getString(eventCursor.getColumnIndex(UserContract.Event.PLACE));
+        Cursor ec = kobetsuModel.searchEventData(eventId);
+        ec.moveToFirst();
+        String year = ec.getString(ec.getColumnIndex(UserContract.Event.YEAR));
+        String month = ec.getString(ec.getColumnIndex(UserContract.Event.MONTH));
+        String day = ec.getString(ec.getColumnIndex(UserContract.Event.DAY));
+        String type = ec.getString(ec.getColumnIndex(UserContract.Event.COL_TYPE));
+        String place = ec.getString(ec.getColumnIndex(UserContract.Event.PLACE));
 
 
 /*
-データベースから、メンバー情報を取得する
+データベースから、メンバーの登録情報を取得する
  */
 
         Cursor memberCursor = kobetsuModel.searchMemberData(eventId);
@@ -74,15 +76,30 @@ public class KobetsuEvent extends FragmentActivity {
         List<String> nanbuList = new ArrayList<>();
         List<String> busuuList = new ArrayList<>();
 
+
+/*
+2部,1部といったヘッダーを加えるために、区切り用のデータを挿入する
+ */
+
+        nanbu="0";
+        final String DEVIDELABEL = "0";
         do{
-            String url = memberCursor.getString(memberCursor.getColumnIndex(UserContract.Kobetsu.URL));
-            String nanbu = memberCursor.getString(memberCursor.getColumnIndex(UserContract.Kobetsu.NANBU));
-            String member = memberCursor.getString(memberCursor.getColumnIndex(UserContract.Kobetsu.MEMBER));
-            String busuu = memberCursor.getString(memberCursor.getColumnIndex(UserContract.Kobetsu.BUSUU));
-            urlList.add(url);
-            nanbuList.add(nanbu);
-            memberList.add(member);
-            busuuList.add(member);
+            if(!nanbu.equals(memberCursor.getString(memberCursor.getColumnIndex(UserContract.Kobetsu.NANBU)))){
+                urlList.add(DEVIDELABEL);
+                nanbu = memberCursor.getString(memberCursor.getColumnIndex(UserContract.Kobetsu.NANBU));
+                nanbuList.add(nanbu);
+                memberList.add("a");
+                busuuList.add("a");
+            }
+                String busuu = memberCursor.getString(memberCursor.getColumnIndex(UserContract.Kobetsu.BUSUU));
+                String url = memberCursor.getString(memberCursor.getColumnIndex(UserContract.Kobetsu.URL));
+                nanbu = memberCursor.getString(memberCursor.getColumnIndex(UserContract.Kobetsu.NANBU));
+                String member = memberCursor.getString(memberCursor.getColumnIndex(UserContract.Kobetsu.MEMBER));
+                urlList.add(url);
+                nanbuList.add(nanbu);
+                memberList.add(member);
+                busuuList.add(busuu);
+
 
         }while(memberCursor.moveToNext());
 
@@ -107,55 +124,10 @@ public class KobetsuEvent extends FragmentActivity {
         (findViewById(R.id.type_event)).setBackgroundResource(R.color.kobetsucolor);
         ((TextView) findViewById(R.id.location_event)).setText(place);
 
-
-
-/*
-メンバーの一覧表示処理
- */
-
-//        list_1bu=findViewById(R.id.list_1bu);
-//        list_2bu=findViewById(R.id.list_2bu);
-//        list_3bu=findViewById(R.id.list_3bu);
-//        list_4bu=findViewById(R.id.list_4bu);
-//        list_5bu=findViewById(R.id.list_5bu);
-//        list_6bu=findViewById(R.id.list_6bu);
-
         /*
         * */
         list_1bu=findViewById(R.id.list_1bu);
         list_1bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
-
-/*
-データ保持用のクラスをアダプタにセットする
- */
-
-//        switch (kobetsuMember.getNanbu()) {
-//            case("1部"):
-//                (findViewById(R.id.TV1bu_kobetsu)).setVisibility(View.VISIBLE);
-//                list_1bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
-//                break;
-//            case("2部"):
-//                (findViewById(R.id.TV2bu_kobetsu)).setVisibility(View.VISIBLE);
-//                list_2bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
-//                break;
-//            case("3部"):
-//                (findViewById(R.id.TV3bu_kobetsu)).setVisibility(View.VISIBLE);
-//                list_3bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
-//                break;
-//            case("4部"):
-//                (findViewById(R.id.TV4bu_kobetsu)).setVisibility(View.VISIBLE);
-//                list_4bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
-//                break;
-//            case("5部"):
-//                (findViewById(R.id.TV5bu_kobetsu)).setVisibility(View.VISIBLE);
-//                list_5bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
-//                break;
-//            case("6部"):
-//                (findViewById(R.id.TV6bu_kobetsu)).setVisibility(View.VISIBLE);
-//                list_6bu.setAdapter(new KobetsuAdapter(this, kobetsuMember));
-//                break;
-//
-//        }
 
 
 /*

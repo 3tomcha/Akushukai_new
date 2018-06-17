@@ -51,6 +51,13 @@
                 android:text="第１部"
                 android:visibility="gone"/>
         </LinearLayout>
+        <!--<ListView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:id="@+id/list_1bu"-->
+            <!--android:longClickable="true"-->
+            <!--android:focusable="true"-->
+            <!--&gt;</ListView>-->
 <site.kobatomo.akushukai.NonScrollListView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

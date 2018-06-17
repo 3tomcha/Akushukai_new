@@ -2,14 +2,11 @@ package site.kobatomo.akushukai.Activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,11 +18,16 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import site.kobatomo.akushukai.Model.UserOpenHelper;
+import site.kobatomo.akushukai.Member.AddEventMember;
+import site.kobatomo.akushukai.Member.KobetsuMember;
+import site.kobatomo.akushukai.Model.KobetsuModel;
+import site.kobatomo.akushukai.Model.MemberToUrlAsyncModel;
 import site.kobatomo.akushukai.R;
-import site.kobatomo.akushukai.UserContract;
 
 
 /**
@@ -34,24 +36,12 @@ import site.kobatomo.akushukai.UserContract;
 
 public class KobetsuAddEventActivity extends Activity {
 
-
-    private String uriImg = null;
-    private Drawable drawImg = null;
-    private Handler imgHandler = null;
-    private int imageID;
-    private android.database.sqlite.SQLiteDatabase sqLiteDatabase;
     private int current_num = 0;
     private TextView count;
-    private String radio_value;
+    private String nanbu;
     private String selected_member1;
     private String selected_member2;
     private String selected_member3;
-    private String clicked_id;
-    private static String[] mArray;
-    private static String[] mArray2;
-    private ListView dialog_list;
-    private AlertDialog.Builder builder;
-    private AlertDialog dialog;
     public EditText member1;
     public EditText member2;
     public EditText member3;
@@ -60,6 +50,8 @@ public class KobetsuAddEventActivity extends Activity {
 
 
     private static KobetsuAddEventActivity instance = null;
+    private String eventId;
+
     public static KobetsuAddEventActivity getInstance() {
         return instance;
     }
@@ -78,93 +70,103 @@ from KobetsuEvent
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//
-//        instance=this;
-//        setContentView(R.layout.kobetsu_add_event);
-//
-//        Serializable eventData = getIntent().getSerializableExtra("eventData");
-//        String eventId = getIntent().getStringExtra("eventId");
-//
-//
-//        member1 = findViewById(R.id.member1);
-//        member2 = findViewById(R.id.member2);
-//        member3 = findViewById(R.id.member3);
-//
-//        member1.setText("未選択");
-//        member2.setText("未選択");
-//        member3.setText("未選択");
-//
-//        member1.setOnClickListener(new ClickListener_moreadd());
-//        member2.setOnClickListener(new ClickListener_moreadd());
-//        member3.setOnClickListener(new ClickListener_moreadd());
-//
-//        setTitle();
-//        ticketCount();
-//
-//
-///*
-//クリック時に、画像取得処理とデータベース処理を行う。
-// */
-//
-//
-//
-//        Button insertButton = findViewById(R.id.insertButton);
-//        insertButton.setOnClickListener(new View.OnClickListener() {
-//                                      @Override
-//                                      public void onClick(View v) {
-//
-//                                          final KobetsuMember kobetsuMember = new KobetsuMember();
-//                                          kobetsuMember.setNanbu(radio_value);
-//
-//                                          List templist = new ArrayList();
-//                                          Collections.addAll(templist, new String[]{selected_member1,selected_member2,selected_member3});
-//                                          kobetsuMember.setMember(templist);
-//
-//                                          kobetsuMember.setMaisuu(String.valueOf(current_num));
-//
-//
-//                                          //一緒にURLの取得処理も行う
-//                                          final KobetsuAsyncModel kobetsuAsyncModel = new KobetsuAsyncModel();
-//                                          kobetsuAsyncModel.setOnCallBack(new KobetsuAsyncModel.CallBackTask(){
-//                                              @Override
-//                                              public void CallBack(String result) {
-//                                                  super.CallBack(result);
-////
-//                                                  urlList= kobetsuAsyncModel.getMemberUrlList(kobetsuMember.getMember());
-//                                                  kobetsuMember.setUrl(urlList);
-//
-//
-//                                                  AddEventMember kobetsuEvent = (AddEventMember) eventData;
-//
-//
-//                                                  /*
-//                                                  ここで処理が分岐
-//                                                   */
-////
-//                                                  KobetsuModel kobetsuModel = new KobetsuModel(KobetsuAddEventActivity.getInstance());
-//
-//
-//                                                  /*
-//                                                  新規追加時
-//                                                   */
-//
-//                                                  if(eventId.isEmpty()) {
-//                                                      kobetsuModel.insertEvent(kobetsuEvent.getYear(), kobetsuEvent.getMonth(), kobetsuEvent.getDay(), kobetsuEvent.getPlace());
-//
-//                                                      for (int i = 0; i < kobetsuMember.getMember().size(); i++) {
-//                                                          kobetsuModel.insertMember(kobetsuMember.getNanbu(), kobetsuMember.getMember().get(i).toString(),
-//                                                                  kobetsuMember.getUrl().get(i).toString(), kobetsuMember.getMaisuu()
-//                                                          );
-//                                                      }
-//
-//                                                      Intent intent = new Intent(KobetsuAddEventActivity.getInstance(), KobetsuEvent.class);
-//                                                      intent.putExtra("eventId",kobetsuModel.getEventId());
-//
-//                                                      startActivity(intent);
-//
-//                                                  /*
-//                                                  データ更新時
-//                                                   */
+
+        instance = this;
+        setContentView(R.layout.kobetsu_add_event);
+
+        Serializable eventData = getIntent().getSerializableExtra("eventData");
+        eventId = getIntent().getStringExtra("eventId");
+
+
+        member1 = findViewById(R.id.member1);
+        member2 = findViewById(R.id.member2);
+        member3 = findViewById(R.id.member3);
+
+        member1.setText("未選択");
+        member2.setText("未選択");
+        member3.setText("未選択");
+
+        member1.setOnClickListener(new ClickListener_moreadd());
+        member2.setOnClickListener(new ClickListener_moreadd());
+        member3.setOnClickListener(new ClickListener_moreadd());
+
+        setTitle();
+        ticketCount();
+
+
+
+/*
+クリック時に、画像取得処理とデータベース処理を行う。
+*/
+
+
+        Button insertButton = findViewById(R.id.insertButton);
+        insertButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                /*メンバー情報のうち、何部、メンバー、枚数をクラスに準備*/
+                final KobetsuMember kmtemp = new KobetsuMember();
+                KobetsuMember kobetsuMember = setNanbuMemberMaisuu(kmtemp);
+
+
+                /*非同期処理を用いてURLの取得処理も行ったのちに、イベント情報、メンバー情報をデータベースに挿入する。*/
+                final MemberToUrlAsyncModel memberToUrlAsyncModel = new MemberToUrlAsyncModel();
+                memberToUrlAsyncModel.setOnCallBack(new MemberToUrlAsyncModel.CallBackTask() {
+                    @Override
+                    public void CallBack(String result) {
+                        super.CallBack(result);
+
+                        /*メンバー情報のURLをクラスに準備*/
+                        List memberList = kobetsuMember.getMember();
+                        urlList = memberToUrlAsyncModel.getUrlList(memberList);
+                        kobetsuMember.setUrl(urlList);
+
+
+                        /*
+                        新規イベント追加時
+                        */
+                        Boolean NEWEVENT = eventId == null || eventId.isEmpty();
+
+                        if (NEWEVENT) {
+
+                            KobetsuModel kobetsuModel = new KobetsuModel(KobetsuAddEventActivity.getInstance());
+
+                            /*イベント情報をデータベースに挿入*/
+                            AddEventMember evt = (AddEventMember) eventData;
+                            kobetsuModel.insertEvent(evt.getYear(), evt.getMonth(), evt.getDay(), evt.getPlace());
+
+                            /*メンバー情報をデータベースに挿入*/
+                            MA mA = new MA(kobetsuMember); //ただラップするだけのクラス
+                            for (int i = 0; i < kobetsuMember.getMember().size(); i++) {
+                                kobetsuModel.insertMember(mA.getNanbu(i), mA.getMember(i), mA.getUrl(i), mA.getMaisuu(i));
+                            }
+
+                            Intent intent = new Intent(KobetsuAddEventActivity.getInstance(), KobetsuEvent.class);
+                            intent.putExtra("eventId", kobetsuModel.getEventId());
+
+                            startActivity(intent);
+
+                        } else{
+
+                            KobetsuModel kobetsuModel = new KobetsuModel(KobetsuAddEventActivity.getInstance());
+
+                            /*メンバー情報をデータベースに挿入*/
+                            MA mA = new MA(kobetsuMember); //ただラップするだけのクラス
+                            for (int i = 0; i < kobetsuMember.getMember().size(); i++) {
+                                kobetsuModel.insertMember(mA.getNanbu(i), mA.getMember(i), mA.getUrl(i), mA.getMaisuu(i), eventId);
+                            }
+
+                            Intent intent = new Intent(KobetsuAddEventActivity.getInstance(), KobetsuEvent.class);
+                            intent.putExtra("eventId", kobetsuModel.getEventId());
+
+                            startActivity(intent);
+                    }
+/*
+                                                  データ更新時
+                                                   **/
+
 //
 //                                                  }else {
 //                                                      for (int i = 0; i < kobetsuMember.getMember().size(); i++) {
@@ -178,30 +180,24 @@ from KobetsuEvent
 //
 //                                                      startActivity(intent);
 //                                                  }
-//
-//
-//
-//
-//
-//                                              }
+
+
+
 //                                          });
-//
-//                                          // AsyncTaskの実行
-//                                          kobetsuAsyncModel.execute();
-//                                          Log.d("OK","OK");
-//
-//
-//
-//
-//
-//                                      }
-//                                  });
+
+
+                    }
+                });
+                memberToUrlAsyncModel.execute();
+                Log.d("OK", "OK");
+            }
+        });
     }
 
 
 /*
 何部かを選択するラジオボタンのクリック処理。
-radio_value:何部が選択されているかの最新状況
+nanbu:何部が選択されているかの最新状況
  */
 
 
@@ -213,80 +209,31 @@ radio_value:何部が選択されているかの最新状況
         switch (view.getId()) {
             case R.id.more_add_radio1:
                 if (checked)
-                    radio_value = nanbu[0];
+                    this.nanbu = nanbu[0];
                 break;
             case R.id.more_add_radio2:
                 if (checked)
-                    radio_value = nanbu[1];
+                    this.nanbu = nanbu[1];
                 break;
             case R.id.more_add_radio3:
                 if (checked)
-                    radio_value = nanbu[2];
+                    this.nanbu = nanbu[2];
                 break;
             case R.id.more_add_radio4:
                 if (checked)
-                    radio_value = nanbu[3];
+                    this.nanbu = nanbu[3];
                 break;
             case R.id.more_add_radio5:
                 if (checked)
-                    radio_value = nanbu[4];
+                    this.nanbu = nanbu[4];
                 break;
             case R.id.more_add_radio6:
                 if (checked)
-                    radio_value = nanbu[5];
+                    this.nanbu = nanbu[5];
                 break;
         }
     }
 
-
-
-    private void insertDatabase() {
-        UserOpenHelper userOpenHelper = new UserOpenHelper(this);
-        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
-
-
-        if (selected_member1 != null) {
-            ContentValues newEvent = new ContentValues();
-            newEvent.put(UserContract.Kobetsu.EVENT_ID, clicked_id);
-            newEvent.put(UserContract.Kobetsu.MEMBER, selected_member1);
-            newEvent.put(UserContract.Kobetsu.NANBU, radio_value);
-            newEvent.put(UserContract.Kobetsu.BUSUU, current_num);
-
-            long newId = db.insert(
-                    UserContract.Kobetsu.TABLE_NAME,
-                    null,
-                    newEvent
-            );
-        }
-
-
-        if (selected_member2 != null) {
-            ContentValues newEvent2 = new ContentValues();
-            newEvent2.put(UserContract.Kobetsu.EVENT_ID, clicked_id);
-            newEvent2.put(UserContract.Kobetsu.MEMBER, selected_member2);
-            newEvent2.put(UserContract.Kobetsu.NANBU, radio_value);
-            newEvent2.put(UserContract.Kobetsu.BUSUU, current_num);
-
-            long newId2 = db.insert(
-                    UserContract.Kobetsu.TABLE_NAME,
-                    null,
-                    newEvent2
-            );
-        }
-        if (selected_member3 != null) {
-            ContentValues newEvent3 = new ContentValues();
-            newEvent3.put(UserContract.Kobetsu.EVENT_ID, clicked_id);
-            newEvent3.put(UserContract.Kobetsu.MEMBER, selected_member3);
-            newEvent3.put(UserContract.Kobetsu.NANBU, radio_value);
-            newEvent3.put(UserContract.Kobetsu.BUSUU, current_num);
-
-            long newId3 = db.insert(
-                    UserContract.Kobetsu.TABLE_NAME,
-                    null,
-                    newEvent3
-            );
-        }
-    }
 
     public class ClickListener_moreadd implements View.OnClickListener{
 
@@ -298,14 +245,14 @@ radio_value:何部が選択されているかの最新状況
         public View convertView;
 
 
-        //ボタンのクリックリスナーを
+//        ボタンのクリックリスナーを
 
 
         public void onClick(View v) {
             LayoutInflater inflater = (LayoutInflater) KobetsuAddEventActivity.this.getSystemService(LAYOUT_INFLATER_SERVICE);
 
             convertView = inflater.inflate(
-                    R.layout.memberview, (ViewGroup) findViewById(R.id.dialog_custom));
+                    R.layout.memberview, findViewById(R.id.dialog_custom));
             builder = new AlertDialog.Builder(KobetsuAddEventActivity.this);
             builder.setView(convertView);
 
@@ -322,7 +269,7 @@ radio_value:何部が選択されているかの最新状況
             dialog = builder.create();
             dialog.show();
 
-            //
+            
             Button hiragana = convertView.findViewById(R.id.hiragana);
             hiragana.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -338,7 +285,7 @@ radio_value:何部が選択されているかの最新状況
                 }
             });
 
-            // ボタン処理（漢字）
+//             ボタン処理（漢字）
             Button kanji = convertView.findViewById(R.id.kanji);
             kanji.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -407,26 +354,72 @@ radio_value:何部が選択されているかの最新状況
 
     }
     private void ticketCount(){
-        count = (TextView) findViewById(R.id.count);
+        count = findViewById(R.id.count);
         ImageView plus = findViewById(R.id.plus);
-        plus.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                current_num += 1;
-                count.setText(String.valueOf(current_num));
-            }
+        plus.setOnClickListener(v -> {
+            current_num += 1;
+            count.setText(String.valueOf(current_num));
         });
 
         ImageView minus = findViewById(R.id.minus);
-        minus.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if(current_num>0) {
-                    current_num -= 1;
-                    count.setText(String.valueOf(current_num));
-                }
+        minus.setOnClickListener(v -> {
+            if(current_num>0) {
+                current_num -= 1;
+                count.setText(String.valueOf(current_num));
             }
         });
-
     }
+    private KobetsuMember setNanbuMemberMaisuu(KobetsuMember km){
+
+        List<String> nanbuTempList = new ArrayList<>();
+        nanbuTempList.add(nanbu);
+        km.setNanbu(nanbuTempList);
+
+        List<String> memberTemplist = new ArrayList<>();
+        Collections.addAll(memberTemplist, selected_member1, selected_member2, selected_member3);
+        km.setMember(memberTemplist);
+
+        List<String> maisuuList = new ArrayList<>();
+        maisuuList.add(String.valueOf(current_num));
+        km.setMaisuu(maisuuList);
+
+        return km;
+    }
+    private String[] mA(KobetsuMember km, int i){
+//        List<String> ml = new ArrayList<>();
+        String[] ml = new String[4];
+        ml[0]=km.getNanbu().get(0).toString();
+        ml[1]=km.getMember().get(i).toString();
+        ml[2]=km.getUrl().get(i).toString();
+        ml[3]=km.getMaisuu().get(0).toString();
+        return ml;
+    }
+
+
+    private class MA{
+        private KobetsuMember km;
+
+        MA(KobetsuMember km){
+            this.km=km;
+        }
+        public String getNanbu(int i){
+            return km.getNanbu().get(0).toString();
+
+        }
+        public String getMember(int i) {
+            return km.getMember().get(i).toString();
+        }
+
+        public String getUrl(int i) {
+            return km.getUrl().get(i).toString();
+        }
+
+        public String getMaisuu(int i) {
+            return km.getMaisuu().get(0).toString();
+        }
+    }
+
+
 
 
 
