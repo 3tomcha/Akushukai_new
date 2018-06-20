@@ -217,6 +217,15 @@ public class ZenkokuAddEventActivity extends Activity {
         }
 
 
+        private void setTitle() {
+            findViewById(R.id.menu).setVisibility(View.GONE);
+            ((TextView)findViewById(R.id.package_title)).setText(R.string.package_more_add);
+            findViewById(R.id.title).setBackgroundResource(R.color.zenkokucolor);
+            findViewById(R.id.plus_ticket_zenkoku).setBackgroundResource(R.color.zenkokucolor);
+            findViewById(R.id.minus_ticket_zenkoku).setBackgroundResource(R.color.zenkokucolor);
+        }
+
+
     }
 
 
@@ -236,24 +245,6 @@ public class ZenkokuAddEventActivity extends Activity {
 //    }
 //
 //
-//    private void setTitle() {
-//        ImageView menu = findViewById(R.id.menu);
-//        menu.setVisibility(View.GONE);
-//        TextView package_title = findViewById(R.id.package_title);
-//        package_title.setText(R.string.package_more_add);
-//
-//        RelativeLayout title=findViewById(R.id.title);
-//        title.setBackgroundResource(R.color.zenkokucolor);
-//        LinearLayout plus=findViewById(R.id.plus_ticket_zenkoku);
-//        plus.setBackgroundResource(R.color.zenkokucolor);
-//        LinearLayout minus=findViewById(R.id.minus_ticket_zenkoku);
-//        minus.setBackgroundResource(R.color.zenkokucolor);
-//
-//
-//
-//
-//
-//    }
 //
 //
 //
