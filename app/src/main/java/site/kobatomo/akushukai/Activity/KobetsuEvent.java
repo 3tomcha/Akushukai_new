@@ -3,12 +3,9 @@ package site.kobatomo.akushukai.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -27,13 +24,7 @@ import site.kobatomo.akushukai.UserContract;
 public class KobetsuEvent extends FragmentActivity {
 
     private ListView list_1bu;
-    private ListView list_2bu;
-    private ListView list_3bu;
-    private ListView list_4bu;
-    private ListView list_5bu;
-    private ListView list_6bu;
     private static KobetsuEvent instance = null;
-    private String busuu;
     private String nanbu;
 
     public static KobetsuEvent getInstance() {
@@ -45,23 +36,33 @@ public class KobetsuEvent extends FragmentActivity {
         setContentView(R.layout.kobetsu_event);
 
         instance = this;
-
+        Intent intent = new Intent(KobetsuEvent.getInstance(), KobetsuAddEventActivity.class);
 /*
 データベースから、イベント情報を取得する
  */
 
-        Intent intent = getIntent();
-//        int eventId = intent.getIntExtra("eventId", 0);
-        String eventId = intent.getStringExtra("eventId");
+        Intent gintent = getIntent();
+        String eventId = gintent.getStringExtra("eventId");
         KobetsuModel kobetsuModel = new KobetsuModel(KobetsuEvent.getInstance());
 
         Cursor ec = kobetsuModel.searchEventData(eventId);
         ec.moveToFirst();
-        String year = ec.getString(ec.getColumnIndex(UserContract.Event.YEAR));
-        String month = ec.getString(ec.getColumnIndex(UserContract.Event.MONTH));
-        String day = ec.getString(ec.getColumnIndex(UserContract.Event.DAY));
-        String type = ec.getString(ec.getColumnIndex(UserContract.Event.COL_TYPE));
-        String place = ec.getString(ec.getColumnIndex(UserContract.Event.PLACE));
+
+        String year = null;
+        String month = null;
+        String day = null;
+        String type = null;
+        String place = null;
+
+        try {
+            year = ec.getString(ec.getColumnIndex(UserContract.Event.YEAR));
+            month = ec.getString(ec.getColumnIndex(UserContract.Event.MONTH));
+            day = ec.getString(ec.getColumnIndex(UserContract.Event.DAY));
+            type = ec.getString(ec.getColumnIndex(UserContract.Event.COL_TYPE));
+            place = ec.getString(ec.getColumnIndex(UserContract.Event.PLACE));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
 /*
@@ -142,16 +143,23 @@ public class KobetsuEvent extends FragmentActivity {
 
         setTitle();
 
+/*
+画面遷移
+ */
 
-//        /*イベント追加ボタンの実装*/
-        FloatingActionButton addEvent = findViewById(R.id.addEvent);
-        addEvent.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(KobetsuEvent.getInstance(), KobetsuAddEventActivity.class);
+        //floatingボタン
+        findViewById(R.id.addEvent).setOnClickListener(v -> {
+            intent.putExtra("eventId", eventId);
+            startActivity(intent);
+        });
+
+        //イベント情報部分をクリックしても推移できるようにする
+        findViewById(R.id.mv_event).setOnClickListener(v ->  {{
                 intent.putExtra("eventId", eventId);
                 startActivity(intent);
             }
         });
+
 
     }
 
@@ -167,44 +175,12 @@ public class KobetsuEvent extends FragmentActivity {
         }
     }
         private void setTitle() {
-        TextView package_title = findViewById(R.id.package_title);
-        package_title.setText(R.string.package_more);
-        RelativeLayout title = findViewById(R.id.title);
-        title.setBackgroundResource(R.color.kobetsucolor);
-        TextView col_ticket=findViewById(R.id.col_ticket);
+        ((TextView)findViewById(R.id.package_title)).setText(R.string.package_more);
+        findViewById(R.id.title).setBackgroundResource(R.color.kobetsucolor);
+        findViewById(R.id.typecolor).setBackgroundResource(R.color.kobetsucolor);;
     }
 
 
-//
-//        loadDate();
-//        loadDatabase();
-//        setNavigetion();
-//
-//
-//
-//
-//
-//        LinearLayout et_kobetsu_event = findViewById(R.id.mv_event);
-//
-//        et_kobetsu_event.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent2 = new Intent(KobetsuEvent.this, KobetsuAddEventActivity.class);
-//                intent2.putExtra("clicked_id", clicked_id);
-//                startActivity(intent2);
-//            }
-//        });
-//
-////        LinearLayout mvevent=findViewById(R.id.mv_event);
-////        mvevent.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View v) {
-////                Intent intent2 = new Intent(KobetsuEvent.this, UpdateEvent.class);
-////                intent2.putExtra("clicked_id", clicked_id);
-////                startActivity(intent2);
-////            }
-////        });
-//
-//        setColTicket();
 //
 //
 ////        削除処理
