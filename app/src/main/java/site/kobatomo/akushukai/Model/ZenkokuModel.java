@@ -1,5 +1,6 @@
 package site.kobatomo.akushukai.Model;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,12 +12,35 @@ import site.kobatomo.akushukai.UserContract;
  * Created by tomoya on 2018/04/29.
  */
 
-public class ZenkokuModel {
-    Context context;
-//    SQLiteDatabase db;
+public class ZenkokuModel extends BaseModel{
+//    Context context;
+//    protected int randomNum;
+
     public ZenkokuModel(Context context){
-        this.context=context;
+        super(context);
     }
+
+    public String getEventId(){
+        return String.valueOf(randomNum);
+    }
+
+    public void insertEvent(String year,String month,String day, String place, String type){
+        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
+        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(UserContract.Event.EVENT_ID,String.valueOf(randomNum));
+        cv.put(UserContract.Event.YEAR,year);
+        cv.put(UserContract.Event.MONTH,month);
+        cv.put(UserContract.Event.DAY,day);
+        cv.put(UserContract.Event.PLACE,place);
+        cv.put(UserContract.Event.COL_TYPE,type);
+        db.insert(UserContract.Event.TABLE_NAME,null,cv);
+    }
+
+
+
+
 
 
 //    public Cursor getall(String index){

@@ -34,6 +34,7 @@ public class ZenkokuAddEventActivity extends Activity {
     private Button member4;
     private int current_num;
     private static ZenkokuAddEventActivity instance = null;
+    private String eventId;
 
 
     public static ZenkokuAddEventActivity getInstance() {
@@ -45,6 +46,10 @@ public class ZenkokuAddEventActivity extends Activity {
         setContentView(R.layout.zenkoku_add_event);
 //
         instance = this;
+
+//        Serializable eventData = getIntent().getSerializableExtra("eventData");
+        eventId = getIntent().getStringExtra("eventId");
+
         member1 = findViewById(R.id.member1);
         member2 = findViewById(R.id.member2);
         member3 = findViewById(R.id.member3);
@@ -72,6 +77,8 @@ public class ZenkokuAddEventActivity extends Activity {
         insertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+//                系統性を持たせるためにここでデータベースを更新する
 
                 ArrayList<String> memberList = new ArrayList<>();
 

@@ -5,22 +5,16 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.Random;
-
 import site.kobatomo.akushukai.UserContract;
 
 /**
  * Created by tomoya on 2018/06/02.
  */
 
-public class KobetsuModel {
-    private Context context;
-    private int randomNum;
+public class KobetsuModel extends BaseModel{
 
     public KobetsuModel(Context context){
-        this.context=context;
-        Random rand = new Random();
-        randomNum=rand.nextInt(1000000);
+        super(context);
     }
 
     public String getEventId(){
@@ -76,16 +70,16 @@ public class KobetsuModel {
             db.insert(UserContract.Kobetsu.TABLE_NAME,null,cv);
     }
 
-    public Cursor searchEventData(String eventId){
-        Cursor result = null;
-        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
-        SQLiteDatabase db = userOpenHelper.getReadableDatabase();
-
-        String SEARCH ="select * from "+UserContract.Event.TABLE_NAME+" where "+
-                UserContract.Event.EVENT_ID+" = "+eventId;
-        result = db.rawQuery(SEARCH, null);
-        return result;
-    }
+//    public Cursor searchEventData(String eventId){
+//        Cursor result = null;
+//        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
+//        SQLiteDatabase db = userOpenHelper.getReadableDatabase();
+//
+//        String SEARCH ="select * from "+UserContract.Event.TABLE_NAME+" where "+
+//                UserContract.Event.EVENT_ID+" = "+eventId;
+//        result = db.rawQuery(SEARCH, null);
+//        return result;
+//    }
 
 
 /*

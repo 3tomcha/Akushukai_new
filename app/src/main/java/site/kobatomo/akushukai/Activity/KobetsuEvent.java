@@ -3,7 +3,6 @@ package site.kobatomo.akushukai.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -13,6 +12,7 @@ import java.util.List;
 
 import site.kobatomo.akushukai.Adapter.KobetsuAdapter;
 import site.kobatomo.akushukai.Member.KobetsuMember;
+import site.kobatomo.akushukai.Member.MainMember;
 import site.kobatomo.akushukai.Model.KobetsuModel;
 import site.kobatomo.akushukai.R;
 import site.kobatomo.akushukai.UserContract;
@@ -21,7 +21,7 @@ import site.kobatomo.akushukai.UserContract;
  * Created by bicpc on 2017/11/10.
  */
 
-public class KobetsuEvent extends FragmentActivity {
+public class KobetsuEvent extends BaseEvent {
 
     private ListView list_1bu;
     private static KobetsuEvent instance = null;
@@ -44,25 +44,7 @@ public class KobetsuEvent extends FragmentActivity {
         Intent gintent = getIntent();
         String eventId = gintent.getStringExtra("eventId");
         KobetsuModel kobetsuModel = new KobetsuModel(KobetsuEvent.getInstance());
-
-        Cursor ec = kobetsuModel.searchEventData(eventId);
-        ec.moveToFirst();
-
-        String year = null;
-        String month = null;
-        String day = null;
-        String type = null;
-        String place = null;
-
-        try {
-            year = ec.getString(ec.getColumnIndex(UserContract.Event.YEAR));
-            month = ec.getString(ec.getColumnIndex(UserContract.Event.MONTH));
-            day = ec.getString(ec.getColumnIndex(UserContract.Event.DAY));
-            type = ec.getString(ec.getColumnIndex(UserContract.Event.COL_TYPE));
-            place = ec.getString(ec.getColumnIndex(UserContract.Event.PLACE));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        MainMember eventInformation = eventInformationfromModel(kobetsuModel,eventId);
 
 
 /*
@@ -120,10 +102,11 @@ public class KobetsuEvent extends FragmentActivity {
 イベント関連の見栄えをセットする
  */
 
-        ((TextView) findViewById(R.id.date_event)).setText(year+"/"+month+"/"+day);
-        ((TextView) findViewById(R.id.type_event)).setText(type);
-        (findViewById(R.id.type_event)).setBackgroundResource(R.color.kobetsucolor);
-        ((TextView) findViewById(R.id.location_event)).setText(place);
+        setEventRelatedLook(eventInformation,R.color.zenkokucolor);
+//        ((TextView) findViewById(R.id.date_event)).setText(evt.getYear()+"/"+evt.getMonth()+"/"+evt.getDay());
+//        ((TextView) findViewById(R.id.type_event)).setText(evt.getType());
+//        (findViewById(R.id.type_event)).setBackgroundResource(R.color.kobetsucolor);
+//        ((TextView) findViewById(R.id.location_event)).setText(evt.getPlace());
 
         /*
         * */
@@ -141,25 +124,19 @@ public class KobetsuEvent extends FragmentActivity {
         kobetsuModel.updateMaisu(eventId,sumMaisuCursor.getString(0));
 
 
-        setTitle();
+        setTitle(R.color.kobetsucolor,R.id.package_title,R.id.title,R.id.typecolor);
+
+//        ((TextView)findViewById(R.id.package_title)).setText(R.string.package_more);
+//        findViewById(R.id.title).setBackgroundResource(R.color.kobetsucolor);
+//        findViewById(R.id.typecolor).setBackgroundResource(R.color.kobetsucolor);;
 
 /*
 画面遷移
  */
 
-        //floatingボタン
-        findViewById(R.id.addEvent).setOnClickListener(v -> {
-            intent.putExtra("eventId", eventId);
-            startActivity(intent);
-        });
-
-        //イベント情報部分をクリックしても推移できるようにする
-        findViewById(R.id.mv_event).setOnClickListener(v ->  {{
-                intent.putExtra("eventId", eventId);
-                startActivity(intent);
-            }
-        });
-
+        intent.putExtra("eventId", eventId);
+        floatingButtonClickIntent(intent);
+        mvButtonClickIntent(intent);
 
     }
 
@@ -174,11 +151,11 @@ public class KobetsuEvent extends FragmentActivity {
             return true;
         }
     }
-        private void setTitle() {
-        ((TextView)findViewById(R.id.package_title)).setText(R.string.package_more);
-        findViewById(R.id.title).setBackgroundResource(R.color.kobetsucolor);
-        findViewById(R.id.typecolor).setBackgroundResource(R.color.kobetsucolor);;
-    }
+//        private void setTitle() {
+//        ((TextView)findViewById(R.id.package_title)).setText(R.string.package_more);
+//        findViewById(R.id.title).setBackgroundResource(R.color.kobetsucolor);
+//        findViewById(R.id.typecolor).setBackgroundResource(R.color.kobetsucolor);;
+//    }
 
 
 //

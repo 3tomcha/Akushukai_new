@@ -95,6 +95,7 @@ from KobetsuEvent
 
 
 
+
 /*
 クリック時に、画像取得処理とデータベース処理を行う。
 */
@@ -159,32 +160,10 @@ from KobetsuEvent
                             }
 
                             Intent intent = new Intent(KobetsuAddEventActivity.getInstance(), KobetsuEvent.class);
-                            intent.putExtra("eventId", kobetsuModel.getEventId());
+                            intent.putExtra("eventId", eventId);
 
                             startActivity(intent);
                     }
-/*
-                                                  データ更新時
-                                                   **/
-
-//
-//                                                  }else {
-//                                                      for (int i = 0; i < kobetsuMember.getMember().size(); i++) {
-//                                                          kobetsuModel.insertMember(kobetsuMember.getNanbu(), kobetsuMember.getMember().get(i).toString(),
-//                                                                  kobetsuMember.getUrl().get(i).toString(), kobetsuMember.getMaisuu(), eventId
-//                                                          );
-//
-//                                                      }
-//                                                      Intent intent = new Intent(KobetsuAddEventActivity.getInstance(), KobetsuEvent.class);
-//                                                      intent.putExtra("eventId",eventId);
-//
-//                                                      startActivity(intent);
-//                                                  }
-
-
-
-//                                          });
-
 
                     }
                 });
@@ -204,33 +183,17 @@ nanbu:何部が選択されているかの最新状況
     public void onRadioButtonClicked(View view) {
         boolean checked = ((RadioButton) view).isChecked();
 
-        String[] nanbu=getResources().getStringArray(R.array.nanbu);
+        String[] nanbu = getResources().getStringArray(R.array.nanbu);
+        final List<Integer> viewIdList = new ArrayList<>();
 
-        switch (view.getId()) {
-            case R.id.more_add_radio1:
-                if (checked)
-                    this.nanbu = nanbu[0];
-                break;
-            case R.id.more_add_radio2:
-                if (checked)
-                    this.nanbu = nanbu[1];
-                break;
-            case R.id.more_add_radio3:
-                if (checked)
-                    this.nanbu = nanbu[2];
-                break;
-            case R.id.more_add_radio4:
-                if (checked)
-                    this.nanbu = nanbu[3];
-                break;
-            case R.id.more_add_radio5:
-                if (checked)
-                    this.nanbu = nanbu[4];
-                break;
-            case R.id.more_add_radio6:
-                if (checked)
-                    this.nanbu = nanbu[5];
-                break;
+        for (int i = 0; i < nanbu.length; i++) {
+            int viewId = getResources().getIdentifier("more_add_radio" + (i + 1), "id", getPackageName());
+
+            if (view.getId() == viewId) {
+                if (checked) {
+                    this.nanbu = nanbu[i];
+                }
+            }
         }
     }
 

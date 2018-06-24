@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,7 @@ import android.widget.TextView;
 import java.io.Serializable;
 
 import site.kobatomo.akushukai.Member.AddEventMember;
+import site.kobatomo.akushukai.Model.ZenkokuModel;
 import site.kobatomo.akushukai.R;
 
 
@@ -45,7 +45,9 @@ public class ZenkokuAddPreActivity extends Activity {
         setContentView(R.layout.zenkoku_add_pre_event);
         instance = this;
 
-        //        //チケットの増減処理
+        Intent intent = new Intent(ZenkokuAddPreActivity.getInstance(),ZenkokuEvent.class);
+
+        //チケットの増減処理
         View plusTicket = findViewById(R.id.plus_ticket_zenkoku);
         View minusTicket = findViewById(R.id.minus_ticket_zenkoku);
         plusTicket.setOnClickListener(new View.OnClickListener() {
@@ -65,54 +67,25 @@ public class ZenkokuAddPreActivity extends Activity {
         insertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                デートとプレイスをaddEventから持ってくる必要あり
-                Intent intent = getIntent();
-                Serializable eventDate = intent.getSerializableExtra("intentArray");
-                Log.d("a","b");
-                AddEventMember Date = (AddEventMember) eventDate;
+
+                /*
+                データベース処理に変更
+                 */
+
+                /*イベント情報をデータベースに挿入*/
+                Intent gintent = getIntent();
+                Serializable eventData = gintent.getSerializableExtra("eventData");
+                AddEventMember evt = (AddEventMember) eventData;
+                ZenkokuModel zenkokuModel = new ZenkokuModel(ZenkokuAddPreActivity.getInstance());
+                zenkokuModel.insertEvent(evt.getYear(), evt.getMonth(), evt.getDay(), evt.getPlace(),"全国");
 
 //                入力された合計枚数も次画面に送る必要がある
                 String busuu =((TextView)findViewById(R.id.count)).getText().toString();
-                ((AddEventMember) eventDate).setBusuu(busuu);
-
-
-                Intent newintent = new Intent(ZenkokuAddPreActivity.getInstance(),ZenkokuEvent.class);
-                newintent.putExtra("intentDate",eventDate);
-                startActivity(newintent);
+                intent.putExtra("busuu",busuu);
+                intent.putExtra("eventId",zenkokuModel.getEventId());
+                startActivity(intent);
             }
         });
-
-
-//                ZenkokuAddModel zenkokuAddModel = new ZenkokuAddModel(AddEventActivity.getInstance());
-//                zenkokuAddModel.insertEvent(Date.getYear(),Date.getMonth(),Date.getDay(),Date.getPlace());
-//
-//
-//        member1 = findViewById(R.id.member1);
-//        member2 = findViewById(R.id.member2);
-//        member3 = findViewById(R.id.member3);
-//        member4 = findViewById(R.id.member4);
-//
-//        member1.setOnClickListener(new DialogListener());
-//        member2.setOnClickListener(new DialogListener());
-//        member3.setOnClickListener(new DialogListener());
-//        member4.setOnClickListener(new DialogListener());
-//
-//
-//        Switch switch1 = findViewById(R.id.switch1);
-//        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked) {
-//                    memberSetVisible();
-//                } else {
-//                    memberSetInvisible();
-//
-//                }
-//            }
-//        });
-//
-
-//
 
     }
 
@@ -224,6 +197,13 @@ public class ZenkokuAddPreActivity extends Activity {
                     }
                     dialog_list.setAdapter(adapter);
         }
+        private void setTitle() {
+            findViewById(R.id.menu).setVisibility(View.GONE);
+            ((TextView)findViewById(R.id.package_title)).setText(R.string.package_more_add);
+            findViewById(R.id.title).setBackgroundResource(R.color.zenkokucolor);
+            findViewById(R.id.plus_ticket_zenkoku).setBackgroundResource(R.color.zenkokucolor);
+            findViewById(R.id.minus_ticket_zenkoku).setBackgroundResource(R.color.zenkokucolor);
+        }
 
 
     }
@@ -324,24 +304,7 @@ public class ZenkokuAddPreActivity extends Activity {
 //    }
 //
 //
-//    private void setTitle() {
-//        ImageView menu = findViewById(R.id.menu);
-//        menu.setVisibility(View.GONE);
-//        TextView package_title = findViewById(R.id.package_title);
-//        package_title.setText(R.string.package_more_add);
-//
-//        RelativeLayout title=findViewById(R.id.title);
-//        title.setBackgroundResource(R.color.zenkokucolor);
-//        LinearLayout plus=findViewById(R.id.plus_ticket_zenkoku);
-//        plus.setBackgroundResource(R.color.zenkokucolor);
-//        LinearLayout minus=findViewById(R.id.minus_ticket_zenkoku);
-//        minus.setBackgroundResource(R.color.zenkokucolor);
-//
-//
-//
-//
-//
-//    }
+
 //
 //
 //
