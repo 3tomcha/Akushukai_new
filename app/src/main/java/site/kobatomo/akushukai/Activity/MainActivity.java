@@ -18,7 +18,6 @@ import site.kobatomo.akushukai.MainAdapter;
 import site.kobatomo.akushukai.Member.MainMember;
 import site.kobatomo.akushukai.Model.MainModel;
 import site.kobatomo.akushukai.R;
-import site.kobatomo.akushukai.UserContract;
 
 
 public class MainActivity extends FragmentActivity {
@@ -37,7 +36,7 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
         instance = this;
         listView = findViewById(R.id.listview);
-
+//
         MainModel mainModel = new MainModel(MainActivity.getInstance());
         Cursor c = mainModel.searchEventData();
         c.moveToFirst();
@@ -49,15 +48,17 @@ public class MainActivity extends FragmentActivity {
 /*
 メソッドが重複するためラムダ式で管理
  */
+
+//            mainMember.setPlace(c.getString(c.getColumnIndex(UserContract.Event.PLACE)));
             CursorInterface h = (cursor, id) -> cursor.getString(cursor.getColumnIndex(id));
 
-            mainMember.setEventId(h.method(c,UserContract.Event.EVENT_ID));
-            mainMember.setPlace(h.method(c,UserContract.Event.PLACE));
-            mainMember.setType(h.method(c,UserContract.Event.COL_TYPE));
-            mainMember.setYear(h.method(c,UserContract.Event.YEAR));
-            mainMember.setMonth(h.method(c,UserContract.Event.MONTH));
-            mainMember.setDay(h.method(c,UserContract.Event.DAY));
-            mainMember.setBusuu(h.method(c,UserContract.Event.COL_TICKET));
+//            mainMember.setEventId(h.method(c, UserContract.Event.EVENT_ID));
+//            mainMember.setPlace(h.method(c,UserContract.Event.PLACE));
+//            mainMember.setType(h.method(c,UserContract.Event.COL_TYPE));
+//            mainMember.setYear(h.method(c, UserContract.Event.YEAR));
+//            mainMember.setMonth(h.method(c,UserContract.Event.MONTH));
+//            mainMember.setDay(h.method(c,UserContract.Event.DAY));
+//            mainMember.setBusuu(h.method(c,UserContract.Event.COL_TICKET));
 
             eventList.add(mainMember);
 
@@ -70,10 +71,10 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MainMember target = (MainMember) parent.getItemAtPosition(position);
-                Intent intent = (target.getType().equals("全国"))?
-                new Intent(MainActivity.getInstance(),ZenkokuEvent.class):
-                        new Intent(MainActivity.getInstance(),KobetsuEvent.class);
-                intent.putExtra("eventId",target.getEventId());
+                Intent intent = (target.getType().equals("全国")) ?
+                        new Intent(MainActivity.getInstance(), ZenkokuEvent.class) :
+                        new Intent(MainActivity.getInstance(), KobetsuEvent.class);
+                intent.putExtra("eventId", target.getEventId());
                 startActivity(intent);
             }
         });
@@ -81,7 +82,6 @@ public class MainActivity extends FragmentActivity {
         CursorInterface it = (name, n) -> {
             return "Hello " + name + n + "!";
         };
-
 
 
         FloatingActionButton addEvent = findViewById(R.id.addEvent);
@@ -92,10 +92,6 @@ public class MainActivity extends FragmentActivity {
             }
         });
     }
-
-
-
-
 
 
 //
@@ -198,10 +194,6 @@ public class MainActivity extends FragmentActivity {
 //        });
 
 
-
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -225,20 +217,19 @@ public class MainActivity extends FragmentActivity {
     }
 
 
-public void reload() {
-    Intent intent = getIntent();
-    overridePendingTransition(0, 0);
-    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-    finish();
-    overridePendingTransition(0, 0);
-    startActivity(intent);
-}
+    public void reload() {
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
+    }
 
 
+    interface CursorInterface {
+        // 抽象メソッド
+        public String method(Cursor c, String EVENTID);
+    }
 }
-interface CursorInterface {
-    // 抽象メソッド
-    public String method(Cursor c, String EVENTID);
-}
-
 
