@@ -12,7 +12,7 @@ import site.kobatomo.akushukai.UserContract;
 public class UserOpenHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "app.db";
-    public static final int DB_VERSION = 123;
+    public static final int DB_VERSION = 126;
     public static final String CREATE_TABLE =
             "create table " + UserContract.Event.TABLE_NAME + " (" +
                     UserContract.Event._ID + " integer primary key, " +
@@ -49,12 +49,20 @@ public class UserOpenHelper extends SQLiteOpenHelper {
 
     public static final String CREATE_TABLE_ZENKOKU =
             "create table " + UserContract.Zenkoku.TABLE_NAME + " (" +
-//             ZENKOKUMEMBERテーブルと紐付けるID
+                    UserContract.Zenkoku._ID + " integer primary key, " +
                     UserContract.Zenkoku.EVENT_ID + " text," +
-                    UserContract.Zenkoku.YEAR + " text," +
-                    UserContract.Zenkoku.MONTH + " text," +
-                    UserContract.Zenkoku.DAY + " text," +
-                    UserContract.Zenkoku.PLACE + " text)";
+                    UserContract.Zenkoku.MEMBER + " text," +
+                    UserContract.Zenkoku.URL + " text," +
+                    UserContract.Zenkoku.BUSUU + " text)";
+
+//    public static final String CREATE_TABLE_ZENKOKU =
+//            "create table " + UserContract.Zenkoku.TABLE_NAME + " (" +
+////             ZENKOKUMEMBERテーブルと紐付けるID
+//                    UserContract.Zenkoku.EVENT_ID + " text)";
+////                    UserContract.Zenkoku.YEAR + " text," +
+////                    UserContract.Zenkoku.MONTH + " text," +
+////                    UserContract.Zenkoku.DAY + " text," +
+////                    UserContract.Zenkoku.PLACE + " text)";
 
 
     public static final String CREATE_TABLE_ZENKOKU_MEMBER =

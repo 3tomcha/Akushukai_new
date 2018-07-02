@@ -33,23 +33,23 @@ public class ZenkokuAddModel {
 //        db.execSQL(query);
 //    }
 
-    public void insertEvent(String year,String month,String day, String place){
-        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
-        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
-        try{
-            ContentValues cv = new ContentValues();
-            cv.put(UserContract.Zenkoku.EVENT_ID,String.valueOf(randomNum));
-            cv.put(UserContract.Zenkoku.YEAR,year);
-            cv.put(UserContract.Zenkoku.MONTH,month);
-            cv.put(UserContract.Zenkoku.PLACE,place);
-            cv.put(UserContract.Zenkoku.DAY,day);
-            db.insert(UserContract.Zenkoku.TABLE_NAME,null,cv);
-        }catch (Exception ex){
-            Log.d("エラー",ex.getMessage());
-        }finally {
-            db.close();
-        }
-    }
+//    public void insertEvent(String year,String month,String day, String place){
+//        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
+//        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
+//        try{
+//            ContentValues cv = new ContentValues();
+//            cv.put(UserContract.Zenkoku.EVENT_ID,String.valueOf(randomNum));
+//            cv.put(UserContract.Zenkoku.YEAR,year);
+//            cv.put(UserContract.Zenkoku.MONTH,month);
+//            cv.put(UserContract.Zenkoku.PLACE,place);
+//            cv.put(UserContract.Zenkoku.DAY,day);
+//            db.insert(UserContract.Zenkoku.TABLE_NAME,null,cv);
+//        }catch (Exception ex){
+//            Log.d("エラー",ex.getMessage());
+//        }finally {
+//            db.close();
+//        }
+//    }
 
     public void insertMember(String member,String lane,String busuu){
         UserOpenHelper userOpenHelper = new UserOpenHelper(context);

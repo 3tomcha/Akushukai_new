@@ -19,6 +19,7 @@ public class MainModel {
 
     public Cursor searchEventData(){
         Cursor result = null;
+
         UserOpenHelper userOpenHelper = new UserOpenHelper(context);
         SQLiteDatabase db = userOpenHelper.getReadableDatabase();
 

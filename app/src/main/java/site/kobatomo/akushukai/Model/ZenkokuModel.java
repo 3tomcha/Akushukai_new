@@ -38,6 +38,17 @@ public class ZenkokuModel extends BaseModel{
         db.insert(UserContract.Event.TABLE_NAME,null,cv);
     }
 
+    public void insertMember(String member, String url, String maisuu){
+        UserOpenHelper userOpenHelper = new UserOpenHelper(context);
+        SQLiteDatabase db = userOpenHelper.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(UserContract.Zenkoku.EVENT_ID,String.valueOf(randomNum));
+        cv.put(UserContract.Zenkoku.MEMBER,member);
+        cv.put(UserContract.Zenkoku.URL,url);
+        cv.put(UserContract.Zenkoku.BUSUU,maisuu);
+        db.insert(UserContract.Zenkoku.TABLE_NAME,null,cv);
+    }
 
 
 

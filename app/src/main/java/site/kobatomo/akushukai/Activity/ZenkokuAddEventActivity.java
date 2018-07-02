@@ -2,8 +2,8 @@ package site.kobatomo.akushukai.Activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +14,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-import site.kobatomo.akushukai.Member.AddEventMember;
+import site.kobatomo.akushukai.Member.ZenkokuMember;
+import site.kobatomo.akushukai.Model.MemberToUrlAsyncModel;
+import site.kobatomo.akushukai.Model.ZenkokuModel;
 import site.kobatomo.akushukai.R;
 
 
@@ -47,19 +49,21 @@ public class ZenkokuAddEventActivity extends Activity {
 //
         instance = this;
 
-//        Serializable eventData = getIntent().getSerializableExtra("eventData");
         eventId = getIntent().getStringExtra("eventId");
 
-        member1 = findViewById(R.id.member1);
-        member2 = findViewById(R.id.member2);
-        member3 = findViewById(R.id.member3);
-        member4 = findViewById(R.id.member4);
-//
-        member1.setOnClickListener(new DialogListener());
-        member2.setOnClickListener(new DialogListener());
-        member3.setOnClickListener(new DialogListener());
-        member4.setOnClickListener(new DialogListener());
-//
+        ArrayList<Integer> memberIdlist = new ArrayList<>();
+
+        for (int i=1; i<=4; i++) {
+            int viewId = getResources().getIdentifier("member" + i, "id", getPackageName());
+            findViewById(viewId).setOnClickListener(new DialogListener());
+            memberIdlist.add(viewId);
+        }
+
+        member1 = findViewById(memberIdlist.get(0));
+        member2 = findViewById(memberIdlist.get(1));
+        member3 = findViewById(memberIdlist.get(2));
+        member4 = findViewById(memberIdlist.get(3));
+
         findViewById(R.id.plus_ticket_zenkoku).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,49 +82,66 @@ public class ZenkokuAddEventActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-//                系統性を持たせるためにここでデータベースを更新する
 
-                ArrayList<String> memberList = new ArrayList<>();
+                ZenkokuMember zenkokuMember = new ZenkokuMember();
 
-//                データの加工処理
-                String smember1 = member1.getText().toString();
-                String smember2 = member2.getText().toString();
-                String smember3 = member3.getText().toString();
-                String smember4 = member4.getText().toString();
+                /*メンバーを取得しクラスにセットする*/
+                List<String> memberTempList = new ArrayList<>();
+                if(isSelected(member1)) memberTempList.add(member1.getText().toString());
+                if(isSelected(member2)) memberTempList.add(member2.getText().toString());
+                if(isSelected(member3)) memberTempList.add(member3.getText().toString());
+                if(isSelected(member4)) memberTempList.add(member4.getText().toString());
+                zenkokuMember.setMember(memberTempList);
 
-//                画像URL処理
-
-
-
+                /*枚数を取得しクラスにセットする*/
                 int count = Integer.parseInt(((TextView) findViewById(R.id.count)).getText().toString());
+                List<String> maisuuList = new ArrayList<>();
+                maisuuList.add(String.valueOf(count));
+                zenkokuMember.setMaisuu(maisuuList);
 
-                for (int i=0; i<count; i++) {
-                    if (!smember1.equals("未選択")) {
-                        memberList.add(smember1);
+
+                /*非同期処理を用いてURLの取得処理も行ったのちに、イベント情報に対応するメンバー情報をデータベースに挿入する。*/
+                final MemberToUrlAsyncModel memberToUrlAsyncModel = new MemberToUrlAsyncModel();
+                memberToUrlAsyncModel.setOnCallBack(new MemberToUrlAsyncModel.CallBackTask() {
+                    @Override
+                    public void CallBack(String result) {
+                        super.CallBack(result);
+
+
+                        /*メンバー情報のURLをクラスに準備*/
+                        List memberList = zenkokuMember.getMember();
+                        List urlList = memberToUrlAsyncModel.getUrlList(memberList);
+                        zenkokuMember.setUrl(urlList);
+
+
+                        ZenkokuModel zenkokuModel = new ZenkokuModel(ZenkokuAddEventActivity.getInstance());
+//                        zenkokuModel.insertMember();
+
+                        /*メンバー情報をデータベースに挿入*/
+                        MA mA = new MA(zenkokuMember);
+                        for (int i = 0; i < zenkokuMember.getMember().size(); i++) {
+                            zenkokuModel.insertMember(mA.getMember(i), mA.getUrl(i), mA.getMaisuu(i));
+                        }
+
                     }
-                    if (!smember2.equals("未選択")) {
-                        memberList.add(smember2);
-                    }
-                    if (!smember3.equals("未選択")) {
-                        memberList.add(smember3);
-                    }
-                    if (!smember4.equals("未選択")) {
-                        memberList.add(smember4);
-                    }
-                }
+                });
+                memberToUrlAsyncModel.execute();
+                Log.d("OK", "OK");
 
 
-
-//                デートとプレイスをaddEventから持ってくる必要あり
-                Intent intent = getIntent();
-                Serializable eventDate = intent.getSerializableExtra("eventDate");
-//                Log.d("a","b");
-                AddEventMember Date = (AddEventMember) eventDate;
-
-                Intent newintent = new Intent(ZenkokuAddEventActivity.getInstance(),ZenkokuEvent.class);
-                newintent.putExtra("intentDate",eventDate);
-                newintent.putExtra("memberData",memberList);
-                startActivity(newintent);
+//
+//
+//
+////                デートとプレイスをaddEventから持ってくる必要あり
+//                Intent intent = getIntent();
+//                Serializable eventDate = intent.getSerializableExtra("eventDate");
+////                Log.d("a","b");
+//                AddEventMember Date = (AddEventMember) eventDate;
+//
+//                Intent newintent = new Intent(ZenkokuAddEventActivity.getInstance(),ZenkokuEvent.class);
+//                newintent.putExtra("intentDate",eventDate);
+//                newintent.putExtra("memberData",memberList);
+//                startActivity(newintent);
 //            }
 //        });
             }
@@ -198,7 +219,8 @@ public class ZenkokuAddEventActivity extends Activity {
                 }
             });
 
-            if (v == member1 || v == member2 || v == member3 || v == member4) {
+//            if (v == member1 || v == member2 || v == member3 || v == member4) {
+            if (v == member1|| v == member2 || v == member3 || v == member4) {
                 final TextView textView =(TextView) v;
                 dialog_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -206,6 +228,7 @@ public class ZenkokuAddEventActivity extends Activity {
                         selected_member = (String) dialog_list.getItemAtPosition(position);
                         dialog.dismiss();
                         textView.setText(selected_member);
+
                     }
                 });
             }
@@ -233,9 +256,35 @@ public class ZenkokuAddEventActivity extends Activity {
         }
 
 
+
     }
 
+    private boolean isSelected(Button button){
+        return button.getText().toString()!="未選択";
+    }
 
+    private class MA{
+        private ZenkokuMember km;
+
+        MA(ZenkokuMember km){
+            this.km=km;
+        }
+        public String getNanbu(int i){
+            return km.getNanbu().get(0).toString();
+
+        }
+        public String getMember(int i) {
+            return km.getMember().get(i).toString();
+        }
+
+        public String getUrl(int i) {
+            return km.getUrl().get(i).toString();
+        }
+
+        public String getMaisuu(int i) {
+            return km.getMaisuu().get(0).toString();
+        }
+    }
 
 
 }
